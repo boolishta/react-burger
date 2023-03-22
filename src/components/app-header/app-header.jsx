@@ -16,7 +16,7 @@ function AppHeader() {
             htmlType="button"
             type="secondary"
             size="medium"
-            extraClass={s.button}
+            extraClass={s.button + ' text text_color_inactive'}
           >
             <BurgerIcon type="secondary" />
             Конструктор
@@ -27,7 +27,7 @@ function AppHeader() {
             htmlType="button"
             type="secondary"
             size="medium"
-            extraClass={s.button}
+            extraClass={s.button + ' text text_color_inactive'}
           >
             <ListIcon type="secondary" />
             Лента заказов
@@ -39,7 +39,7 @@ function AppHeader() {
         htmlType="button"
         type="secondary"
         size="medium"
-        extraClass={s.button + ' ' + s.profile}
+        extraClass={s.button + ' text text_color_inactive ' + s.profile}
       >
         <ProfileIcon type="secondary" />
         Личный кабинет
