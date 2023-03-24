@@ -5,9 +5,9 @@ import {
   Logo,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import s from './app-header.module.css';
+import s from './header.module.css';
 
-function AppHeader() {
+export function Header() {
   return (
     <header className={s.header}>
       <div className={s.container}>
@@ -49,5 +49,3 @@ function AppHeader() {
     </header>
   );
 }
-
-export default AppHeader;
