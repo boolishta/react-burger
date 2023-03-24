@@ -12,7 +12,7 @@ import souce2 from '../../images/ingridients/sauce-02.png';
 import souce3 from '../../images/ingridients/sauce-03.png';
 import souce4 from '../../images/ingridients/sauce-04.png';
 
-function BurgerIngredients() {
+export function BurgerIngredients() {
   const [current, setCurrent] = useState('one');
   return (
     <div>
@@ -177,5 +177,3 @@ function BurgerIngredients() {
     </div>
   );
 }
-
-export default BurgerIngredients;
