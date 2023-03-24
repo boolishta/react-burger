@@ -1,0 +1,47 @@
+.tabs {
+  display: flex;
+}
+
+.ingridients {
+  overflow-y: auto;
+  max-height: 765px;
+}
+
+.ingridient_items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 24px 0 0;
+  padding: 0;
+  column-gap: 24px;
+  row-gap: 32px;
+  list-style-type: none;
+}
+
+.ingridient_item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.price {
+  display: flex;
+  gap: 8px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  width: 100%;
+  max-width: 1280px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.title {
+  grid-column: 1 / -1;
+}
