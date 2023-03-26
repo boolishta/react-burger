@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { Header } from './components/header/header';
+import { AppHeader } from './components/app-header/app-header';
 import { Order } from './components/order/order';
 
 const root = ReactDOM.createRoot(
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Header />
+    <AppHeader />
     <Order />
   </React.StrictMode>
 );
