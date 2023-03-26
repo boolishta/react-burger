@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import s from './index.module.css';
 import reportWebVitals from './reportWebVitals';
 import { AppHeader } from './components/app-header/app-header';
-import { Order } from './components/order/order';
+import { BurgerIngredients } from './components/burger-ingredients/burger-ingredients';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppHeader />
-    <Order />
+    <div className={s.order}>
+      <BurgerIngredients />
+    </div>
   </React.StrictMode>
 );
 
