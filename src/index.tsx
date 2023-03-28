@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppHeader />
-    <div className={s.order}>
+    <main className={s.order}>
       <BurgerIngredients />
       <BurgerConstructor />
-    </div>
+    </main>
   </React.StrictMode>
 );
 
