@@ -10,7 +10,7 @@ import s from './app-header.module.css';
 export function AppHeader() {
   return (
     <header className={s.header}>
-      <div className={s.container}>
+      <nav className={s.container}>
         <ul className={s.list}>
           <li>
             <Button
@@ -45,7 +45,7 @@ export function AppHeader() {
           <ProfileIcon type="secondary" />
           Личный кабинет
         </Button>
-      </div>
+      </nav>
     </header>
   );
 }
