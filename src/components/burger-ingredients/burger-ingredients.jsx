@@ -15,33 +15,39 @@ import souce4 from '../../images/ingridients/sauce-04.png';
 export function BurgerIngredients() {
   const [current, setCurrent] = useState('one');
   return (
-    <div>
+    <section>
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
-      <div className={s.tabs}>
-        <Tab
-          value="one"
-          active={current === 'one'}
-          onClick={setCurrent}
-        >
-          Булки
-        </Tab>
-        <Tab
-          value="two"
-          active={current === 'two'}
-          onClick={setCurrent}
-        >
-          Соусы
-        </Tab>
-        <Tab
-          value="three"
-          active={current === 'three'}
-          onClick={setCurrent}
-        >
-          Начинки
-        </Tab>
-      </div>
-      <div className={s.ingridients}>
-        <div className="mt-10">
+      <ul className={s.tabs}>
+        <li>
+          <Tab
+            value="one"
+            active={current === 'one'}
+            onClick={setCurrent}
+          >
+            Булки
+          </Tab>
+        </li>
+        <li>
+          <Tab
+            value="two"
+            active={current === 'two'}
+            onClick={setCurrent}
+          >
+            Соусы
+          </Tab>
+        </li>
+        <li>
+          <Tab
+            value="three"
+            active={current === 'three'}
+            onClick={setCurrent}
+          >
+            Начинки
+          </Tab>
+        </li>
+      </ul>
+      <ul className={s.ingridients}>
+        <li className="mt-10">
           <h2 className="text text_type_main-medium">Булки</h2>
           <ul className={s.ingridient_items}>
             <li>
@@ -88,8 +94,8 @@ export function BurgerIngredients() {
               </div>
             </li>
           </ul>
-        </div>
-        <div className="mt-10">
+        </li>
+        <li className="mt-10">
           <h2 className="text text_type_main-medium">Соусы</h2>
           <ul className={s.ingridient_items}>
             <li>
@@ -172,8 +178,8 @@ export function BurgerIngredients() {
               </div>
             </li>
           </ul>
-        </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </section>
   );
 }
