@@ -4,82 +4,39 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
-import bun2 from '../../images/ingridients/bun-02.png';
-import souce3 from '../../images/ingridients/sauce-03.png';
-import meat2 from '../../images/ingridients/meat-02.png';
-import sp1 from '../../images/ingridients/sp-01.png';
-import mineralRings from '../../images/ingridients/mineral-rings.png';
 import Price from '../price/price';
+import { ingredients } from '../../utils/data';
 
 export function BurgerConstructor() {
+  const computedConstructorElementType = (index) => {
+    if (index === 0) {
+      return 'top';
+    } else if (index === ingredients.length - 1) {
+      return 'bottom';
+    }
+    return null;
+  };
   return (
     <form>
       <ul className={s.elements}>
-        <li className={s.element}>
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={20}
-            thumbnail={bun2}
-          />
-        </li>
-        <li className={s.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            text="Соус традиционный галактический"
-            price={30}
-            thumbnail={souce3}
-          />
-        </li>
-        <li className={s.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            text="Мясо бессмертных моллюсков Protostomia"
-            price={300}
-            thumbnail={meat2}
-          />
-        </li>
-        <li className={s.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            text="Плоды Фалленианского дерева"
-            price={80}
-            thumbnail={sp1}
-          />
-        </li>
-        <li className={s.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            text="Хрустящие минеральные кольца"
-            price={80}
-            thumbnail={mineralRings}
-          />
-        </li>
-        <li className={s.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            text="Хрустящие минеральные кольца"
-            price={80}
-            thumbnail={mineralRings}
-          />
-        </li>
-        <li className={s.element}>
-          <ConstructorElement
-            extraClass={s.constructorElement}
-            text="Краторная булка N-200i (низ)"
-            price={20}
-            thumbnail={mineralRings}
-            type="bottom"
-            isLocked={true}
-          />
-        </li>
+        {ingredients.map((ingredient, index) => (
+          <li
+            key={ingredient._id}
+            className={s.element}
+          >
+            {index > 0 && index < ingredients.length - 1 ? (
+              <DragIcon type="primary" />
+            ) : null}
+            <ConstructorElement
+              extraClass={s.constructorElement}
+              isLocked={ingredient.type === 'bun'}
+              text={ingredient.name}
+              price={ingredient.price}
+              thumbnail={ingredient.image}
+              type={computedConstructorElementType(index)}
+            />
+          </li>
+        ))}
       </ul>
       <div className={s.info}>
         <Price />
