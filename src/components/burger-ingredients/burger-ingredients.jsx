@@ -67,7 +67,7 @@ export function BurgerIngredients({ ingredients }) {
           </ul>
         </li>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Мясо</h2>
+          <h2 className="text text_type_main-medium">Начинки</h2>
           <ul className={s.ingridient_items}>
             {mains &&
               mains.map((main) => (
