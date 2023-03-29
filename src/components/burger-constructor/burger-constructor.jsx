@@ -5,9 +5,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { ingredients } from '../../utils/data';
 
-export function BurgerConstructor() {
+export function BurgerConstructor({ ingredients }) {
   const computedConstructorElementType = (index) => {
     if (index === 0) {
       return 'top';
