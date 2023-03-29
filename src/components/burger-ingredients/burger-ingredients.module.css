@@ -22,3 +22,15 @@
   row-gap: 32px;
   list-style-type: none;
 }
+
+.custom_scroll::-webkit-scrollbar {
+  width: 12px;
+}
+.custom_scroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.custom_scroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}

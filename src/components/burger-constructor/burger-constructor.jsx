@@ -18,7 +18,7 @@ export function BurgerConstructor({ ingredients }) {
   };
   return (
     <form>
-      <ul className={s.elements}>
+      <ul className={s.elements + ' custom-scroll'}>
         {ingredients.map((ingredient, index) => (
           <li
             key={ingredient._id}

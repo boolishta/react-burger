@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import s from './index.module.css';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { AppHeader } from './components/app-header/app-header';
 import { BurgerIngredients } from './components/burger-ingredients/burger-ingredients';
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppHeader />
-    <main className={s.order}>
+    <main className="order">
       <BurgerIngredients ingredients={ingredients} />
       <BurgerConstructor ingredients={ingredients} />
     </main>

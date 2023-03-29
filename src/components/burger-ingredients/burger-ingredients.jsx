@@ -41,7 +41,7 @@ export function BurgerIngredients({ ingredients }) {
           </Tab>
         </li>
       </ul>
-      <ul className={s.ingridients}>
+      <ul className={s.ingridients + ' custom-scroll'}>
         <li className="mt-10">
           <h2 className="text text_type_main-medium">Булки</h2>
           <ul className={s.ingridient_items}>
