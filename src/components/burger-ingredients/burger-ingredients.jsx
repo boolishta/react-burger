@@ -5,7 +5,7 @@ import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { ingredientsTypes } from '../../utils/prop-types';
 
 export function BurgerIngredients({ ingredients }) {
-  const [current, setCurrent] = useState('one');
+  const [current, setCurrent] = useState('bun');
   const buns = ingredients.filter((item) => item.type === 'bun');
   const sauces = ingredients.filter((item) => item.type === 'sauce');
   const mains = ingredients.filter((item) => item.type === 'main');
@@ -15,8 +15,8 @@ export function BurgerIngredients({ ingredients }) {
       <ul className={s.tabs}>
         <li>
           <Tab
-            value="one"
-            active={current === 'one'}
+            value="bun"
+            active={current === 'bun'}
             onClick={setCurrent}
           >
             Булки
@@ -24,8 +24,8 @@ export function BurgerIngredients({ ingredients }) {
         </li>
         <li>
           <Tab
-            value="two"
-            active={current === 'two'}
+            value="sauce"
+            active={current === 'sauce'}
             onClick={setCurrent}
           >
             Соусы
@@ -33,8 +33,8 @@ export function BurgerIngredients({ ingredients }) {
         </li>
         <li>
           <Tab
-            value="three"
-            active={current === 'three'}
+            value="main"
+            active={current === 'main'}
             onClick={setCurrent}
           >
             Начинки
