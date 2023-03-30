@@ -1,8 +1,8 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import s from './burger-ingredients.module.css';
-import BurgerIngredient from '../burger-ingredient/burger-ingredient';
-import PropTypes from 'prop-types';
+import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
+import { ingredientsTypes } from '../../utils/prop-types';
 
 export function BurgerIngredients({ ingredients }) {
   const [current, setCurrent] = useState('one');
@@ -84,20 +84,5 @@ export function BurgerIngredients({ ingredients }) {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ),
+  ingredients: ingredientsTypes,
 };
