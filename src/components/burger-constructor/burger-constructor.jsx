@@ -16,8 +16,13 @@ export function BurgerConstructor({ ingredients }) {
     }
     return null;
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <ul className={s.elements + ' custom-scroll'}>
         {ingredients.map((ingredient, index) => (
           <li
