@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from '../modal/modal';
 import s from './order-details.module.css';
 import doneImage from '../../images/done.jpg';
+import PropTypes from 'prop-types';
 
 export function OrderDetails({ handleCloseModal }) {
   return (
@@ -24,3 +25,7 @@ export function OrderDetails({ handleCloseModal }) {
     </Modal>
   );
 }
+
+OrderDetails.propTypes = {
+  handleCloseModal: PropTypes.func.isRequired,
+};

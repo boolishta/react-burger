@@ -1,6 +1,8 @@
 import React from 'react';
+import { ingredientType } from '../../utils/prop-types';
 import Modal from '../modal/modal';
 import s from './ingredient-details.module.css';
+import PropType from 'prop-types';
 
 export default function IngredientDetails({ ingredient, handleCloseModal }) {
   const { image_large, calories, name, proteins, fat, carbohydrates } =
@@ -36,3 +38,8 @@ export default function IngredientDetails({ ingredient, handleCloseModal }) {
     </Modal>
   );
 }
+
+IngredientDetails.propTypes = {
+  ingredient: ingredientType,
+  handleCloseModal: PropType.func.isRequired,
+};

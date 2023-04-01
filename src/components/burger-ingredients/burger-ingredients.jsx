@@ -2,7 +2,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
-import { ingredientsTypes } from '../../utils/prop-types';
+import { ingredientsType } from '../../utils/prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 export function BurgerIngredients({ ingredients }) {
   const [current, setCurrent] = useState('bun');
@@ -103,5 +103,5 @@ export function BurgerIngredients({ ingredients }) {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: ingredientsTypes,
+  ingredients: ingredientsType,
 };

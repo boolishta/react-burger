@@ -5,7 +5,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { ingredientsTypes } from '../../utils/prop-types';
+import { ingredientsType } from '../../utils/prop-types';
 import { useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 
@@ -68,5 +68,5 @@ export function BurgerConstructor({ ingredients }) {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: ingredientsTypes,
+  ingredients: ingredientsType,
 };
