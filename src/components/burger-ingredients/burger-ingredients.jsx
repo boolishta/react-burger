@@ -76,6 +76,7 @@ export function BurgerIngredients({ ingredients }) {
             {sauces &&
               sauces.map((sauce) => (
                 <BurgerIngredient
+                  handleClick={handleOpenIngredientModal}
                   ingredient={sauce}
                   key={sauce._id}
                 />
@@ -88,6 +89,7 @@ export function BurgerIngredients({ ingredients }) {
             {mains &&
               mains.map((main) => (
                 <BurgerIngredient
+                  handleClick={handleOpenIngredientModal}
                   ingredient={main}
                   key={main._id}
                 />
