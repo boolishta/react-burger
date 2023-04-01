@@ -11,12 +11,12 @@ export default function Modal({ children, handleClick }) {
     <ModalOverlay>
       <div className={s.modal}>
         {children}
-        <button
-          className={s.close}
-          onClick={() => handleClick()}
-        >
-          <CloseIcon type="primary" />
-        </button>
+        <div className={s.close}>
+          <CloseIcon
+            onClick={() => handleClick()}
+            type="primary"
+          />
+        </div>
       </div>
     </ModalOverlay>,
     modalRoot
