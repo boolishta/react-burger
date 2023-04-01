@@ -16,7 +16,7 @@ export function BurgerIngredients({ ingredients }) {
   const modal = () => (
     <IngredientDetails
       ingredient={ingredient}
-      handleClick={handleCloseModal}
+      handleCloseModal={handleCloseModal}
     />
   );
   const handleOpenIngredientModal = (id) => {
