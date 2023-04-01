@@ -2,11 +2,11 @@ import React from 'react';
 import Modal from '../modal/modal';
 import s from './ingredient-details.module.css';
 
-export default function IngredientDetails({ ingredient, handleClick }) {
+export default function IngredientDetails({ ingredient, handleCloseModal }) {
   const { image_large, calories, name, proteins, fat, carbohydrates } =
     ingredient;
   return (
-    <Modal handleClick={handleClick}>
+    <Modal handleCloseModal={handleCloseModal}>
       <p className="text text_type_main-large">Детали ингредиента</p>
       <img
         width={520}

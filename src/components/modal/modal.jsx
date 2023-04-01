@@ -6,14 +6,14 @@ import s from './modal.module.css';
 
 const modalRoot = document.getElementById('react-modals');
 
-export default function Modal({ children, handleClick }) {
+export default function Modal({ children, handleCloseModal }) {
   return createPortal(
-    <ModalOverlay>
+    <ModalOverlay handleCloseModal={handleCloseModal}>
       <div className={s.modal}>
         {children}
         <div className={s.close}>
           <CloseIcon
-            onClick={() => handleClick()}
+            onClick={handleCloseModal}
             type="primary"
           />
         </div>
