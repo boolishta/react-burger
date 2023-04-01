@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import s from './modal-overlay.module.css';
 
 export function ModalOverlay({ children, handleCloseModal }) {
@@ -7,17 +7,6 @@ export function ModalOverlay({ children, handleCloseModal }) {
       handleCloseModal();
     }
   };
-  const downHandler = (e) => {
-    if (e.key === 'Escape') {
-      handleCloseModal();
-    }
-  };
-  useEffect(() => {
-    window.addEventListener('keydown', downHandler);
-    return () => {
-      window.removeEventListener('keydown', downHandler);
-    };
-  }, []);
   return (
     <div
       onClick={handleClick}
