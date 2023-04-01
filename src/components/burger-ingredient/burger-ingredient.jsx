@@ -4,7 +4,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import s from './burger-ingredient.module.css';
-import { ingredientTypes } from '../../utils/prop-types';
+import { ingredientType } from '../../utils/prop-types';
+import PropType from 'prop-types';
 
 export function BurgerIngredient({ ingredient, handleClick }) {
   return (
@@ -31,5 +32,6 @@ export function BurgerIngredient({ ingredient, handleClick }) {
 }
 
 BurgerIngredient.propTypes = {
-  ingredient: ingredientTypes,
+  ingredient: ingredientType,
+  handleClick: PropType.func.isRequired,
 };
