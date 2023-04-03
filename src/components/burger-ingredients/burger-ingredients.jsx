@@ -1,5 +1,5 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { ingredientsType } from '../../utils/prop-types';
@@ -8,9 +8,18 @@ export function BurgerIngredients({ ingredients }) {
   const [current, setCurrent] = useState('bun');
   const [visible, setVisible] = useState(false);
   const [ingredient, setIngredient] = useState();
-  const buns = ingredients.filter((item) => item.type === 'bun');
-  const sauces = ingredients.filter((item) => item.type === 'sauce');
-  const mains = ingredients.filter((item) => item.type === 'main');
+  const buns = useMemo(
+    () => ingredients.filter((item) => item.type === 'bun'),
+    [ingredients]
+  );
+  const sauces = useMemo(
+    () => ingredients.filter((item) => item.type === 'sauce'),
+    [ingredients]
+  );
+  const mains = useMemo(
+    () => ingredients.filter((item) => item.type === 'main'),
+    [ingredients]
+  );
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
   const modal = () => (
