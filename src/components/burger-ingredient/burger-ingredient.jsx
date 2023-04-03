@@ -32,6 +32,6 @@ export function BurgerIngredient({ ingredient, handleClick }) {
 }
 
 BurgerIngredient.propTypes = {
-  ingredient: ingredientType,
+  ingredient: ingredientType.isRequired,
   handleClick: PropType.func.isRequired,
 };
