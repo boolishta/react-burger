@@ -8,13 +8,17 @@ import Price from '../price/price';
 import { ingredientsType } from '../../utils/prop-types';
 import { useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
+import Modal from '../modal/modal';
 
 export function BurgerConstructor({ ingredients }) {
   const [visible, setVisible] = useState(false);
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
-  const modal = () => <OrderDetails handleCloseModal={handleCloseModal} />;
-
+  const modal = () => (
+    <Modal handleCloseModal={handleCloseModal}>
+      <OrderDetails />
+    </Modal>
+  );
   const computedConstructorElementType = (index) => {
     if (index === 0) {
       return 'top';
