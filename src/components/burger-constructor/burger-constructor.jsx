@@ -24,14 +24,13 @@ export function BurgerConstructor({ ingredients }) {
     return null;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleClick = () => {
     handleOpenModal();
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <div>
         <ul className={s.elements + ' custom-scroll'}>
           {ingredients.map((ingredient, index) => (
             <li
@@ -55,13 +54,14 @@ export function BurgerConstructor({ ingredients }) {
         <div className={s.info}>
           <Price />
           <Button
-            htmlType="submit"
+            htmlType="button"
             type="primary"
+            onClick={handleClick}
           >
             Оформить заказ
           </Button>
         </div>
-      </form>
+      </div>
       {visible && modal()}
     </>
   );
