@@ -4,6 +4,7 @@ import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { ingredientsType } from '../../utils/prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
 export function BurgerIngredients({ ingredients }) {
   const [current, setCurrent] = useState('bun');
   const [visible, setVisible] = useState(false);
@@ -23,10 +24,9 @@ export function BurgerIngredients({ ingredients }) {
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
   const modal = () => (
-    <IngredientDetails
-      ingredient={ingredient}
-      handleCloseModal={handleCloseModal}
-    />
+    <Modal handleCloseModal={handleCloseModal}>
+      <IngredientDetails ingredient={ingredient} />
+    </Modal>
   );
   const handleOpenIngredientModal = (id) => {
     const currentIngredient = ingredients.find((item) => item._id === id);

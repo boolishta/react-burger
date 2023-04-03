@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import s from './modal.module.css';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById('react-modals');
 
@@ -33,3 +34,8 @@ export default function Modal({ children, handleCloseModal }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+  handleCloseModal: PropTypes.func.isRequired,
+};

@@ -1,14 +1,12 @@
 import React from 'react';
 import { ingredientType } from '../../utils/prop-types';
-import Modal from '../modal/modal';
 import s from './ingredient-details.module.css';
-import PropType from 'prop-types';
 
-export default function IngredientDetails({ ingredient, handleCloseModal }) {
+export default function IngredientDetails({ ingredient }) {
   const { image_large, calories, name, proteins, fat, carbohydrates } =
     ingredient;
   return (
-    <Modal handleCloseModal={handleCloseModal}>
+    <>
       <p className="text text_type_main-large">Детали ингредиента</p>
       <img
         width={520}
@@ -35,11 +33,10 @@ export default function IngredientDetails({ ingredient, handleCloseModal }) {
           <p className="text text_type_digits-default">{carbohydrates}</p>
         </li>
       </ul>
-    </Modal>
+    </>
   );
 }
 
 IngredientDetails.propTypes = {
-  ingredient: ingredientType,
-  handleCloseModal: PropType.func.isRequired,
+  ingredient: ingredientType.isRequired,
 };
