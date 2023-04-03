@@ -4,17 +4,17 @@ import { BurgerConstructor } from '../burger-constructor/burger-constructor';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import Error from '../error/error';
 import s from './app.module.css';
-
-const URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { getIngredients } from '../../utils/burger-api';
 
 export function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(false);
 
   const fetchIngredients = () => {
-    fetch(URL)
-      .then((response) => response.json())
-      .then((data) => setIngredients(data.data))
+    getIngredients()
+      .then(({ data }) => {
+        setIngredients(data);
+      })
       .catch(() => {
         setError(() => setError(true));
       });
