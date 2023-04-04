@@ -9,14 +9,19 @@ import { getIngredients } from '../../utils/burger-api';
 export function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchIngredients = () => {
+    setLoading(true);
     getIngredients()
       .then(({ data }) => {
         setIngredients(data);
       })
       .catch(() => {
         setError(() => setError(true));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -30,8 +35,15 @@ export function App() {
     <>
       <AppHeader />
       <main className={s.order}>
-        <BurgerIngredients ingredients={ingredients} />
-        <BurgerConstructor ingredients={ingredients} />
+        {loading && (
+          <p className="text text_type_digits-default m-2">Загрузка ...</p>
+        )}
+        {ingredients && (
+          <>
+            <BurgerIngredients ingredients={ingredients} />
+            <BurgerConstructor ingredients={ingredients} />
+          </>
+        )}
       </main>
     </>
   );
