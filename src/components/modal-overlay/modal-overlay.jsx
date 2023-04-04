@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './modal-overlay.module.css';
+import PropTypes from 'prop-types';
 
 export function ModalOverlay({ children, handleCloseModal }) {
   const handleClick = (e) => {
@@ -16,3 +17,8 @@ export function ModalOverlay({ children, handleCloseModal }) {
     </div>
   );
 }
+
+ModalOverlay.propTypes = {
+  children: PropTypes.node.isRequired,
+  handleCloseModal: PropTypes.func.isRequired,
+};
