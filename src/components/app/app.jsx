@@ -5,6 +5,7 @@ import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import Error from '../error/error';
 import s from './app.module.css';
 import { getIngredients } from '../../utils/burger-api';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
 export function App() {
   const [ingredients, setIngredients] = useState([]);
@@ -39,10 +40,10 @@ export function App() {
           <p className="text text_type_digits-default m-2">Загрузка ...</p>
         )}
         {ingredients && (
-          <>
+          <IngredientsContext.Provider value={{ ingredients }}>
             <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={ingredients} />
-          </>
+            <BurgerConstructor />
+          </IngredientsContext.Provider>
         )}
       </main>
     </>

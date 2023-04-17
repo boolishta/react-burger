@@ -5,12 +5,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { ingredientsType } from '../../utils/prop-types';
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
-export function BurgerConstructor({ ingredients }) {
+export function BurgerConstructor() {
+  const { ingredients } = useContext(IngredientsContext);
   const [visible, setVisible] = useState(false);
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
@@ -19,8 +20,8 @@ export function BurgerConstructor({ ingredients }) {
       <OrderDetails />
     </Modal>
   );
-  const buns = useMemo(() => {
-    return ingredients.filter((item) => item.type === 'bun');
+  const bun = useMemo(() => {
+    return ingredients.find((item) => item.type === 'bun');
   }, [ingredients]);
   const handleClick = () => {
     handleOpenModal();
@@ -30,13 +31,13 @@ export function BurgerConstructor({ ingredients }) {
     <>
       <div>
         <ul className={s.elements + ' custom-scroll'}>
-          {buns[0] && (
+          {bun && (
             <li className={s.element}>
               <ConstructorElement
                 extraClass={s.constructorElement}
-                text={buns[0]?.name + ' (верх)'}
-                price={buns[0]?.price}
-                thumbnail={buns[0]?.image}
+                text={bun.name + ' (верх)'}
+                price={bun.price}
+                thumbnail={bun.image}
                 isLocked={true}
                 type="top"
               />
@@ -59,13 +60,13 @@ export function BurgerConstructor({ ingredients }) {
                 </li>
               )
           )}
-          {buns[1] && (
+          {bun && (
             <li className={s.element}>
               <ConstructorElement
                 extraClass={s.constructorElement}
-                text={buns[1]?.name + ' (низ)'}
-                price={buns[1]?.price}
-                thumbnail={buns[1]?.image}
+                text={bun.name + ' (низ)'}
+                price={bun.price}
+                thumbnail={bun.image}
                 isLocked={true}
                 type="bottom"
               />
@@ -87,7 +88,3 @@ export function BurgerConstructor({ ingredients }) {
     </>
   );
 }
-
-BurgerConstructor.propTypes = {
-  ingredients: ingredientsType,
-};
