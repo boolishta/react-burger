@@ -9,9 +9,10 @@ import { useContext, useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { IngredientsContext } from '../../services/ingredientsContext';
+import { checkout } from '../../utils/burger-api';
 
 export function BurgerConstructor() {
-  const { ingredients } = useContext(IngredientsContext);
+  const { ingredients, dispatchOrder } = useContext(IngredientsContext);
   const [visible, setVisible] = useState(false);
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
@@ -24,6 +25,18 @@ export function BurgerConstructor() {
     return ingredients.find((item) => item.type === 'bun');
   }, [ingredients]);
   const handleClick = () => {
+    const data = ingredients.map((item) => item._id);
+    checkout({
+      ingredients: data,
+    }).then((res) => {
+      console.log(res);
+      dispatchOrder({
+        type: 'number',
+        payload: {
+          number: res.order.number,
+        },
+      });
+    });
     handleOpenModal();
   };
 

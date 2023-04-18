@@ -6,6 +6,7 @@ import Error from '../error/error';
 import s from './app.module.css';
 import { getIngredients } from '../../utils/burger-api';
 import { IngredientsContext } from '../../services/ingredientsContext';
+import { DetailsContext } from '../../services/detailsContext';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -17,15 +18,31 @@ function reducer(state, action) {
   }
 }
 
-const initalCartState = {
+const initialCartState = {
   total: 0,
 };
+
+function orderReducer(state, action) {
+  switch (action.type) {
+    case 'name':
+      const { name } = action.payload;
+      return { name };
+    case 'number':
+      const { number } = action.payload;
+      return { number };
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
+const initialOrderState = {};
 
 export function App() {
   const [ingredients, setIngredients] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [cart, dispatch] = useReducer(reducer, initalCartState);
+  const [cart, dispatch] = useReducer(reducer, initialCartState);
+  const [order, dispatchOrder] = useReducer(orderReducer, initialOrderState);
 
   const fetchIngredients = () => {
     setLoading(true);
@@ -64,9 +81,13 @@ export function App() {
           <p className="text text_type_digits-default m-2">Загрузка ...</p>
         )}
         {ingredients && (
-          <IngredientsContext.Provider value={{ ingredients, cart }}>
-            <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor />
+          <IngredientsContext.Provider
+            value={{ ingredients, cart, dispatchOrder }}
+          >
+            <DetailsContext.Provider value={{ order }}>
+              <BurgerIngredients ingredients={ingredients} />
+              <BurgerConstructor />
+            </DetailsContext.Provider>
           </IngredientsContext.Provider>
         )}
       </main>
