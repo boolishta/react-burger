@@ -29,7 +29,6 @@ export function BurgerConstructor() {
     checkout({
       ingredients: data,
     }).then((res) => {
-      console.log(res);
       dispatchOrder({
         type: 'number',
         payload: {
