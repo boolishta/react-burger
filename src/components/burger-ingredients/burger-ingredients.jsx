@@ -1,14 +1,17 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
-import { ingredientsType } from '../../utils/prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-export function BurgerIngredients({ ingredients }) {
+import { IngredientsContext } from '../../services/ingredientsContext';
+
+export function BurgerIngredients() {
   const [current, setCurrent] = useState('bun');
   const [visible, setVisible] = useState(false);
   const [ingredient, setIngredient] = useState();
+  const { ingredients } = useContext(IngredientsContext);
+
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === 'bun'),
     [ingredients]
@@ -110,7 +113,3 @@ export function BurgerIngredients({ ingredients }) {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: ingredientsType,
-};

@@ -98,7 +98,7 @@ export function App() {
             }}
           >
             <DetailsContext.Provider value={{ order: orderContext.order }}>
-              <BurgerIngredients ingredients={ingredients} />
+              <BurgerIngredients />
               <BurgerConstructor />
             </DetailsContext.Provider>
           </IngredientsContext.Provider>
