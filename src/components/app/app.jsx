@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useReducer, useMemo } from 'react';
 import { AppHeader } from '../app-header/app-header';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
@@ -43,6 +43,15 @@ export function App() {
   const [loading, setLoading] = useState(false);
   const [cart, dispatch] = useReducer(reducer, initialCartState);
   const [order, dispatchOrder] = useReducer(orderReducer, initialOrderState);
+  const ingredientsMemo = useMemo(() => {
+    return { ingredients };
+  }, [ingredients]);
+  const cartContext = useMemo(() => {
+    return { cart, dispatch };
+  }, [cart, dispatch]);
+  const orderContext = useMemo(() => {
+    return { order, dispatchOrder };
+  }, [order, dispatchOrder]);
 
   const fetchIngredients = () => {
     setLoading(true);
@@ -82,9 +91,13 @@ export function App() {
         )}
         {ingredients && (
           <IngredientsContext.Provider
-            value={{ ingredients, cart, dispatchOrder }}
+            value={{
+              ingredients: ingredientsMemo.ingredients,
+              cart: cartContext.cart,
+              dispatchOrder: orderContext.dispatchOrder,
+            }}
           >
-            <DetailsContext.Provider value={{ order }}>
+            <DetailsContext.Provider value={{ order: orderContext.order }}>
               <BurgerIngredients ingredients={ingredients} />
               <BurgerConstructor />
             </DetailsContext.Provider>
