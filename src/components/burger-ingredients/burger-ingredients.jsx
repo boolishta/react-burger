@@ -1,17 +1,24 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  ADD_INGREDIENT_DETAILS,
+  CLEAR_INGREDIENT_DETAILS,
+  getIngredients,
+} from '../../services/actions/store';
 
 export function BurgerIngredients() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+  const { ingredients } = useSelector((state) => state.store);
   const [current, setCurrent] = useState('bun');
   const [visible, setVisible] = useState(false);
-  const [ingredient, setIngredient] = useState();
-  const { ingredients } = useContext(IngredientsContext);
-
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === 'bun'),
     [ingredients]
@@ -24,18 +31,24 @@ export function BurgerIngredients() {
     () => ingredients.filter((item) => item.type === 'main'),
     [ingredients]
   );
-  const handleOpenModal = () => setVisible(true);
-  const handleCloseModal = () => setVisible(false);
+  const handleCloseIngredientModal = () => {
+    dispatch({
+      type: CLEAR_INGREDIENT_DETAILS,
+    });
+    setVisible(false);
+  };
+  const handleOpenIngredientModal = (ingredientId) => {
+    dispatch({
+      type: ADD_INGREDIENT_DETAILS,
+      ingredientId,
+    });
+    setVisible(true);
+  };
   const modal = () => (
-    <Modal handleCloseModal={handleCloseModal}>
-      <IngredientDetails ingredient={ingredient} />
+    <Modal handleCloseModal={handleCloseIngredientModal}>
+      <IngredientDetails />
     </Modal>
   );
-  const handleOpenIngredientModal = (id) => {
-    const currentIngredient = ingredients.find((item) => item._id === id);
-    setIngredient(() => currentIngredient);
-    handleOpenModal();
-  };
   return (
     <section className={s.burger}>
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
