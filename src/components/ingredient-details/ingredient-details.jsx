@@ -1,10 +1,10 @@
 import React from 'react';
-import { ingredientType } from '../../utils/prop-types';
 import s from './ingredient-details.module.css';
+import { useSelector } from 'react-redux';
 
-export default function IngredientDetails({ ingredient }) {
+export default function IngredientDetails() {
   const { image_large, calories, name, proteins, fat, carbohydrates } =
-    ingredient;
+    useSelector((state) => state.store.ingredientDetails);
   return (
     <>
       <p className="text text_type_main-large">Детали ингредиента</p>
@@ -36,7 +36,3 @@ export default function IngredientDetails({ ingredient }) {
     </>
   );
 }
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientType.isRequired,
-};
