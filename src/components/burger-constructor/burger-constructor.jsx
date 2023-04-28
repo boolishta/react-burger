@@ -5,15 +5,16 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
-import { IngredientsContext } from '../../services/ingredientsContext';
-import { checkout } from '../../utils/burger-api';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderCheckout } from '../../services/actions/store';
 
 export function BurgerConstructor() {
-  const { ingredients, dispatchOrder } = useContext(IngredientsContext);
+  const { ingredients } = useSelector((state) => state.store);
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
   const modal = () => (
@@ -26,16 +27,11 @@ export function BurgerConstructor() {
   }, [ingredients]);
   const handleClick = () => {
     const data = ingredients.map((item) => item._id);
-    checkout({
-      ingredients: data,
-    }).then((res) => {
-      dispatchOrder({
-        type: 'number',
-        payload: {
-          number: res.order.number,
-        },
-      });
-    });
+    dispatch(
+      orderCheckout({
+        ingredients: data,
+      })
+    );
     handleOpenModal();
   };
 
