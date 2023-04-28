@@ -10,15 +10,34 @@ import {
   CLEAR_INGREDIENT_DETAILS,
   getIngredients,
 } from '../../services/actions/store';
+import { useInView } from 'react-intersection-observer';
 
 export function BurgerIngredients() {
+  const [bunsRef, bunsInView] = useInView({
+    threshold: 0,
+  });
+  const [saucesRef, saucesInView] = useInView({
+    threshold: 0,
+  });
+  const [mainsRef, mainsInView] = useInView({
+    threshold: 0,
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
   const { ingredients } = useSelector((state) => state.store);
-  const [current, setCurrent] = useState('bun');
+  const [currentTab, setCurrentTab] = useState('');
   const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (bunsInView) {
+      setCurrentTab('buns');
+    } else if (saucesInView) {
+      setCurrentTab('sauces');
+    } else if (mainsInView) {
+      setCurrentTab('mains');
+    }
+  }, [bunsInView, saucesInView, mainsInView]);
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === 'bun'),
     [ingredients]
@@ -56,8 +75,7 @@ export function BurgerIngredients() {
         <li>
           <Tab
             value="bun"
-            active={current === 'bun'}
-            onClick={setCurrent}
+            active={currentTab === 'buns'}
           >
             Булки
           </Tab>
@@ -65,8 +83,7 @@ export function BurgerIngredients() {
         <li>
           <Tab
             value="sauce"
-            active={current === 'sauce'}
-            onClick={setCurrent}
+            active={currentTab === 'sauces'}
           >
             Соусы
           </Tab>
@@ -74,8 +91,7 @@ export function BurgerIngredients() {
         <li>
           <Tab
             value="main"
-            active={current === 'main'}
-            onClick={setCurrent}
+            active={currentTab === 'mains'}
           >
             Начинки
           </Tab>
@@ -83,7 +99,12 @@ export function BurgerIngredients() {
       </ul>
       <ul className={s.ingridients + ' custom-scroll'}>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Булки</h2>
+          <h2
+            ref={bunsRef}
+            className="text text_type_main-medium"
+          >
+            Булки
+          </h2>
           <ul className={s.ingridient_items}>
             {buns &&
               buns.map((bun) => (
@@ -96,7 +117,12 @@ export function BurgerIngredients() {
           </ul>
         </li>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Соусы</h2>
+          <h2
+            ref={saucesRef}
+            className="text text_type_main-medium"
+          >
+            Соусы
+          </h2>
           <ul className={s.ingridient_items}>
             {sauces &&
               sauces.map((sauce) => (
@@ -109,7 +135,12 @@ export function BurgerIngredients() {
           </ul>
         </li>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Начинки</h2>
+          <h2
+            ref={mainsRef}
+            className="text text_type_main-medium"
+          >
+            Начинки
+          </h2>
           <ul className={s.ingridient_items}>
             {mains &&
               mains.map((main) => (
