@@ -9,12 +9,27 @@ import { useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderCheckout } from '../../services/actions/store';
+import { ADD_INGREDIENTS, orderCheckout } from '../../services/actions/store';
+import { useDrop } from 'react-dnd';
 
 export function BurgerConstructor() {
-  const { ingredients } = useSelector((state) => state.store);
-  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const { currentIngredients: ingredients } = useSelector(
+    (state) => state.store
+  );
+  const [{ isDrop, canDrop }, drop] = useDrop(() => ({
+    accept: 'ingredient',
+    drop: (item) =>
+      dispatch({
+        type: ADD_INGREDIENTS,
+        id: item.id,
+      }),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  }));
+  const [visible, setVisible] = useState(false);
   const handleOpenModal = () => setVisible(true);
   const handleCloseModal = () => setVisible(false);
   const modal = () => (
@@ -38,7 +53,15 @@ export function BurgerConstructor() {
   return (
     <>
       <div>
-        <ul className={s.elements + ' custom-scroll'}>
+        <ul
+          ref={drop}
+          className={s.elements + ' custom-scroll'}
+        >
+          <li>
+            <p className="text text_type_main-default">
+              перенесите сюда ваш заказ
+            </p>
+          </li>
           {bun && (
             <li className={s.element}>
               <ConstructorElement

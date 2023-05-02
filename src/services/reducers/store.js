@@ -7,6 +7,8 @@ import {
   ORDER_CHECKOUT_REQUEST,
   ORDER_CHECKOUT_SUCCESS,
   ORDER_CHECKOUT_FAILED,
+  REMOVE_INGREDIENTS,
+  ADD_INGREDIENTS,
 } from '../actions/store';
 
 const initialStore = {
@@ -22,6 +24,34 @@ const initialStore = {
 
 export const storeReducer = (state = initialStore, action) => {
   switch (action.type) {
+    case ADD_INGREDIENTS: {
+      const ingredient = state.ingredients.find(
+        (ingredient) => ingredient._id === action.id
+      );
+      if (ingredient.type === 'bun') {
+        const newCurrentIngredients = state.currentIngredients.filter(
+          (item) => item.type !== 'bun'
+        );
+        newCurrentIngredients.push(ingredient);
+        return {
+          ...state,
+          currentIngredients: newCurrentIngredients,
+        };
+      } else {
+        return {
+          ...state,
+          currentIngredients: [...state.currentIngredients, ingredient],
+        };
+      }
+    }
+    case REMOVE_INGREDIENTS: {
+      return {
+        ...state,
+        currentIngredients: state.currentIngredients.filter(
+          (item) => item._id !== action.id
+        ),
+      };
+    }
     case ORDER_CHECKOUT_REQUEST: {
       return {
         ...state,
