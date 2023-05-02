@@ -7,6 +7,7 @@ import s from './burger-ingredient.module.css';
 import { ingredientType } from '../../utils/prop-types';
 import PropType from 'prop-types';
 import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
 
 export function BurgerIngredient({ ingredient, handleClick }) {
   const [{ isDraggin }, drag] = useDrag(
@@ -19,7 +20,10 @@ export function BurgerIngredient({ ingredient, handleClick }) {
     }),
     []
   );
-  const count = 0; // TODO: посчитывать количество ингредиентов в заказе
+  const ingredients = useSelector((state) =>
+    state.store.currentIngredients.filter((item) => item._id === ingredient._id)
+  );
+  const count = ingredients.length;
   return (
     <li
       ref={drag}
