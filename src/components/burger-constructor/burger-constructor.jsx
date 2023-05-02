@@ -9,7 +9,11 @@ import { useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENTS, orderCheckout } from '../../services/actions/store';
+import {
+  ADD_INGREDIENTS,
+  orderCheckout,
+  REMOVE_INGREDIENTS,
+} from '../../services/actions/store';
 import { useDrop } from 'react-dnd';
 
 export function BurgerConstructor() {
@@ -49,6 +53,12 @@ export function BurgerConstructor() {
     );
     handleOpenModal();
   };
+  const handleClose = (ingredientId) => {
+    dispatch({
+      type: REMOVE_INGREDIENTS,
+      id: ingredientId,
+    });
+  };
 
   return (
     <>
@@ -87,6 +97,7 @@ export function BurgerConstructor() {
                     text={ingredient.name}
                     price={ingredient.price}
                     thumbnail={ingredient.image}
+                    handleClose={() => handleClose(ingredient._id)}
                   />
                 </li>
               )
