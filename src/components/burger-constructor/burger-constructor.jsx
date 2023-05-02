@@ -85,10 +85,10 @@ export function BurgerConstructor() {
             </li>
           )}
           {ingredients.map(
-            (ingredient) =>
+            (ingredient, idx) =>
               ingredient.type !== 'bun' && (
                 <li
-                  key={ingredient._id}
+                  key={ingredient._id + idx}
                   className={s.element}
                 >
                   <DragIcon type="primary" />
