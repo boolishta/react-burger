@@ -8,11 +8,12 @@ import { ingredientType } from '../../utils/prop-types';
 import PropType from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
+import { ItemTypes } from '../../utils/constans';
 
 export function BurgerIngredient({ ingredient, handleClick }) {
   const [{ isDraggin }, drag] = useDrag(
     () => ({
-      type: 'ingredient',
+      type: ItemTypes.INGREDIENT,
       item: { id: ingredient._id },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),

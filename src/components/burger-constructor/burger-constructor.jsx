@@ -15,6 +15,7 @@ import {
   REMOVE_INGREDIENTS,
 } from '../../services/actions/store';
 import { useDrop } from 'react-dnd';
+import { ItemTypes } from '../../utils/constans';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export function BurgerConstructor() {
     (state) => state.store
   );
   const [{ isDrop, canDrop }, drop] = useDrop(() => ({
-    accept: 'ingredient',
+    accept: ItemTypes.INGREDIENT,
     drop: (item) =>
       dispatch({
         type: ADD_INGREDIENTS,
