@@ -67,11 +67,6 @@ export function BurgerConstructor() {
           ref={drop}
           className={s.elements + ' custom-scroll'}
         >
-          <li>
-            <p className="text text_type_main-default">
-              перенесите сюда ваш заказ
-            </p>
-          </li>
           {bun && (
             <li className={s.element}>
               <ConstructorElement
