@@ -11,13 +11,6 @@
   overflow-y: auto;
 }
 
-.element {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
 .info {
   display: flex;
   align-items: center;

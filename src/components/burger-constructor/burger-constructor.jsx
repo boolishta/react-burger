@@ -1,11 +1,10 @@
 import {
   Button,
   ConstructorElement,
-  DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,12 +15,18 @@ import {
 } from '../../services/actions/store';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';
+import update from 'immutability-helper';
+import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
   const { currentIngredients: ingredients } = useSelector(
     (state) => state.store
   );
+  const [draggableElements, setDraggableElements] = useState([]);
+  useEffect(() => {
+    setDraggableElements(ingredients.filter((item) => item.type !== 'bun'));
+  }, [ingredients]);
   const [{ isDrop, canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.INGREDIENT,
     drop: (item) =>
@@ -60,7 +65,27 @@ export function BurgerConstructor() {
       id: ingredientId,
     });
   };
-
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    setDraggableElements((prevCards) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex]],
+        ],
+      })
+    );
+  }, []);
+  const renderDraggableElement = useCallback((ingredient, index) => {
+    return (
+      <BurgerConstructorElement
+        ingredient={ingredient}
+        index={index}
+        key={ingredient._id}
+        handleClick={handleClose}
+        moveCard={moveCard}
+      />
+    );
+  }, []);
   return (
     <>
       <div>
@@ -80,23 +105,8 @@ export function BurgerConstructor() {
               />
             </li>
           )}
-          {ingredients.map(
-            (ingredient, idx) =>
-              ingredient.type !== 'bun' && (
-                <li
-                  key={ingredient._id + idx}
-                  className={s.element}
-                >
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    extraClass={s.constructorElement}
-                    text={ingredient.name}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image}
-                    handleClose={() => handleClose(ingredient._id)}
-                  />
-                </li>
-              )
+          {draggableElements.map((ingredient, index) =>
+            renderDraggableElement(ingredient, index)
           )}
           {bun && (
             <li className={s.element}>
