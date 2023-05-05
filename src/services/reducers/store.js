@@ -25,30 +25,23 @@ const initialStore = {
 export const storeReducer = (state = initialStore, action) => {
   switch (action.type) {
     case ADD_INGREDIENTS: {
-      const ingredient = state.ingredients.find(
-        (ingredient) => ingredient._id === action.id
-      );
-      if (ingredient.type === 'bun') {
-        const newCurrentIngredients = state.currentIngredients.filter(
-          (item) => item.type !== 'bun'
-        );
-        newCurrentIngredients.push(ingredient);
-        return {
-          ...state,
-          currentIngredients: newCurrentIngredients,
-        };
-      } else {
-        return {
-          ...state,
-          currentIngredients: [...state.currentIngredients, ingredient],
-        };
-      }
+      const ingredient = state.ingredients.find((i) => i._id === action.id);
+      const updateIngredient = { ...ingredient, uuid: action.uuid };
+
+      const newCurrentIngredients =
+        ingredient.type === 'bun'
+          ? [
+              ...state.currentIngredients.filter((i) => i.type !== 'bun'),
+              updateIngredient,
+            ]
+          : [...state.currentIngredients, updateIngredient];
+      return { ...state, currentIngredients: newCurrentIngredients };
     }
     case REMOVE_INGREDIENTS: {
       return {
         ...state,
         currentIngredients: state.currentIngredients.filter(
-          (item) => item._id !== action.id
+          (item) => item.uuid !== action.uuid
         ),
       };
     }

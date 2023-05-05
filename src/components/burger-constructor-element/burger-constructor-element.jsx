@@ -83,7 +83,7 @@ export function BurgerConstructorElement({
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        handleClose={() => handleClick(ingredient._id)}
+        handleClose={() => handleClick(ingredient.uuid)}
       />
     </li>
   );

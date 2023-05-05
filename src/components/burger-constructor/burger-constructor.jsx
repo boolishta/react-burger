@@ -17,6 +17,7 @@ import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';
 import update from 'immutability-helper';
 import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
+import { v4 as uuidv4 } from 'uuid';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export function BurgerConstructor() {
       dispatch({
         type: ADD_INGREDIENTS,
         id: item.id,
+        uuid: uuidv4(),
       }),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -59,10 +61,10 @@ export function BurgerConstructor() {
     );
     handleOpenModal();
   };
-  const handleClose = (ingredientId) => {
+  const handleClose = (uuid) => {
     dispatch({
       type: REMOVE_INGREDIENTS,
-      id: ingredientId,
+      uuid,
     });
   };
   const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -80,7 +82,7 @@ export function BurgerConstructor() {
       <BurgerConstructorElement
         ingredient={ingredient}
         index={index}
-        key={ingredient._id}
+        key={ingredient.uuid}
         handleClick={handleClose}
         moveCard={moveCard}
       />
