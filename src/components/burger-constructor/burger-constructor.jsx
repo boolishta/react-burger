@@ -19,11 +19,11 @@ import update from 'immutability-helper';
 import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
 import { v4 as uuidv4 } from 'uuid';
 
+const getStore = (state) => state.store;
+
 export function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { currentIngredients: ingredients } = useSelector(
-    (state) => state.store
-  );
+  const { currentIngredients: ingredients } = useSelector(getStore);
   const [draggableElements, setDraggableElements] = useState([]);
   useEffect(() => {
     setDraggableElements(ingredients.filter((item) => item.type !== 'bun'));
