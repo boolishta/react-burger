@@ -1,13 +1,13 @@
 import {
   ADD_INGREDIENT_DETAILS,
   CLEAR_INGREDIENT_DETAILS,
-} from '../actions/store';
+} from '../actions/ingredientDetails';
 
 const initialStore = {
   ingredientDetails: {},
 };
 
-export const storeReducer = (state = initialStore, action) => {
+export const ingredientDetailsReducer = (state = initialStore, action) => {
   switch (action.type) {
     case CLEAR_INGREDIENT_DETAILS: {
       return {
@@ -18,9 +18,7 @@ export const storeReducer = (state = initialStore, action) => {
     case ADD_INGREDIENT_DETAILS: {
       return {
         ...state,
-        ingredientDetails: state.ingredients.find(
-          (ingredient) => ingredient._id === action.ingredientId
-        ),
+        ingredientDetails: action.ingredient,
       };
     }
     default: {

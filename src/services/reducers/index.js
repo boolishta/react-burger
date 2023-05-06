@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { ingredientsReducer } from './ingredients';
 import { orderReducer } from './order';
-import { storeReducer } from './store';
+import { ingredientDetailsReducer } from './ingredientDetails';
 
 export const rootReducer = combineReducers({
-  store: storeReducer,
+  ingredientDetails: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
   order: orderReducer,
 });

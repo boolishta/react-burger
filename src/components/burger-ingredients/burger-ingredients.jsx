@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   ADD_INGREDIENT_DETAILS,
   CLEAR_INGREDIENT_DETAILS,
-} from '../../services/actions/store';
+} from '../../services/actions/ingredientDetails';
 import { useInView } from 'react-intersection-observer';
 import { getIngredients } from '../../services/actions/ingredients';
 
@@ -58,9 +58,10 @@ export function BurgerIngredients() {
     setVisible(false);
   };
   const handleOpenIngredientModal = (ingredientId) => {
+    const ingredient = ingredients.find((item) => item._id === ingredientId);
     dispatch({
       type: ADD_INGREDIENT_DETAILS,
-      ingredientId,
+      ingredient,
     });
     setVisible(true);
   };

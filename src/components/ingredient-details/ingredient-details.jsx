@@ -1,10 +1,12 @@
 import React from 'react';
 import s from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
+import { getIngredientDetailsSelector } from '../../utils/selectors';
 
 export default function IngredientDetails() {
+  const { ingredientDetails } = useSelector(getIngredientDetailsSelector);
   const { image_large, calories, name, proteins, fat, carbohydrates } =
-    useSelector((state) => state.store.ingredientDetails);
+    ingredientDetails;
   return (
     <>
       <p className="text text_type_main-large">Детали ингредиента</p>
