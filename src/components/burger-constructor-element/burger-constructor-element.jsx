@@ -6,6 +6,8 @@ import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import s from './burger-constructor-element.module.css';
 import { ItemTypes } from '../../utils/constans';
+import { ingredientType } from '../../utils/prop-types';
+import PropType from 'prop-types';
 
 export function BurgerConstructorElement({
   ingredient,
@@ -88,3 +90,10 @@ export function BurgerConstructorElement({
     </li>
   );
 }
+
+BurgerConstructorElement.propTypes = {
+  ingredient: ingredientType.isRequired,
+  handleClick: PropType.func.isRequired,
+  moveCard: PropType.func.isRequired,
+  index: PropType.number,
+};
