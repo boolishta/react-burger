@@ -6,6 +6,7 @@ export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 export const ADD_INGREDIENTS = 'ADD_INGREDIENTS';
 export const REMOVE_INGREDIENTS = 'REMOVE_INGREDIENTS';
 export const CLEAR_INGREDINETS = 'CLEAR_INGREDINETS';
+export const ADD_BUN = 'ADD_BUN';
 
 export function getIngredients() {
   return function (dispatch) {

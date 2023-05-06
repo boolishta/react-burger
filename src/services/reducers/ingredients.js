@@ -1,4 +1,5 @@
 import {
+  ADD_BUN,
   ADD_INGREDIENTS,
   CLEAR_INGREDINETS,
   GET_INGREDIENTS_FAILED,
@@ -7,32 +8,34 @@ import {
   REMOVE_INGREDIENTS,
 } from '../actions/ingredients';
 
-const initalState = {
+const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
+  bun: null,
   currentIngredients: [],
 };
 
-export const ingredientsReducer = (state = initalState, action) => {
+export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_BUN: {
+      return {
+        ...state,
+        bun: { ...action.ingredient },
+      };
+    }
     case CLEAR_INGREDINETS: {
       return {
         ...state,
-        currentIngredients: initalState.currentIngredients,
+        currentIngredients: initialState.currentIngredients,
+        bun: initialState.bun,
       };
     }
     case ADD_INGREDIENTS: {
-      const ingredient = state.ingredients.find((i) => i._id === action.id);
-      const updateIngredient = { ...ingredient, uuid: action.uuid };
-
-      const newCurrentIngredients =
-        ingredient.type === 'bun'
-          ? [
-              ...state.currentIngredients.filter((i) => i.type !== 'bun'),
-              updateIngredient,
-            ]
-          : [...state.currentIngredients, updateIngredient];
+      const newCurrentIngredients = [
+        ...state.currentIngredients,
+        { ...action.ingredient },
+      ];
       return { ...state, currentIngredients: newCurrentIngredients };
     }
     case REMOVE_INGREDIENTS: {

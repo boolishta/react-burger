@@ -15,7 +15,7 @@ export function BurgerIngredient({ ingredient, handleClick }) {
   const [{ isDraggin }, drag] = useDrag(
     () => ({
       type: ItemTypes.INGREDIENT,
-      item: { id: ingredient._id },
+      item: { ingredient },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),

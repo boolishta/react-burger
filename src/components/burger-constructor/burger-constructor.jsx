@@ -14,6 +14,7 @@ import update from 'immutability-helper';
 import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
 import { v4 as uuidv4 } from 'uuid';
 import {
+  ADD_BUN,
   ADD_INGREDIENTS,
   REMOVE_INGREDIENTS,
 } from '../../services/actions/ingredients';
@@ -22,7 +23,7 @@ import { orderCheckout } from '../../services/actions/order';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { currentIngredients: ingredients } = useSelector(
+  const { currentIngredients: ingredients, bun } = useSelector(
     getIngredientsSelector
   );
   const [draggableElements, setDraggableElements] = useState([]);
@@ -31,12 +32,22 @@ export function BurgerConstructor() {
   }, [ingredients]);
   const [{ isDrop, canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.INGREDIENT,
-    drop: (item) =>
-      dispatch({
+    drop: (item) => {
+      const { ingredient } = item;
+      if (ingredient.type === 'bun') {
+        return dispatch({
+          type: ADD_BUN,
+          ingredient: { ...ingredient },
+        });
+      }
+      return dispatch({
         type: ADD_INGREDIENTS,
-        id: item.id,
-        uuid: uuidv4(),
-      }),
+        ingredient: {
+          ...ingredient,
+          uuid: uuidv4(),
+        },
+      });
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
@@ -50,9 +61,6 @@ export function BurgerConstructor() {
       <OrderDetails />
     </Modal>
   );
-  const bun = useMemo(() => {
-    return ingredients.find((item) => item.type === 'bun');
-  }, [ingredients]);
   const handleClick = () => {
     const data = ingredients.map((item) => item._id);
     dispatch(

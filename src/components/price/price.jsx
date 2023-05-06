@@ -4,17 +4,12 @@ import { useSelector } from 'react-redux';
 import { getIngredientsSelector } from '../../utils/selectors';
 
 export default function Price() {
-  const { currentIngredients } = useSelector(getIngredientsSelector);
+  const { currentIngredients, bun } = useSelector(getIngredientsSelector);
+  const initialValue = bun ? bun.price * 2 : 0;
   const total = useMemo(
     () =>
-      currentIngredients.reduce((acc, item) => {
-        let price = item.price;
-        if (item.type === 'bun') {
-          price += item.price;
-        }
-        return acc + price;
-      }, 0),
-    [currentIngredients]
+      currentIngredients.reduce((acc, item) => acc + item.price, initialValue),
+    [currentIngredients, initialValue]
   );
 
   return (
