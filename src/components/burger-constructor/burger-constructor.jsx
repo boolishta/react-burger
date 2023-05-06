@@ -8,7 +8,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderCheckout } from '../../services/actions/store';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';
 import update from 'immutability-helper';
@@ -19,6 +18,7 @@ import {
   REMOVE_INGREDIENTS,
 } from '../../services/actions/ingredients';
 import { getIngredientsSelector } from '../../utils/selectors';
+import { orderCheckout } from '../../services/actions/order';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
