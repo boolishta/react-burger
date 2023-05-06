@@ -1,5 +1,6 @@
 import {
   ADD_INGREDIENTS,
+  CLEAR_INGREDINETS,
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
@@ -15,6 +16,12 @@ const initalState = {
 
 export const ingredientsReducer = (state = initalState, action) => {
   switch (action.type) {
+    case CLEAR_INGREDINETS: {
+      return {
+        ...state,
+        currentIngredients: initalState.currentIngredients,
+      };
+    }
     case ADD_INGREDIENTS: {
       const ingredient = state.ingredients.find((i) => i._id === action.id);
       const updateIngredient = { ...ingredient, uuid: action.uuid };
