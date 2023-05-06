@@ -9,6 +9,7 @@ import PropType from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { ItemTypes } from '../../utils/constans';
+import { getIngredientsSelector } from '../../utils/selectors';
 
 export function BurgerIngredient({ ingredient, handleClick }) {
   const [{ isDraggin }, drag] = useDrag(
@@ -21,8 +22,9 @@ export function BurgerIngredient({ ingredient, handleClick }) {
     }),
     []
   );
-  const ingredients = useSelector((state) =>
-    state.store.currentIngredients.filter((item) => item._id === ingredient._id)
+  const { currentIngredients } = useSelector(getIngredientsSelector);
+  const ingredients = currentIngredients.filter(
+    (item) => item._id === ingredient._id
   );
   const count = ingredients.length;
   return (

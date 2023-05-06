@@ -8,10 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   ADD_INGREDIENT_DETAILS,
   CLEAR_INGREDIENT_DETAILS,
-  getIngredients,
 } from '../../services/actions/store';
 import { useInView } from 'react-intersection-observer';
+import { getIngredients } from '../../services/actions/ingredients';
 
+const getStoreIngredients = (state) => state.ingredients;
 export function BurgerIngredients() {
   const [bunsRef, bunsInView] = useInView({
     threshold: 0,
@@ -26,7 +27,7 @@ export function BurgerIngredients() {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-  const { ingredients } = useSelector((state) => state.store);
+  const { ingredients } = useSelector(getStoreIngredients);
   const [currentTab, setCurrentTab] = useState('');
   const [visible, setVisible] = useState(false);
   useEffect(() => {

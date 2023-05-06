@@ -8,22 +8,23 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  ADD_INGREDIENTS,
-  orderCheckout,
-  REMOVE_INGREDIENTS,
-} from '../../services/actions/store';
+import { orderCheckout } from '../../services/actions/store';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';
 import update from 'immutability-helper';
 import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
 import { v4 as uuidv4 } from 'uuid';
-
-const getStore = (state) => state.store;
+import {
+  ADD_INGREDIENTS,
+  REMOVE_INGREDIENTS,
+} from '../../services/actions/ingredients';
+import { getIngredientsSelector } from '../../utils/selectors';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { currentIngredients: ingredients } = useSelector(getStore);
+  const { currentIngredients: ingredients } = useSelector(
+    getIngredientsSelector
+  );
   const [draggableElements, setDraggableElements] = useState([]);
   useEffect(() => {
     setDraggableElements(ingredients.filter((item) => item.type !== 'bun'));
