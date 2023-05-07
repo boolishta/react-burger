@@ -4,7 +4,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,7 +65,7 @@ export function BurgerConstructor() {
     const data = ingredients.map((item) => item._id);
     dispatch(
       orderCheckout({
-        ingredients: data,
+        ingredients: [...data, bun._id, bun._id],
       })
     );
     handleOpenModal();
