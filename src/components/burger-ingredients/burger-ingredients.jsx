@@ -1,17 +1,44 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo, useState, useContext } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  ADD_INGREDIENT_DETAILS,
+  CLEAR_INGREDIENT_DETAILS,
+} from '../../services/actions/ingredientDetails';
+import { useInView } from 'react-intersection-observer';
+import { getIngredients } from '../../services/actions/ingredients';
+import { getIngredientsSelector } from '../../utils/selectors';
 
 export function BurgerIngredients() {
-  const [current, setCurrent] = useState('bun');
+  const [bunsRef, bunsInView] = useInView({
+    threshold: 0,
+  });
+  const [saucesRef, saucesInView] = useInView({
+    threshold: 0,
+  });
+  const [mainsRef, mainsInView] = useInView({
+    threshold: 0,
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+  const { ingredients } = useSelector(getIngredientsSelector);
+  const [currentTab, setCurrentTab] = useState('');
   const [visible, setVisible] = useState(false);
-  const [ingredient, setIngredient] = useState();
-  const { ingredients } = useContext(IngredientsContext);
-
+  useEffect(() => {
+    if (bunsInView) {
+      setCurrentTab('buns');
+    } else if (saucesInView) {
+      setCurrentTab('sauces');
+    } else if (mainsInView) {
+      setCurrentTab('mains');
+    }
+  }, [bunsInView, saucesInView, mainsInView]);
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === 'bun'),
     [ingredients]
@@ -24,18 +51,25 @@ export function BurgerIngredients() {
     () => ingredients.filter((item) => item.type === 'main'),
     [ingredients]
   );
-  const handleOpenModal = () => setVisible(true);
-  const handleCloseModal = () => setVisible(false);
+  const handleCloseIngredientModal = () => {
+    dispatch({
+      type: CLEAR_INGREDIENT_DETAILS,
+    });
+    setVisible(false);
+  };
+  const handleOpenIngredientModal = (ingredientId) => {
+    const ingredient = ingredients.find((item) => item._id === ingredientId);
+    dispatch({
+      type: ADD_INGREDIENT_DETAILS,
+      ingredient,
+    });
+    setVisible(true);
+  };
   const modal = () => (
-    <Modal handleCloseModal={handleCloseModal}>
-      <IngredientDetails ingredient={ingredient} />
+    <Modal handleCloseModal={handleCloseIngredientModal}>
+      <IngredientDetails />
     </Modal>
   );
-  const handleOpenIngredientModal = (id) => {
-    const currentIngredient = ingredients.find((item) => item._id === id);
-    setIngredient(() => currentIngredient);
-    handleOpenModal();
-  };
   return (
     <section className={s.burger}>
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
@@ -43,8 +77,7 @@ export function BurgerIngredients() {
         <li>
           <Tab
             value="bun"
-            active={current === 'bun'}
-            onClick={setCurrent}
+            active={currentTab === 'buns'}
           >
             Булки
           </Tab>
@@ -52,8 +85,7 @@ export function BurgerIngredients() {
         <li>
           <Tab
             value="sauce"
-            active={current === 'sauce'}
-            onClick={setCurrent}
+            active={currentTab === 'sauces'}
           >
             Соусы
           </Tab>
@@ -61,8 +93,7 @@ export function BurgerIngredients() {
         <li>
           <Tab
             value="main"
-            active={current === 'main'}
-            onClick={setCurrent}
+            active={currentTab === 'mains'}
           >
             Начинки
           </Tab>
@@ -70,7 +101,12 @@ export function BurgerIngredients() {
       </ul>
       <ul className={s.ingridients + ' custom-scroll'}>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Булки</h2>
+          <h2
+            ref={bunsRef}
+            className="text text_type_main-medium"
+          >
+            Булки
+          </h2>
           <ul className={s.ingridient_items}>
             {buns &&
               buns.map((bun) => (
@@ -83,7 +119,12 @@ export function BurgerIngredients() {
           </ul>
         </li>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Соусы</h2>
+          <h2
+            ref={saucesRef}
+            className="text text_type_main-medium"
+          >
+            Соусы
+          </h2>
           <ul className={s.ingridient_items}>
             {sauces &&
               sauces.map((sauce) => (
@@ -96,7 +137,12 @@ export function BurgerIngredients() {
           </ul>
         </li>
         <li className="mt-10">
-          <h2 className="text text_type_main-medium">Начинки</h2>
+          <h2
+            ref={mainsRef}
+            className="text text_type_main-medium"
+          >
+            Начинки
+          </h2>
           <ul className={s.ingridient_items}>
             {mains &&
               mains.map((main) => (

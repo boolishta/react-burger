@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import s from './order-details.module.css';
 import doneImage from '../../images/done.jpg';
-import { DetailsContext } from '../../services/detailsContext';
+import { useSelector } from 'react-redux';
+import { getOrderSelector } from '../../utils/selectors';
 
 export function OrderDetails() {
-  const { order } = useContext(DetailsContext);
+  const { order } = useSelector(getOrderSelector);
   return (
     <div className={s.order}>
       <p className="text text_type_digits-large">{order.number}</p>

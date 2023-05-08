@@ -1,13 +1,20 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useContext } from 'react';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { getIngredientsSelector } from '../../utils/selectors';
 
 export default function Price() {
-  const { cart } = useContext(IngredientsContext);
+  const { currentIngredients, bun } = useSelector(getIngredientsSelector);
+  const initialValue = bun ? bun.price * 2 : 0;
+  const total = useMemo(
+    () =>
+      currentIngredients.reduce((acc, item) => acc + item.price, initialValue),
+    [currentIngredients, initialValue]
+  );
 
   return (
     <p className="text text_type_digits-medium">
-      {cart.total}
+      {total}
       <CurrencyIcon type="primary" />
     </p>
   );
