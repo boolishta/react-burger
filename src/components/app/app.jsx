@@ -1,6 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HomePage, LoginPage, RegisterPage } from '../../pages';
+import {
+  ForgotPasswordPage,
+  HomePage,
+  LoginPage,
+  RegisterPage,
+} from '../../pages';
 
 export function App() {
   return (
@@ -17,6 +22,10 @@ export function App() {
         <Route
           path="/register"
           element={<RegisterPage />}
+        />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPasswordPage />}
         />
       </Routes>
     </BrowserRouter>
