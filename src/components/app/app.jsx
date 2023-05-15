@@ -5,8 +5,8 @@ import {
   LoginPage,
   RegisterPage,
   ResetPasswordPage,
+  ForgotPasswordPage,
 } from '../../pages';
-import { ForgotPasswordPage } from '../../pages/forgot-password';
 
 export function App() {
   return (
