@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import s from './login.module.css?module';
 
-export function ForgotPasswordPage() {
+export function ResetPasswordPage() {
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',

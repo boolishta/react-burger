@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
-  ForgotPasswordPage,
   HomePage,
   LoginPage,
   RegisterPage,
+  ResetPasswordPage,
 } from '../../pages';
 
 export function App() {
@@ -24,8 +24,8 @@ export function App() {
           element={<RegisterPage />}
         />
         <Route
-          path="/forgot-password"
-          element={<ForgotPasswordPage />}
+          path="/reset-password"
+          element={<ResetPasswordPage />}
         />
       </Routes>
     </BrowserRouter>
