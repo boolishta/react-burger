@@ -5,7 +5,7 @@ import {
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
-import s from './register.module.css?module';
+import s from './login.module.css?module';
 
 export function ForgotPasswordPage() {
   const [formValues, setFormValues] = useState({
