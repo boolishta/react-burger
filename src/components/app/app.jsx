@@ -6,6 +6,7 @@ import {
   RegisterPage,
   ResetPasswordPage,
   ForgotPasswordPage,
+  ProfilePage,
 } from '../../pages';
 
 export function App() {
@@ -31,6 +32,10 @@ export function App() {
         <Route
           path="/forgot-password"
           element={<ForgotPasswordPage />}
+        />
+        <Route
+          path="/profile"
+          element={<ProfilePage />}
         />
       </Routes>
     </BrowserRouter>
