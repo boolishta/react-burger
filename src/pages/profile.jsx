@@ -1,4 +1,3 @@
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
