@@ -1,7 +1,6 @@
 import {
   Button,
-  Input,
-  PasswordInput,
+  EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,8 +9,9 @@ import s from './login.module.css?module';
 
 export function ForgotPasswordPage() {
   const [formValues, setFormValues] = useState({
-    code: '',
+    email: '',
     password: '',
+    name: '',
   });
 
   const handleChange = (event) => {
@@ -28,18 +28,12 @@ export function ForgotPasswordPage() {
       <div className={s.login}>
         <form className={s.form}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
-          <PasswordInput
-            value={formValues.password}
-            name="password"
-            placeholder="Password"
+          <EmailInput
+            value={formValues.email}
+            placeholder="Укажите e-mail"
+            type="email"
+            name="email"
             onChange={handleChange}
-          />
-          <Input
-            placeholder="Введите код из письма"
-            name="code"
-            value={formValues.code}
-            onChange={handleChange}
-            type="text"
           />
           <Button
             htmlType="submit"
@@ -47,7 +41,7 @@ export function ForgotPasswordPage() {
             size="medium"
             extraClass={s.button}
           >
-            Сохранить
+            Восстановить
           </Button>
         </form>
         <p className="text text_type_main-default text_color_inactive">

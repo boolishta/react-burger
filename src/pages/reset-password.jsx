@@ -1,6 +1,7 @@
 import {
   Button,
-  EmailInput,
+  Input,
+  PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,9 +10,8 @@ import s from './login.module.css?module';
 
 export function ResetPasswordPage() {
   const [formValues, setFormValues] = useState({
-    email: '',
+    code: '',
     password: '',
-    name: '',
   });
 
   const handleChange = (event) => {
@@ -28,12 +28,18 @@ export function ResetPasswordPage() {
       <div className={s.login}>
         <form className={s.form}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
-          <EmailInput
-            value={formValues.email}
-            placeholder="Укажите e-mail"
-            type="email"
-            name="email"
+          <PasswordInput
+            value={formValues.password}
+            name="password"
+            placeholder="Password"
             onChange={handleChange}
+          />
+          <Input
+            placeholder="Введите код из письма"
+            name="code"
+            value={formValues.code}
+            onChange={handleChange}
+            type="text"
           />
           <Button
             htmlType="submit"
@@ -41,7 +47,7 @@ export function ResetPasswordPage() {
             size="medium"
             extraClass={s.button}
           >
-            Восстановить
+            Сохранить
           </Button>
         </form>
         <p className="text text_type_main-default text_color_inactive">
