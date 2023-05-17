@@ -67,7 +67,7 @@ export function LoginPage() {
           Забыли пароль?{' '}
           <Link
             className={s.link}
-            to="/reset-password"
+            to="/forgot-password"
           >
             Восстановить пароль
           </Link>
