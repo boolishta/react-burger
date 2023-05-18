@@ -6,14 +6,15 @@ import {
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
+import { resetPassword } from '../utils/burger-api';
 import s from './login.module.css?module';
 
 export function ResetPasswordPage() {
   const [formValues, setFormValues] = useState({
-    code: '',
+    token: '',
     password: '',
   });
-
+  const [successMessage, setSuccessMessage] = useState(null);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValues(() => ({
@@ -21,12 +22,26 @@ export function ResetPasswordPage() {
       [name]: value,
     }));
   };
+  const onClick = () => {
+    resetPassword({
+      token: formValues.token,
+      password: formValues.password,
+    })
+      .then((res) => {
+        if (res.success) {
+          setSuccessMessage(res.message);
+        }
+      })
+      .catch((error) => {
+        setSuccessMessage(error.message);
+      });
+  };
 
   return (
     <>
       <AppHeader />
       <div className={s.login}>
-        <form className={s.form}>
+        <div className={s.form}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <PasswordInput
             value={formValues.password}
@@ -36,8 +51,8 @@ export function ResetPasswordPage() {
           />
           <Input
             placeholder="Введите код из письма"
-            name="code"
-            value={formValues.code}
+            name="token"
+            value={formValues.token}
             onChange={handleChange}
             type="text"
           />
@@ -46,10 +61,16 @@ export function ResetPasswordPage() {
             type="primary"
             size="medium"
             extraClass={s.button}
+            onClick={onClick}
           >
             Сохранить
           </Button>
-        </form>
+          {successMessage && (
+            <p className="text text_type_main-default text_color_inactive">
+              {successMessage}
+            </p>
+          )}
+        </div>
         <p className="text text_type_main-default text_color_inactive">
           Вспомнили пароль?{' '}
           <Link

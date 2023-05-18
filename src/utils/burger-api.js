@@ -1,4 +1,7 @@
 const NORMA_API = 'https://norma.nomoreparties.space/api';
+const HEADERS = {
+  'Content-Type': 'application/json',
+};
 
 const checkReponse = (res) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -11,9 +14,23 @@ export function fetchIngredients() {
 export function checkout(data) {
   return fetch(`${NORMA_API}/orders`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
+    body: JSON.stringify(data),
+  }).then(checkReponse);
+}
+
+export function forgotPassword(data) {
+  return fetch(`${NORMA_API}/password-reset`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(data),
+  }).then(checkReponse);
+}
+
+export function resetPassword(data) {
+  return fetch(`${NORMA_API}/password-reset/reset`, {
+    method: 'POST',
+    headers: HEADERS,
     body: JSON.stringify(data),
   }).then(checkReponse);
 }

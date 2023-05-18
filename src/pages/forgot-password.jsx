@@ -3,33 +3,38 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import s from './login.module.css?module';
+import { forgotPassword } from '../utils/burger-api';
 
 export function ForgotPasswordPage() {
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
-    name: '',
-  });
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState(null);
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues(() => ({
-      ...formValues,
-      [name]: value,
-    }));
+    setError(null);
+    setEmail(event.target.value);
+  };
+  const navigate = useNavigate();
+  const onClick = () => {
+    forgotPassword({
+      email,
+    })
+      .then(() => {
+        navigate('/reset-password');
+      })
+      .catch(() => setError('Ошибка!'));
   };
 
   return (
     <>
       <AppHeader />
       <div className={s.login}>
-        <form className={s.form}>
+        <div className={s.form}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <EmailInput
-            value={formValues.email}
+            value={email}
             placeholder="Укажите e-mail"
             type="email"
             name="email"
@@ -40,10 +45,17 @@ export function ForgotPasswordPage() {
             type="primary"
             size="medium"
             extraClass={s.button}
+            onClick={onClick}
+            disabled={!!error}
           >
             Восстановить
           </Button>
-        </form>
+          {error && (
+            <p className="text text_type_main-default text_color_inactive">
+              {error}
+            </p>
+          )}
+        </div>
         <p className="text text_type_main-default text_color_inactive">
           Вспомнили пароль?{' '}
           <Link
