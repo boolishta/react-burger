@@ -34,3 +34,20 @@ export function resetPassword(data) {
     body: JSON.stringify(data),
   }).then(checkReponse);
 }
+
+export function login(data) {
+  return fetch(`${NORMA_API}/auth/login`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(data),
+  }).then(checkReponse);
+}
+
+export function register(data) {
+  console.log('data');
+  return fetch(`${NORMA_API}/auth/register`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(data),
+  }).then(checkReponse);
+}

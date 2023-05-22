@@ -4,16 +4,20 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
+import Error from '../components/error/error';
+import { userRegister } from '../services/actions/user';
+import { getUserSelector } from '../utils/selectors';
 import s from './login.module.css?module';
 
 export function RegisterPage() {
   const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
-    name: '',
+    email: 'batr.fly@yandex.ru',
+    password: 'password',
+    name: 'Username',
   });
 
   const handleChange = (event) => {
@@ -24,11 +28,31 @@ export function RegisterPage() {
     }));
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { success, error } = useSelector(getUserSelector);
+
+  const onClick = () => {
+    dispatch(
+      userRegister({
+        email: formValues.email,
+        password: formValues.password,
+        name: formValues.name,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate('/');
+    }
+  }, [success, navigate]);
+
   return (
     <>
       <AppHeader />
       <div className={s.login}>
-        <form className={s.form}>
+        <div className={s.form}>
           <p className="text text_type_main-medium">Регистрация</p>
           <Input
             placeholder="Имя"
@@ -55,10 +79,12 @@ export function RegisterPage() {
             type="primary"
             size="medium"
             extraClass={s.button}
+            onClick={onClick}
           >
             Войти
           </Button>
-        </form>
+          {error && <Error>{error}</Error>}
+        </div>
         <p className="text text_type_main-default text_color_inactive">
           Уже зарегистрированы?{' '}
           <Link
