@@ -4,18 +4,24 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from '../../utils/selectors';
 import s from './settings.module.css?module';
 
 export function Settings() {
-  const { name, email, password } = useSelector(getUserSelector);
+  const { user } = useSelector(getUserSelector);
   const [values, setValues] = useState({
-    name,
-    email,
-    password,
+    name: '',
+    email: '',
+    password: '',
   });
+  useEffect(() => {
+    setValues(() => ({
+      name: user.name,
+      email: user.email,
+    }));
+  }, [user, setValues]);
   const [disabledName, setDisabledName] = useState(true);
   const onChange = (event) => {
     const { name, value } = event.target;

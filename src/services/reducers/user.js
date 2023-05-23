@@ -10,7 +10,7 @@ const initialStore = {
     email: '',
     name: '',
   },
-  error: null,
+  message: null,
 };
 
 export const userReducer = (state = initialStore, action) => {
@@ -30,6 +30,7 @@ export const userReducer = (state = initialStore, action) => {
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
         success: action.payload.success,
+        message: action.payload.message,
       };
     }
     case USER_FAILED: {
@@ -37,7 +38,7 @@ export const userReducer = (state = initialStore, action) => {
         ...state,
         userFailed: true,
         userRequest: false,
-        error: action.payload.error,
+        message: action.payload.error,
         success: action.payload.success,
       };
     }
