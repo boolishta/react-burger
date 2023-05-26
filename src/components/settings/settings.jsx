@@ -5,29 +5,59 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  refreshUserToken,
+  updateUserData,
+  userData,
+} from '../../services/actions/user';
 import { getUserSelector } from '../../utils/selectors';
 import s from './settings.module.css?module';
 
 export function Settings() {
-  const { user } = useSelector(getUserSelector);
+  const dispatch = useDispatch();
+  const { user, token } = useSelector(getUserSelector);
   const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
   });
   useEffect(() => {
-    setValues(() => ({
-      name: user.name,
-      email: user.email,
+    setValues((state) => ({
+      ...state,
+      name: user ? user.name : '',
+      email: user ? user.email : '',
     }));
   }, [user, setValues]);
+  useEffect(() => {
+    if (token) {
+      dispatch(userData(token));
+    } else {
+      dispatch(refreshUserToken());
+    }
+  }, [dispatch, token]);
   const [disabledName, setDisabledName] = useState(true);
   const onChange = (event) => {
     const { name, value } = event.target;
     setValues(() => ({
       ...values,
       [name]: value,
+    }));
+  };
+  // FIXME: данные не обновляются
+  const handleSubmit = () => {
+    dispatch(
+      updateUserData(token, {
+        name: values.name,
+        email: values.email,
+      })
+    );
+  };
+  const cancelEdit = () => {
+    setValues((state) => ({
+      ...state,
+      name: user ? user.name : '',
+      email: user ? user.email : '',
     }));
   };
   return (
@@ -60,6 +90,7 @@ export function Settings() {
           htmlType="button"
           type="secondary"
           size="medium"
+          onClick={cancelEdit}
         >
           Отмена
         </Button>
@@ -67,6 +98,7 @@ export function Settings() {
           htmlType="button"
           type="primary"
           size="medium"
+          onClick={handleSubmit}
         >
           Сохранить
         </Button>

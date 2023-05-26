@@ -19,7 +19,7 @@ export function LoginPage() {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, success } = useSelector(getUserSelector);
+  const { error, userLoginSuccess } = useSelector(getUserSelector);
   const onChange = (event) => {
     const { name, value } = event.target;
     setFormValues(() => ({
@@ -37,10 +37,10 @@ export function LoginPage() {
     );
   };
   useEffect(() => {
-    if (success) {
+    if (userLoginSuccess) {
       navigate('/');
     }
-  }, [success, navigate]);
+  }, [userLoginSuccess, navigate]);
   return (
     <>
       <AppHeader />

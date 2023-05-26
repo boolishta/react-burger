@@ -51,18 +51,42 @@ export function register(data) {
   }).then(checkReponse);
 }
 
-export function token(data) {
+export function refreshToken(refreshToken) {
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
     headers: HEADERS,
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      token: refreshToken,
+    }),
   }).then(checkReponse);
 }
 
-export function logout(data) {
+export function logout(refreshToken) {
   return fetch(`${NORMA_API}/auth/logout`, {
     method: 'POST',
     headers: HEADERS,
+    body: JSON.stringify({
+      token: refreshToken,
+    }),
+  }).then(checkReponse);
+}
+
+export function getUserData(token) {
+  return fetch(`${NORMA_API}/auth/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  }).then(checkReponse);
+}
+
+export function patchUserData(token, data) {
+  return fetch(`${NORMA_API}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
     body: JSON.stringify(data),
   }).then(checkReponse);
 }
