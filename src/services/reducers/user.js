@@ -53,6 +53,7 @@ export const userReducer = (state = initialStore, action) => {
         userLoginRequest: false,
         userLoginSuccess: action.payload.success,
         token: action.payload.token,
+        message: initialStore.message,
       };
     }
     case USER_LOGIN_FAILED: {
@@ -125,6 +126,11 @@ export const userReducer = (state = initialStore, action) => {
         userLogoutRequest: false,
         userLogoutSuccess: action.payload.success,
         message: action.payload.message,
+        userLoginSuccess: initialStore.userLoginSuccess,
+        userLoginRequest: initialStore.userLoginRequest,
+        userLoginFailed: initialStore.userLoginFailed,
+        user: initialStore.user,
+        token: initialStore.token,
       };
     }
     case USER_LOGOUT_FAILED: {

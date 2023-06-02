@@ -170,12 +170,11 @@ export function userLogout() {
   };
 }
 
-export function refreshUserToken() {
+export function refreshUserToken(refreshTokenValue) {
   return function (dispatch) {
     dispatch({
       type: USER_REFRESH_TOKEN_REQUEST,
     });
-    const refreshTokenValue = localStorage.getItem('refreshToken');
     refreshToken(refreshTokenValue)
       .then((res) => {
         localStorage.setItem('refreshToken', res.refreshToken);

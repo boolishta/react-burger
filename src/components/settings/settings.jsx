@@ -29,13 +29,14 @@ export function Settings() {
       email: user ? user.email : '',
     }));
   }, [user, setValues]);
+  const refreshTokenValue = localStorage.getItem('refreshToken');
   useEffect(() => {
     if (token) {
       dispatch(userData(token));
-    } else {
-      dispatch(refreshUserToken());
+    } else if (refreshTokenValue) {
+      dispatch(refreshUserToken(refreshTokenValue));
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, refreshTokenValue]);
   const [disabledName, setDisabledName] = useState(true);
   const onChange = (event) => {
     const { name, value } = event.target;

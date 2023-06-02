@@ -3,8 +3,8 @@ import {
   EmailInput,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import s from './login.module.css?module';
 import Error from '../components/error/error';
@@ -13,17 +13,21 @@ import { userLogin } from '../services/actions/user';
 import { getUserSelector } from '../utils/selectors';
 
 export function LoginPage() {
+  const location = useLocation();
+  const returnUrl = new URLSearchParams(location.search).get('returnUrl');
+  const url = useMemo(() => (returnUrl ? returnUrl : '/'), [returnUrl]);
   const [formValues, setFormValues] = useState({
     email: 'batr.fly@yandex.ru',
     password: 'password',
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, userLoginSuccess } = useSelector(getUserSelector);
+  const { error, userLoginSuccess, userLogoutSuccess } =
+    useSelector(getUserSelector);
   const onChange = (event) => {
     const { name, value } = event.target;
-    setFormValues(() => ({
-      ...formValues,
+    setFormValues((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
@@ -38,9 +42,9 @@ export function LoginPage() {
   };
   useEffect(() => {
     if (userLoginSuccess) {
-      navigate('/');
+      navigate(url);
     }
-  }, [userLoginSuccess, navigate]);
+  }, [userLoginSuccess, navigate, userLogoutSuccess, url]);
   return (
     <>
       <AppHeader />
