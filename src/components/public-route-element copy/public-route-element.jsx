@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { HOME } from '../../utils/routes';
 
 const PublicRouteElement = ({ children }) => {
   const isAuth = !!localStorage.getItem('refreshToken');
@@ -7,7 +8,7 @@ const PublicRouteElement = ({ children }) => {
     children
   ) : (
     <Navigate
-      to={'/'}
+      to={HOME}
       replace
     />
   );

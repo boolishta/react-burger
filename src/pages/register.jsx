@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import Error from '../components/error/error';
 import { userRegister } from '../services/actions/user';
+import { LOGIN } from '../utils/routes';
 import { getUserSelector } from '../utils/selectors';
 import s from './login.module.css?module';
 
@@ -89,7 +90,7 @@ export function RegisterPage() {
           Уже зарегистрированы?{' '}
           <Link
             className={s.link}
-            to="/login"
+            to={LOGIN}
           >
             Войти
           </Link>

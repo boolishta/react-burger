@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import { resetPassword } from '../utils/burger-api';
+import { LOGIN } from '../utils/routes';
 import s from './login.module.css?module';
 
 export function ResetPasswordPage() {
@@ -75,7 +76,7 @@ export function ResetPasswordPage() {
           Вспомнили пароль?{' '}
           <Link
             className={s.link}
-            to="/login"
+            to={LOGIN}
           >
             Войти
           </Link>

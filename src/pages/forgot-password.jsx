@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import s from './login.module.css?module';
 import { forgotPassword } from '../utils/burger-api';
+import { LOGIN } from '../utils/routes';
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -60,7 +61,7 @@ export function ForgotPasswordPage() {
           Вспомнили пароль?{' '}
           <Link
             className={s.link}
-            to="/login"
+            to={LOGIN}
           >
             Войти
           </Link>

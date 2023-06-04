@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import { Settings } from '../components/settings/settings';
 import { userLogout } from '../services/actions/user';
+import { PROFILE } from '../utils/routes';
 import { getUserSelector } from '../utils/selectors';
 import s from './profile.module.css?module';
 
@@ -29,7 +30,7 @@ export function ProfilePage() {
         <ul className={s.list}>
           <li>
             <NavLink
-              to={'/profile'}
+              to={PROFILE}
               className={linkClasses}
             >
               Профиль

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { LOGIN } from '../../utils/routes';
 
 const ProtectedRouteElement = ({ children }) => {
   const location = useLocation();
@@ -8,7 +9,7 @@ const ProtectedRouteElement = ({ children }) => {
     children
   ) : (
     <Navigate
-      to={`/login?returnUrl=${encodeURIComponent(location.pathname)}`}
+      to={`${LOGIN}?returnUrl=${encodeURIComponent(location.pathname)}`}
       replace
     />
   );

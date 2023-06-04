@@ -11,11 +11,12 @@ import Error from '../components/error/error';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../services/actions/user';
 import { getUserSelector } from '../utils/selectors';
+import { FORGOT_PASSWORD, HOME, REGISTER } from '../utils/routes';
 
 export function LoginPage() {
   const location = useLocation();
   const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-  const url = useMemo(() => (returnUrl ? returnUrl : '/'), [returnUrl]);
+  const url = useMemo(() => (returnUrl ? returnUrl : HOME), [returnUrl]);
   const [formValues, setFormValues] = useState({
     email: 'batr.fly@yandex.ru',
     password: 'password',
@@ -83,7 +84,7 @@ export function LoginPage() {
           Вы — новый пользователь?{' '}
           <Link
             className={s.link}
-            to="/register"
+            to={REGISTER}
           >
             Зарегистрироваться
           </Link>
@@ -92,7 +93,7 @@ export function LoginPage() {
           Забыли пароль?{' '}
           <Link
             className={s.link}
-            to="/forgot-password"
+            to={FORGOT_PASSWORD}
           >
             Восстановить пароль
           </Link>

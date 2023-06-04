@@ -8,6 +8,14 @@ import {
   ForgotPasswordPage,
   ProfilePage,
 } from '../../pages';
+import {
+  FORGOT_PASSWORD,
+  HOME,
+  LOGIN,
+  PROFILE,
+  REGISTER,
+  RESET_PASSWORD,
+} from '../../utils/routes';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import PublicRouteElement from '../public-route-element copy/public-route-element';
 
@@ -16,7 +24,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/profile"
+          path={PROFILE}
           element={
             <ProtectedRouteElement>
               <ProfilePage />
@@ -24,7 +32,7 @@ export function App() {
           }
         />
         <Route
-          path="/"
+          path={HOME}
           element={
             <ProtectedRouteElement>
               <HomePage />
@@ -32,7 +40,7 @@ export function App() {
           }
         />
         <Route
-          path="/login"
+          path={LOGIN}
           element={
             <PublicRouteElement>
               <LoginPage />
@@ -40,7 +48,7 @@ export function App() {
           }
         />
         <Route
-          path="/register"
+          path={REGISTER}
           element={
             <PublicRouteElement>
               <RegisterPage />
@@ -48,7 +56,7 @@ export function App() {
           }
         />
         <Route
-          path="/reset-password"
+          path={RESET_PASSWORD}
           element={
             <PublicRouteElement>
               <ResetPasswordPage />
@@ -56,7 +64,7 @@ export function App() {
           }
         />
         <Route
-          path="/forgot-password"
+          path={FORGOT_PASSWORD}
           element={
             <PublicRouteElement>
               <ForgotPasswordPage />
