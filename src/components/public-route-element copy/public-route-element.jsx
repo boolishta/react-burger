@@ -1,22 +1,14 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-const PublicRouteElement = ({ children, isAuthenticated, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        !isAuthenticated ? (
-          children
-        ) : (
-          <Navigate
-            to={{
-              pathname: '/home',
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
+const PublicRouteElement = ({ children }) => {
+  const isAuth = !!localStorage.getItem('refreshToken');
+  return !isAuth ? (
+    children
+  ) : (
+    <Navigate
+      to={'/'}
+      replace
     />
   );
 };

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
   HomePage,
@@ -22,46 +22,48 @@ export function App() {
               <ProfilePage />
             </ProtectedRouteElement>
           }
-        ></Route>
+        />
         <Route
           path="/"
-          element={<HomePage />}
+          element={
+            <ProtectedRouteElement>
+              <HomePage />
+            </ProtectedRouteElement>
+          }
         />
         <Route
           path="/login"
-          element={<LoginPage />}
-        />
-      </Routes>
-      {/* <Routes>
-        <Route
-          path="/"
-          element={<HomePage />}
-        />
-        <Route
-          path="/login"
-          element={<LoginPage />}
+          element={
+            <PublicRouteElement>
+              <LoginPage />
+            </PublicRouteElement>
+          }
         />
         <Route
           path="/register"
-          element={<RegisterPage />}
+          element={
+            <PublicRouteElement>
+              <RegisterPage />
+            </PublicRouteElement>
+          }
         />
         <Route
           path="/reset-password"
-          element={<ResetPasswordPage />}
+          element={
+            <PublicRouteElement>
+              <ResetPasswordPage />
+            </PublicRouteElement>
+          }
         />
         <Route
           path="/forgot-password"
-          element={<ForgotPasswordPage />}
+          element={
+            <PublicRouteElement>
+              <ForgotPasswordPage />
+            </PublicRouteElement>
+          }
         />
-        <ProtectedRouteElement
-          path="/profile"
-          component={ProfilePage}
-        />
-        <Route
-          path="/profile"
-          element={<ProfilePage />}
-        />
-      </Routes> */}
+      </Routes>
     </BrowserRouter>
   );
 }
