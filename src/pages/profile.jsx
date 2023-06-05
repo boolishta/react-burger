@@ -1,11 +1,11 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import { Settings } from '../components/settings/settings';
 import { userLogout } from '../services/actions/user';
-import { PROFILE } from '../utils/routes';
+import { LOGIN, PROFILE } from '../utils/routes';
 import { getUserSelector } from '../utils/selectors';
 import s from './profile.module.css?module';
 
@@ -20,10 +20,11 @@ export function ProfilePage() {
   const onClick = () => {
     dispatch(userLogout());
   };
+  const isAuth = !!localStorage.getItem('refreshToken');
   useEffect(() => {
     setLogoutMessage(message);
   }, [message, setLogoutMessage]);
-  return (
+  return isAuth ? (
     <>
       <AppHeader />
       <div className={s.profile}>
@@ -70,5 +71,7 @@ export function ProfilePage() {
         )}
       </div>
     </>
+  ) : (
+    <Navigate to={LOGIN} />
   );
 }
