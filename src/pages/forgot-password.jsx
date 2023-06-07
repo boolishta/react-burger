@@ -23,7 +23,7 @@ export function ForgotPasswordPage() {
       email,
     })
       .then(() => {
-        navigate('/reset-password');
+        navigate('/reset-password', { state: { isTokenSent: true } });
       })
       .catch(() => setError('Ошибка!'));
   };

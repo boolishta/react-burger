@@ -56,8 +56,6 @@ export function App() {
             </PublicRouteElement>
           }
         />
-        {/* TODO: /reset-password доступен неавторизованным пользователям только после посещения маршрута /forgot-
-password и ввода адреса электронной почты для восстановления пароля. */}
         <Route
           path={RESET_PASSWORD}
           element={
