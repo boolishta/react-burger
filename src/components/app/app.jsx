@@ -7,6 +7,7 @@ import {
   ResetPasswordPage,
   ForgotPasswordPage,
   ProfilePage,
+  IngredientPage,
 } from '../../pages';
 import {
   FORGOT_PASSWORD,
@@ -55,6 +56,8 @@ export function App() {
             </PublicRouteElement>
           }
         />
+        {/* TODO: /reset-password доступен неавторизованным пользователям только после посещения маршрута /forgot-
+password и ввода адреса электронной почты для восстановления пароля. */}
         <Route
           path={RESET_PASSWORD}
           element={
@@ -70,6 +73,11 @@ export function App() {
               <ForgotPasswordPage />
             </PublicRouteElement>
           }
+        />
+        <Route
+          exact
+          path="/ingredients/:id"
+          element={<IngredientPage />}
         />
       </Routes>
     </BrowserRouter>
