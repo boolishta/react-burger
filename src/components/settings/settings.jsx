@@ -45,7 +45,6 @@ export function Settings() {
       [name]: value,
     }));
   };
-  // FIXME: данные не обновляются
   const handleSubmit = () => {
     dispatch(
       updateUserData(token, {

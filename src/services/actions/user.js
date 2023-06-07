@@ -112,12 +112,12 @@ export function userData(token) {
   };
 }
 
-export function updateUserData(token) {
+export function updateUserData(token, data) {
   return function (dispatch) {
     dispatch({
       type: USER_DATA_REQUEST,
     });
-    patchUserData(token)
+    patchUserData(token, data)
       .then((res) => {
         if (res && res.success) {
           dispatch({
