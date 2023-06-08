@@ -10,6 +10,7 @@ import {
   CLEAR_INGREDIENT_DETAILS,
 } from '../services/actions/ingredientDetails';
 import Modal from '../components/modal/modal';
+import { getIngredients } from '../services/actions/ingredients';
 
 export default function IngredientPage() {
   const { ingredients } = useSelector(getIngredientsSelector);
@@ -22,6 +23,7 @@ export default function IngredientPage() {
     if (location.state?.isModal) {
       setVisible(true);
     } else {
+      dispatch(getIngredients());
       const pathname = location.pathname.split('/');
       const id = pathname[pathname.length - 1];
       const ingredient = ingredients.find((item) => item._id === id);
