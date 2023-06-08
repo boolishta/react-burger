@@ -31,7 +31,7 @@ export function RegisterPage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { success, error } = useSelector(getUserSelector);
+  const { userRegisterSuccess, error } = useSelector(getUserSelector);
 
   const onClick = () => {
     dispatch(
@@ -44,10 +44,10 @@ export function RegisterPage() {
   };
 
   useEffect(() => {
-    if (success) {
+    if (userRegisterSuccess) {
       navigate('/');
     }
-  }, [success, navigate]);
+  }, [userRegisterSuccess, navigate]);
 
   return (
     <>
