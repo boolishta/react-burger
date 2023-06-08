@@ -34,11 +34,7 @@ export function App() {
         />
         <Route
           path={HOME}
-          element={
-            <ProtectedRouteElement>
-              <HomePage />
-            </ProtectedRouteElement>
-          }
+          element={<HomePage />}
         />
         <Route
           path={LOGIN}
