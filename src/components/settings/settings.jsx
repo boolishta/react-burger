@@ -6,6 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from '../../hooks/useForm';
 import {
   refreshUserToken,
   updateUserData,
@@ -17,7 +18,7 @@ import s from './settings.module.css?module';
 export function Settings() {
   const dispatch = useDispatch();
   const { user, token } = useSelector(getUserSelector);
-  const [values, setValues] = useState({
+  const { values, setValues, handleChange } = useForm({
     name: '',
     email: '',
     password: '',
@@ -38,14 +39,8 @@ export function Settings() {
     }
   }, [dispatch, token, refreshTokenValue]);
   const [disabledName, setDisabledName] = useState(true);
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setValues(() => ({
-      ...values,
-      [name]: value,
-    }));
-  };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     dispatch(
       updateUserData(token, {
         name: values.name,
@@ -62,26 +57,29 @@ export function Settings() {
     }));
   };
   return (
-    <div className={s.settings}>
+    <form
+      onSubmit={handleSubmit}
+      className={s.settings}
+    >
       <Input
         placeholder="Имя"
         icon="EditIcon"
         value={values.name}
         name="name"
-        onChange={onChange}
+        onChange={handleChange}
         disabled={disabledName}
         onIconClick={() => setDisabledName(false)}
         onBlur={() => setDisabledName(true)}
       />
       <EmailInput
-        onChange={onChange}
+        onChange={handleChange}
         value={values.email}
         name={'email'}
         placeholder="Логин"
         isIcon={true}
       />
       <PasswordInput
-        onChange={onChange}
+        onChange={handleChange}
         value={values.password}
         name={'password'}
         icon="EditIcon"
@@ -96,14 +94,13 @@ export function Settings() {
           Отмена
         </Button>
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
-          onClick={handleSubmit}
         >
           Сохранить
         </Button>
       </div>
-    </div>
+    </form>
   );
 }

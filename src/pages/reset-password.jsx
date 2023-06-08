@@ -6,8 +6,9 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
+import { useForm } from '../hooks/useForm';
 import { resetPassword } from '../utils/burger-api';
-import { LOGIN } from '../utils/routes';
+import { HOME, LOGIN } from '../utils/routes';
 import s from './login.module.css?module';
 
 export function ResetPasswordPage() {
@@ -18,26 +19,21 @@ export function ResetPasswordPage() {
       navigate('/forgot-password');
     }
   }, [location, navigate]);
-  const [formValues, setFormValues] = useState({
+  const { values, setValues, handleChange } = useForm({
     token: '',
     password: '',
   });
   const [successMessage, setSuccessMessage] = useState(null);
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues(() => ({
-      ...formValues,
-      [name]: value,
-    }));
-  };
-  const onClick = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     resetPassword({
-      token: formValues.token,
-      password: formValues.password,
+      token: setValues.token,
+      password: setValues.password,
     })
       .then((res) => {
         if (res.success) {
           setSuccessMessage(res.message);
+          navigate(HOME);
         }
       })
       .catch((error) => {
@@ -49,10 +45,13 @@ export function ResetPasswordPage() {
     <>
       <AppHeader />
       <div className={s.login}>
-        <div className={s.form}>
+        <form
+          onSubmit={onSubmit}
+          className={s.form}
+        >
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <PasswordInput
-            value={formValues.password}
+            value={values.password}
             name="password"
             placeholder="Password"
             onChange={handleChange}
@@ -60,7 +59,7 @@ export function ResetPasswordPage() {
           <Input
             placeholder="Введите код из письма"
             name="token"
-            value={formValues.token}
+            value={values.token}
             onChange={handleChange}
             type="text"
           />
@@ -69,7 +68,6 @@ export function ResetPasswordPage() {
             type="primary"
             size="medium"
             extraClass={s.button}
-            onClick={onClick}
           >
             Сохранить
           </Button>
@@ -78,7 +76,7 @@ export function ResetPasswordPage() {
               {successMessage}
             </p>
           )}
-        </div>
+        </form>
         <p className="text text_type_main-default text_color_inactive">
           Вспомнили пароль?{' '}
           <Link

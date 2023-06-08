@@ -27,6 +27,8 @@ export const USER_REFRESH_TOKEN_REQUEST = 'USER_REFRESH_TOKEN_REQUEST';
 export const USER_REFRESH_TOKEN_SUCCESS = 'USER_REFRESH_TOKEN_SUCCESS';
 export const USER_REFRESH_TOKEN_FAILED = 'USER_REFRESH_TOKEN_FAILED';
 
+export const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
+
 export function userLogin(data) {
   return function (dispatch) {
     dispatch({

@@ -12,13 +12,13 @@ import { LOGIN } from '../utils/routes';
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
-
   const handleChange = (event) => {
     setError(null);
     setEmail(event.target.value);
   };
   const navigate = useNavigate();
-  const onClick = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     forgotPassword({
       email,
     })
@@ -32,7 +32,10 @@ export function ForgotPasswordPage() {
     <>
       <AppHeader />
       <div className={s.login}>
-        <div className={s.form}>
+        <form
+          onSubmit={onSubmit}
+          className={s.form}
+        >
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <EmailInput
             value={email}
@@ -46,7 +49,6 @@ export function ForgotPasswordPage() {
             type="primary"
             size="medium"
             extraClass={s.button}
-            onClick={onClick}
             disabled={!!error}
           >
             Восстановить
@@ -56,7 +58,7 @@ export function ForgotPasswordPage() {
               {error}
             </p>
           )}
-        </div>
+        </form>
         <p className="text text_type_main-default text_color_inactive">
           Вспомнили пароль?{' '}
           <Link

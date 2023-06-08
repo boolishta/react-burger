@@ -14,6 +14,7 @@ import {
   USER_REFRESH_TOKEN_REQUEST,
   USER_REFRESH_TOKEN_SUCCESS,
   USER_REFRESH_TOKEN_FAILED,
+  CLEAR_USER_ERROR,
 } from '../actions/user';
 
 const initialStore = {
@@ -40,6 +41,13 @@ const initialStore = {
 
 export const userReducer = (state = initialStore, action) => {
   switch (action.type) {
+    case CLEAR_USER_ERROR: {
+      return {
+        ...state,
+        error: initialStore.error,
+        message: initialStore.message,
+      };
+    }
     case USER_LOGIN_REQUEST: {
       return {
         ...state,

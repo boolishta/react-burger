@@ -1,5 +1,5 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
@@ -15,15 +15,11 @@ export function ProfilePage() {
     return isActive ? s.link + ' ' + s.link_active + classes : s.link + classes;
   };
   const { message } = useSelector(getUserSelector);
-  const [logoutMessage, setLogoutMessage] = useState();
   const dispatch = useDispatch();
   const onClick = () => {
     dispatch(userLogout());
   };
   const isAuth = !!localStorage.getItem('refreshToken');
-  useEffect(() => {
-    setLogoutMessage(message);
-  }, [message, setLogoutMessage]);
   return isAuth ? (
     <>
       <AppHeader />
@@ -62,9 +58,9 @@ export function ProfilePage() {
             </p>
           </li>
         </ul>
-        {logoutMessage ? (
+        {message ? (
           <p className="text text_type_main-default text_color_inactive">
-            {logoutMessage}
+            {message}
           </p>
         ) : (
           <Settings />
