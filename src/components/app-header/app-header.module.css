@@ -23,6 +23,10 @@
   padding: 16px 20px;
 }
 
+.activeButton {
+  color: var(--text-primary-color);
+}
+
 .list {
   display: flex;
   margin: 0;
