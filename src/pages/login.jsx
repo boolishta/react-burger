@@ -18,8 +18,8 @@ export function LoginPage() {
   const returnUrl = new URLSearchParams(location.search).get('returnUrl');
   const url = useMemo(() => (returnUrl ? returnUrl : HOME), [returnUrl]);
   const [formValues, setFormValues] = useState({
-    email: 'batr.fly@yandex.ru',
-    password: 'password',
+    email: '',
+    password: '',
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();

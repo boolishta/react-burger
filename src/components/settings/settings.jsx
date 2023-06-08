@@ -50,6 +50,7 @@ export function Settings() {
       updateUserData(token, {
         name: values.name,
         email: values.email,
+        password: values.password,
       })
     );
   };
