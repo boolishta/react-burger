@@ -7,17 +7,13 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import {
-  refreshUserToken,
-  updateUserData,
-  userData,
-} from '../../services/actions/user';
+import { updateUserData, userData } from '../../services/actions/user';
 import { getUserSelector } from '../../utils/selectors';
 import s from './settings.module.css?module';
 
 export function Settings() {
   const dispatch = useDispatch();
-  const { user, token } = useSelector(getUserSelector);
+  const { user } = useSelector(getUserSelector);
   const { values, setValues, handleChange } = useForm({
     name: '',
     email: '',
@@ -30,19 +26,14 @@ export function Settings() {
       email: user ? user.email : '',
     }));
   }, [user, setValues]);
-  const refreshTokenValue = localStorage.getItem('refreshToken');
   useEffect(() => {
-    if (token) {
-      dispatch(userData(token));
-    } else if (refreshTokenValue) {
-      dispatch(refreshUserToken(refreshTokenValue));
-    }
-  }, [dispatch, token, refreshTokenValue]);
+    dispatch(userData());
+  }, [dispatch]);
   const [disabledName, setDisabledName] = useState(true);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      updateUserData(token, {
+      updateUserData({
         name: values.name,
         email: values.email,
         password: values.password,

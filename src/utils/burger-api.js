@@ -1,3 +1,5 @@
+import { getCookie, setCookie } from './cookie';
+
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -51,42 +53,61 @@ export function register(data) {
   }).then(checkReponse);
 }
 
-export function refreshToken(refreshToken) {
+export function refreshToken() {
+  const token = localStorage.getItem('refreshToken');
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify({
-      token: refreshToken,
+      token,
     }),
   }).then(checkReponse);
 }
 
-export function logout(refreshToken) {
+export function logout() {
   return fetch(`${NORMA_API}/auth/logout`, {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify({
-      token: refreshToken,
+      token: localStorage.getItem('refreshToken'),
     }),
   }).then(checkReponse);
 }
 
-export function getUserData(token) {
-  return fetch(`${NORMA_API}/auth/user`, {
+export function getUserData() {
+  return fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
-      Authorization: token,
+      Authorization: getCookie('accessToken'),
     },
-  }).then(checkReponse);
+  });
 }
 
-export function patchUserData(token, data) {
-  return fetch(`${NORMA_API}/auth/user`, {
+export function patchUserData(data) {
+  return fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token,
+      Authorization: getCookie('accessToken'),
     },
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  });
 }
+
+const fetchWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    return await checkReponse(res);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshToken();
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      setCookie('accessToken', refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkReponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};

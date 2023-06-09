@@ -2,10 +2,10 @@ import {
   login,
   logout,
   register,
-  refreshToken,
   getUserData,
   patchUserData,
 } from '../../utils/burger-api';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
@@ -23,10 +23,6 @@ export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST';
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 export const USER_LOGOUT_FAILED = 'USER_LOGOUT_FAILED';
 
-export const USER_REFRESH_TOKEN_REQUEST = 'USER_REFRESH_TOKEN_REQUEST';
-export const USER_REFRESH_TOKEN_SUCCESS = 'USER_REFRESH_TOKEN_SUCCESS';
-export const USER_REFRESH_TOKEN_FAILED = 'USER_REFRESH_TOKEN_FAILED';
-
 export const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
 
 export function userLogin(data) {
@@ -37,6 +33,7 @@ export function userLogin(data) {
     login(data)
       .then((res) => {
         localStorage.setItem('refreshToken', res.refreshToken);
+        setCookie('accessToken', res.accessToken);
         dispatch({
           type: USER_LOGIN_SUCCESS,
           payload: {
@@ -85,12 +82,12 @@ export function userRegister(data) {
   };
 }
 
-export function userData(token) {
+export function userData() {
   return function (dispatch) {
     dispatch({
       type: USER_DATA_REQUEST,
     });
-    getUserData(token)
+    getUserData()
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -114,12 +111,12 @@ export function userData(token) {
   };
 }
 
-export function updateUserData(token, data) {
+export function updateUserData(data) {
   return function (dispatch) {
     dispatch({
       type: USER_DATA_REQUEST,
     });
-    patchUserData(token, data)
+    patchUserData(data)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -148,8 +145,7 @@ export function userLogout() {
     dispatch({
       type: USER_LOGOUT_REQUEST,
     });
-    const refreshToken = localStorage.getItem('refreshToken');
-    logout(refreshToken)
+    logout()
       .then((res) => {
         dispatch({
           type: USER_LOGOUT_SUCCESS,
@@ -159,38 +155,11 @@ export function userLogout() {
           },
         });
         localStorage.removeItem('refreshToken');
+        deleteCookie('accessToken');
       })
       .catch((error) => {
         dispatch({
           type: USER_LOGOUT_FAILED,
-          payload: {
-            error: error.message,
-            success: error.success,
-          },
-        });
-      });
-  };
-}
-
-export function refreshUserToken(refreshTokenValue) {
-  return function (dispatch) {
-    dispatch({
-      type: USER_REFRESH_TOKEN_REQUEST,
-    });
-    refreshToken(refreshTokenValue)
-      .then((res) => {
-        localStorage.setItem('refreshToken', res.refreshToken);
-        dispatch({
-          type: USER_REFRESH_TOKEN_SUCCESS,
-          payload: {
-            success: res.success,
-            token: res.accessToken,
-          },
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: USER_REFRESH_TOKEN_FAILED,
           payload: {
             error: error.message,
             success: error.success,

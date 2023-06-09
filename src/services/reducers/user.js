@@ -11,9 +11,6 @@ import {
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILED,
-  USER_REFRESH_TOKEN_REQUEST,
-  USER_REFRESH_TOKEN_SUCCESS,
-  USER_REFRESH_TOKEN_FAILED,
   CLEAR_USER_ERROR,
 } from '../actions/user';
 
@@ -147,30 +144,6 @@ export const userReducer = (state = initialStore, action) => {
         userLogoutFailed: true,
         userLogoutRequest: false,
         userLogoutSuccess: action.payload.success,
-        error: action.payload.error,
-      };
-    }
-    case USER_REFRESH_TOKEN_REQUEST: {
-      return {
-        ...state,
-        userRefreshTokenRequest: true,
-      };
-    }
-    case USER_REFRESH_TOKEN_SUCCESS: {
-      return {
-        ...state,
-        userRefreshTokenFailed: false,
-        userRefreshTokenRequest: false,
-        userRefreshTokenSuccess: action.payload.success,
-        token: action.payload.token,
-      };
-    }
-    case USER_REFRESH_TOKEN_FAILED: {
-      return {
-        ...state,
-        userRefreshTokenFailed: true,
-        userRefreshTokenRequest: false,
-        userRefreshTokenSuccess: action.payload.success,
         error: action.payload.error,
       };
     }
