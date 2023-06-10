@@ -2,16 +2,12 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo, useState, useEffect } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  ADD_INGREDIENT_DETAILS,
-  CLEAR_INGREDIENT_DETAILS,
-} from '../../services/actions/ingredientDetails';
+import { ADD_INGREDIENT_DETAILS } from '../../services/actions/ingredientDetails';
 import { useInView } from 'react-intersection-observer';
 import { getIngredients } from '../../services/actions/ingredients';
 import { getIngredientsSelector } from '../../utils/selectors';
+import { useNavigate } from 'react-router-dom';
 
 export function BurgerIngredients() {
   const [bunsRef, bunsInView] = useInView({
@@ -29,7 +25,6 @@ export function BurgerIngredients() {
   }, [dispatch]);
   const { ingredients } = useSelector(getIngredientsSelector);
   const [currentTab, setCurrentTab] = useState('');
-  const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (bunsInView) {
       setCurrentTab('buns');
@@ -51,25 +46,15 @@ export function BurgerIngredients() {
     () => ingredients.filter((item) => item.type === 'main'),
     [ingredients]
   );
-  const handleCloseIngredientModal = () => {
-    dispatch({
-      type: CLEAR_INGREDIENT_DETAILS,
-    });
-    setVisible(false);
-  };
+  const navigate = useNavigate();
   const handleOpenIngredientModal = (ingredientId) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
     dispatch({
       type: ADD_INGREDIENT_DETAILS,
       ingredient,
     });
-    setVisible(true);
+    navigate(`ingredients/${ingredientId}`, { state: { isModal: true } });
   };
-  const modal = () => (
-    <Modal handleCloseModal={handleCloseIngredientModal}>
-      <IngredientDetails />
-    </Modal>
-  );
   return (
     <section className={s.burger}>
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
@@ -155,7 +140,6 @@ export function BurgerIngredients() {
           </ul>
         </li>
       </ul>
-      {visible && modal()}
     </section>
   );
 }

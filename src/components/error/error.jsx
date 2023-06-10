@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default function Error() {
+export default function Error({ children }) {
   return (
-    <p className="p-10 text text_type_main-large">Что то пошло не так (</p>
+    <p className="p-2 text text_type_main-default text_color_inactive">
+      {children ? children : 'Что то пошло не так ('}
+    </p>
   );
 }

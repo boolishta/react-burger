@@ -27,9 +27,15 @@ export function BurgerConstructor() {
     getIngredientsSelector
   );
   const [draggableElements, setDraggableElements] = useState([]);
+  const [isDisableSubmit, setIsDisableSubmit] = useState(true);
   useEffect(() => {
     setDraggableElements(ingredients.filter((item) => item.type !== 'bun'));
   }, [ingredients]);
+  useEffect(() => {
+    if (bun) {
+      setIsDisableSubmit(false);
+    }
+  }, [bun]);
   const [{ isDrop, canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.INGREDIENT,
     drop: (item) => {
@@ -138,6 +144,7 @@ export function BurgerConstructor() {
             htmlType="button"
             type="primary"
             onClick={handleClick}
+            disabled={isDisableSubmit}
           >
             Оформить заказ
           </Button>

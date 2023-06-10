@@ -5,9 +5,24 @@ import {
   Logo,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { HOME, PROFILE } from '../../utils/routes';
 import s from './app-header.module.css';
 
 export function AppHeader() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+  const homeLinkClasses = () => {
+    return `${s.button} text text_color_inactive ${
+      pathname === HOME ? s.activeButton : ''
+    }`;
+  };
+  const profileLinkClasses = () => {
+    return `${s.button} text text_color_inactive ${s.profile} ${
+      pathname === PROFILE ? s.activeButton : ''
+    }`;
+  };
   return (
     <header className={s.header}>
       <nav className={s.container}>
@@ -17,7 +32,8 @@ export function AppHeader() {
               htmlType="button"
               type="secondary"
               size="medium"
-              extraClass={s.button + ' text text_color_inactive'}
+              extraClass={homeLinkClasses()}
+              onClick={() => navigate(HOME)}
             >
               <BurgerIcon type="secondary" />
               Конструктор
@@ -40,7 +56,8 @@ export function AppHeader() {
           htmlType="button"
           type="secondary"
           size="medium"
-          extraClass={s.button + ' text text_color_inactive ' + s.profile}
+          extraClass={profileLinkClasses()}
+          onClick={() => navigate(PROFILE)}
         >
           <ProfileIcon type="secondary" />
           Личный кабинет
