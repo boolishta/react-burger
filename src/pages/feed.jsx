@@ -3,6 +3,7 @@ import { AppHeader } from '../components/app-header/app-header';
 import OrderCard from '../components/order-card/order-card';
 import s from './feed.module.css';
 import data from '../utils/data.json';
+import Stats from '../components/stats/stats';
 
 export default function FeedPage() {
   return (
@@ -24,7 +25,7 @@ export default function FeedPage() {
               </li>
             ))}
           </ul>
-          <div>col 2</div>
+          <Stats />
         </div>
       </main>
     </>
