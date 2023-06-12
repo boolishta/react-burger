@@ -1,0 +1,36 @@
+{
+  "orders": [
+    {
+      "id": "#034535",
+      "date": "Сегодня, 16:20 i-GMT+3",
+      "name": "Death Star Starship Main бургер",
+      "price": "480",
+      "status": "prepare",
+      "ingredients": ["bun", "", "", "", "", "", "", "", "end"]
+    },
+    {
+      "id": "#034534",
+      "date": "Сегодня, 13:20 i-GMT+3",
+      "name": "Interstellar бургер",
+      "price": "480",
+      "status": "prepare",
+      "ingredients": ["", "", "", "", "", "", ""]
+    },
+    {
+      "id": "#0345351",
+      "date": "Сегодня, 16:20 i-GMT+3",
+      "name": "Death Star Starship Main бургер",
+      "price": "480",
+      "status": "prepare",
+      "ingredients": ["", "", "", "", "", "", "", "", ""]
+    },
+    {
+      "id": "#0345341",
+      "date": "Сегодня, 13:20 i-GMT+3",
+      "name": "Interstellar бургер",
+      "price": "480",
+      "status": "prepare",
+      "ingredients": ["", "", "", "", "", ""]
+    }
+  ]
+}

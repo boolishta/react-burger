@@ -8,8 +8,10 @@ import {
   ForgotPasswordPage,
   ProfilePage,
   IngredientPage,
+  FeedPage,
 } from '../../pages';
 import {
+  FEED,
   FORGOT_PASSWORD,
   HOME,
   LOGIN,
@@ -72,6 +74,11 @@ export function App() {
           exact
           path="/ingredients/:id"
           element={<IngredientPage />}
+        />
+        <Route
+          exact
+          path={FEED}
+          element={<FeedPage />}
         />
       </Routes>
     </BrowserRouter>
