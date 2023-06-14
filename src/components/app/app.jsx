@@ -9,6 +9,7 @@ import {
   ProfilePage,
   IngredientPage,
   FeedPage,
+  FeedDetailsPage,
 } from '../../pages';
 import {
   FEED,
@@ -76,9 +77,12 @@ export function App() {
           element={<IngredientPage />}
         />
         <Route
-          exact
           path={FEED}
           element={<FeedPage />}
+        />
+        <Route
+          path={`${FEED}/:number`}
+          element={<FeedDetailsPage />}
         />
       </Routes>
     </BrowserRouter>

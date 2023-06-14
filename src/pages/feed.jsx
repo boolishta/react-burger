@@ -14,9 +14,9 @@ export default function FeedPage() {
         <div className={s.columns + ' mt-5'}>
           <ul className={s.orders + ' custom-scroll'}>
             {data.orders.map((order) => (
-              <li key={order.id}>
+              <li key={order.number}>
                 <OrderCard
-                  orderId={order.id}
+                  orderNumber={order.number}
                   date={order.date}
                   name={order.name}
                   price={order.price}

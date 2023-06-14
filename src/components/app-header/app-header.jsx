@@ -25,7 +25,7 @@ export function AppHeader() {
   };
   const feedLinkClasses = () => {
     return `${s.button} text text_color_inactive ${
-      pathname === FEED ? s.activeButton : ''
+      pathname.match(FEED) ? s.activeButton : ''
     }`;
   };
   return (

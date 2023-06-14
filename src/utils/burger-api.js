@@ -111,3 +111,12 @@ const fetchWithRefresh = async (url, options) => {
     }
   }
 };
+
+export function getOrderDetails(orderNumber) {
+  return fetch(`${NORMA_API}/orders/${orderNumber}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(checkReponse);
+}
