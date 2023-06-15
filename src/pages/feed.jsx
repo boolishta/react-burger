@@ -4,8 +4,13 @@ import OrderCard from '../components/order-card/order-card';
 import s from './feed.module.css';
 import data from '../utils/data.json';
 import Stats from '../components/stats/stats';
+import { useNavigate } from 'react-router-dom';
 
 export default function FeedPage() {
+  const navigate = useNavigate();
+  const handleOpenFeedModal = (orderNumber) => {
+    navigate(`/feed/${orderNumber}`, { state: { isModal: true } });
+  };
   return (
     <>
       <AppHeader />
@@ -14,7 +19,10 @@ export default function FeedPage() {
         <div className={s.columns + ' mt-5'}>
           <ul className={s.orders + ' custom-scroll'}>
             {data.orders.map((order) => (
-              <li key={order.number}>
+              <li
+                key={order.number}
+                onClick={() => handleOpenFeedModal(order.number)}
+              >
                 <OrderCard
                   orderNumber={order.number}
                   date={order.date}

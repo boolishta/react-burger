@@ -2,7 +2,6 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import React, { useMemo, useState } from 'react';
 import s from './order-card.module.css';
 import img from '../../images/illustration.png';
-import { NavLink } from 'react-router-dom';
 import IngredientImage from '../ingredient-image/ingredient-image';
 
 export default function OrderCard({
@@ -20,10 +19,7 @@ export default function OrderCard({
   }, [ingredients]);
 
   return (
-    <NavLink
-      to={`/feed/${orderNumber}`}
-      className={s.orderCard}
-    >
+    <div className={s.orderCard}>
       <div className={s.top}>
         <p className="text text_type_digits-default">#{orderNumber}</p>
         <p className="text text_type_main-default text_color_inactive">
@@ -59,6 +55,6 @@ export default function OrderCard({
           <CurrencyIcon type="primary" />
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 }

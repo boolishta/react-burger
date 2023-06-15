@@ -1,4 +1,4 @@
-.details {
+.info {
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
@@ -23,15 +23,6 @@
   max-height: 366px;
 }
 
-.item {
-  display: flex;
-  align-items: center;
-}
-
-.name {
-  flex-grow: 1;
-}
-
 .total {
   display: flex;
   align-items: center;
@@ -42,4 +33,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  flex-grow: 1;
 }
