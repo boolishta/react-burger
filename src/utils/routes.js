@@ -5,6 +5,7 @@ const REGISTER = '/register';
 const RESET_PASSWORD = '/reset-password';
 const FORGOT_PASSWORD = '/forgot-password';
 const FEED = '/feed';
+const ORDERS = '/profile/orders';
 
 export {
   HOME,
@@ -14,4 +15,5 @@ export {
   RESET_PASSWORD,
   FORGOT_PASSWORD,
   FEED,
+  ORDERS,
 };

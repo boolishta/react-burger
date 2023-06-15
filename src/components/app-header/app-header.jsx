@@ -20,7 +20,7 @@ export function AppHeader() {
   };
   const profileLinkClasses = () => {
     return `${s.button} text text_color_inactive ${s.profile} ${
-      pathname === PROFILE ? s.activeButton : ''
+      pathname.match(PROFILE) ? s.activeButton : ''
     }`;
   };
   const feedLinkClasses = () => {

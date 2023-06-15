@@ -1,12 +1,10 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
-import { Settings } from '../components/settings/settings';
 import { userLogout } from '../services/actions/user';
-import { LOGIN, PROFILE } from '../utils/routes';
-import { getUserSelector } from '../utils/selectors';
+import { LOGIN, ORDERS, PROFILE } from '../utils/routes';
 import s from './profile.module.css?module';
 
 export function ProfilePage() {
@@ -14,10 +12,11 @@ export function ProfilePage() {
     const classes = ' text text_type_main-medium text_color_inactive';
     return isActive ? s.link + ' ' + s.link_active + classes : s.link + classes;
   };
-  const { message } = useSelector(getUserSelector);
   const dispatch = useDispatch();
-  const onClick = () => {
+  const navigate = useNavigate();
+  const logout = () => {
     dispatch(userLogout());
+    navigate(LOGIN);
   };
   const isAuth = !!localStorage.getItem('refreshToken');
   return isAuth ? (
@@ -27,6 +26,7 @@ export function ProfilePage() {
         <ul className={s.list}>
           <li>
             <NavLink
+              end
               to={PROFILE}
               className={linkClasses}
             >
@@ -35,7 +35,7 @@ export function ProfilePage() {
           </li>
           <li>
             <NavLink
-              to={'/history'}
+              to={ORDERS}
               className={linkClasses}
             >
               История заказов
@@ -46,7 +46,7 @@ export function ProfilePage() {
               extraClass={'text text_type_main-medium text_color_inactive p-5'}
               type="secondary"
               size="large"
-              onClick={onClick}
+              onClick={logout}
               htmlType="button"
             >
               Выход
@@ -58,13 +58,7 @@ export function ProfilePage() {
             </p>
           </li>
         </ul>
-        {message ? (
-          <p className="text text_type_main-default text_color_inactive">
-            {message}
-          </p>
-        ) : (
-          <Settings />
-        )}
+        <Outlet />
       </div>
     </>
   ) : (

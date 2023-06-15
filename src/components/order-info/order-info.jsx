@@ -112,8 +112,8 @@ export default function OrderInfo() {
           </div>
         </>
       ) : (
-        <p className="text text_type_main-default text_color_inactive">
-          Заказ не найден
+        <p className="text text_type_main-default text_color_inactive mt-10 mr-10 ml-10">
+          Загрузка
         </p>
       )}
     </div>

@@ -16,12 +16,15 @@ import {
   FORGOT_PASSWORD,
   HOME,
   LOGIN,
+  ORDERS,
   PROFILE,
   REGISTER,
   RESET_PASSWORD,
 } from '../../utils/routes';
+import Orders from '../orders/orders';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import PublicRouteElement from '../public-route-element copy/public-route-element';
+import { Settings } from '../settings/settings';
 
 export function App() {
   return (
@@ -34,6 +37,19 @@ export function App() {
               <ProfilePage />
             </ProtectedRouteElement>
           }
+        >
+          <Route
+            path=""
+            element={<Settings />}
+          />
+          <Route
+            path="orders"
+            element={<Orders />}
+          />
+        </Route>
+        <Route
+          path={`${ORDERS}/:number`}
+          element={<FeedDetailsPage />}
         />
         <Route
           path={HOME}
