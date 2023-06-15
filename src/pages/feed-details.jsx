@@ -67,7 +67,6 @@ export default function FeedDetailsPage() {
       calculateIngredientsTotal(order.ingredients);
     }
   }, [order.ingredients, calculateIngredientsTotal]);
-  // TODO: сделать как попап ингедиента
   const ingredientListItem = (ingredientId, quantity) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
     return (
@@ -93,7 +92,7 @@ export default function FeedDetailsPage() {
   return (
     <>
       <AppHeader />
-      <main className={'mt-30'}>
+      <main className={'mt-30 mb-30'}>
         <section className={s.details}>
           {order.number ? (
             <>
