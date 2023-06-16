@@ -47,8 +47,10 @@ export function App() {
             element={<Orders />}
           />
         </Route>
+        {/* TODO: защищенный маршрут */}
         <Route
           path={`${ORDERS}/:number`}
+          // TODO: страница
           element={<FeedDetailsPage />}
         />
         <Route

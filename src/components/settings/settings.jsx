@@ -7,8 +7,8 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import { updateUserData, userData } from '../../services/actions/user';
-import { getUserSelector } from '../../utils/selectors';
+import { updateUserData, userData } from '../../redux/actions/user';
+import { getUserSelector } from '../../redux/selectors/selectors';
 import s from './settings.module.css?module';
 
 export function Settings() {

@@ -9,7 +9,7 @@ import PropType from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { ItemTypes } from '../../utils/constans';
-import { getIngredientsSelector } from '../../utils/selectors';
+import { getIngredientsSelector } from '../../redux/selectors/selectors';
 
 export function BurgerIngredient({ ingredient, handleClick }) {
   const [{ isDraggin }, drag] = useDrag(

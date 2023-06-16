@@ -2,9 +2,9 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import React, { useCallback, useEffect, useState } from 'react';
 import s from './order-info.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredientsSelector } from '../../utils/selectors';
+import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useLocation } from 'react-router-dom';
-import { getIngredients } from '../../services/actions/ingredients';
+import { getIngredients } from '../../redux/actions/ingredients';
 import { getOrderDetails } from '../../utils/burger-api';
 import { formatDate } from '../../utils/formatDate';
 import IngredientImage from '../ingredient-image/ingredient-image';

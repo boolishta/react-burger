@@ -11,6 +11,7 @@ export default function FeedPage() {
       <main className={s.feed + ' mt-10'}>
         <p className="text text_type_main-large">Лента заказов</p>
         <div className={s.columns + ' mt-5'}>
+          {/* TODO: тут будут Feeds где показываются все заказы */}
           <Orders />
           <Stats />
         </div>

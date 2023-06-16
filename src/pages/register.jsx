@@ -10,9 +10,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/app-header/app-header';
 import Error from '../components/error/error';
 import { useForm } from '../hooks/useForm';
-import { userRegister } from '../services/actions/user';
+import { userRegister } from '../redux/actions/user';
 import { LOGIN } from '../utils/routes';
-import { getUserSelector } from '../utils/selectors';
+import { getUserSelector } from '../redux/selectors/selectors';
 import s from './login.module.css?module';
 
 export function RegisterPage() {
