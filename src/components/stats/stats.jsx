@@ -3,31 +3,33 @@ import Completed from '../completed/comleted';
 import OrdersBoard from '../orders-board/orders-board';
 import s from './stats.module.css';
 
-export default function Stats() {
-  const ordersDone = ['034533', '034532', '034530', '034527', '034525'];
-  const ordersInWord = ['034538', '034540', '034542'];
-  const countTotal = 28752;
-  const countToday = 138;
+export default function Stats({
+  total,
+  totalToday,
+  doneOrderNumbers,
+  pendingOrderNumbers,
+}) {
+  // TODO: add props types
   return (
     <div className={s.stats}>
       <OrdersBoard
         name={'Готовы:'}
-        orders={ordersDone}
+        orders={doneOrderNumbers}
         success={true}
       />
       <OrdersBoard
         name={'В работе:'}
-        orders={ordersInWord}
+        orders={pendingOrderNumbers}
       />
       <Completed
         extraClass={s.completed}
         name="Выполнено за все время:"
-        count={countTotal}
+        count={total}
       />
       <Completed
         extraClass={s.completed}
         name="Выполнено за сегодня:"
-        count={countToday}
+        count={totalToday}
       />
     </div>
   );

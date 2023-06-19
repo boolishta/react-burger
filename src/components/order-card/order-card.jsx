@@ -1,16 +1,17 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import s from './order-card.module.css';
-import img from '../../images/illustration.png';
 import IngredientImage from '../ingredient-image/ingredient-image';
 
-export default function OrderCard({
-  orderNumber,
-  date,
-  name,
-  ingredients,
-  price,
-}) {
+export default function OrderCard({ orderNumber, date, name, ingredients }) {
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    const total = ingredients.reduce(
+      (acc, ingredient) => acc + ingredient.price,
+      0
+    );
+    setTotal(total);
+  }, [ingredients]);
   const ingredientsQuantity = ingredients.length - 1;
   const [orderIngredients, setOrderIngredients] = useState([]);
   useMemo(() => {
@@ -36,7 +37,7 @@ export default function OrderCard({
                   key={idx}
                   className={s.ingredientPreview}
                 >
-                  <IngredientImage src={img} />
+                  <IngredientImage src={ingredient.image} />
                   {idx === 0 && ingredientsQuantity > 5 && (
                     <p
                       className={
@@ -51,7 +52,7 @@ export default function OrderCard({
           )}
         </ul>
         <div className={s.price + ' text text_type_digits-default'}>
-          {price}
+          {total}
           <CurrencyIcon type="primary" />
         </div>
       </div>

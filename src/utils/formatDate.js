@@ -16,7 +16,8 @@ function formatTime(date) {
   return date.toLocaleTimeString('ru-RU', options);
 }
 
-export function formatDate(date) {
+export function formatDate(str) {
+  const date = new Date(str);
   const now = new Date();
   const yesterday = new Date(now);
   yesterday.setDate(now.getDate() - 1);
