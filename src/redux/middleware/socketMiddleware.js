@@ -1,6 +1,7 @@
 import { getCookie } from '../../utils/cookie';
+const WS_ORDERS_URL = 'wss://norma.nomoreparties.space/orders';
 
-export const socketMiddleware = (wsUrl, wsActions) => {
+export const socketMiddleware = (wsActions) => {
   return (store) => {
     let socket = null;
 
@@ -9,9 +10,14 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } =
         wsActions;
-      const token = getCookie('accessToken');
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}`);
+        let url = WS_ORDERS_URL;
+        if (payload && payload.token) {
+          url += `?token=${payload.token}`;
+        } else {
+          url += '/all';
+        }
+        socket = new WebSocket(url);
       }
       if (socket) {
         socket.onopen = (event) => {
@@ -38,7 +44,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           socket.send(
             JSON.stringify({
               ...payload,
-              token: token,
+              token: getCookie('accessToken'),
             })
           );
         }

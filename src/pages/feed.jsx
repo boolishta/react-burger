@@ -3,10 +3,10 @@ import { AppHeader } from '../components/app-header/app-header';
 import s from './feed.module.css';
 import Stats from '../components/stats/stats';
 import { useDispatch, useSelector } from 'react-redux';
-import { WS_CONNECTION_START } from '../redux/actions';
+import { wsConnectionStart } from '../redux/actions';
 import {
   getIngredientsSelector,
-  getWebSocketMessages,
+  getLastWsMessage,
 } from '../redux/selectors/selectors';
 import Orders from '../components/orders/orders';
 import { getIngredients } from '../redux/actions/ingredients';
@@ -18,13 +18,11 @@ export default function FeedPage() {
   const [totalToday, setTotalToday] = useState(0);
   const [doneOrders, setDoneOrders] = useState([]);
   const [pendingOrders, setPendingOrders] = useState([]);
-  const messages = useSelector(getWebSocketMessages);
+  const wsMessage = useSelector(getLastWsMessage);
   const { ingredients } = useSelector(getIngredientsSelector);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START,
-    });
+    dispatch(wsConnectionStart());
     dispatch(getIngredients());
   }, [dispatch]);
 
@@ -41,11 +39,10 @@ export default function FeedPage() {
           ),
         };
       });
-    if (Object.keys(messages).length !== 0) {
-      const { message } = messages[messages.length - 1];
+    if (wsMessage) {
       const pendingOrders = [];
       const doneOrders = [];
-      for (const order of message.orders) {
+      for (const order of wsMessage.orders) {
         if (order.status === 'done') {
           doneOrders.push(order.number);
         } else if (order.status === 'pending') {
@@ -54,11 +51,11 @@ export default function FeedPage() {
       }
       setDoneOrders(doneOrders);
       setPendingOrders(pendingOrders);
-      setOrders(normalizeOrders(message.orders));
-      setTotal(message.total);
-      setTotalToday(message.totalToday);
+      setOrders(normalizeOrders(wsMessage.orders));
+      setTotal(wsMessage.total);
+      setTotalToday(wsMessage.totalToday);
     }
-  }, [messages, ingredients]);
+  }, [wsMessage, ingredients]);
   return (
     <>
       <AppHeader />

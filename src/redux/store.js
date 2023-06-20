@@ -11,8 +11,6 @@ import {
   WS_SEND_MESSAGE,
 } from './actions';
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-
 const wsActions = {
   wsInit: WS_CONNECTION_START,
   wsSendMessage: WS_SEND_MESSAGE,
@@ -29,6 +27,6 @@ export const initStore = (initialState = {}) =>
     rootReducer,
     initialState,
     composeEnhancers(
-      applyMiddleware(thunkMiddleware, socketMiddleware(wsUrl, wsActions))
+      applyMiddleware(thunkMiddleware, socketMiddleware(wsActions))
     )
   );

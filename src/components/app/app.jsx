@@ -16,11 +16,11 @@ import {
   FORGOT_PASSWORD,
   HOME,
   LOGIN,
-  ORDERS,
   PROFILE,
   REGISTER,
   RESET_PASSWORD,
 } from '../../utils/routes';
+import OrdersHistory from '../orders-history/orders-history';
 import Orders from '../orders/orders';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import PublicRouteElement from '../public-route-element copy/public-route-element';
@@ -44,15 +44,13 @@ export function App() {
           />
           <Route
             path="orders"
-            element={<Orders />}
+            element={<OrdersHistory />}
+          />
+          <Route
+            path="orders/:number"
+            element={<FeedDetailsPage />}
           />
         </Route>
-        {/* TODO: защищенный маршрут */}
-        <Route
-          path={`${ORDERS}/:number`}
-          // TODO: страница
-          element={<FeedDetailsPage />}
-        />
         <Route
           path={HOME}
           element={<HomePage />}

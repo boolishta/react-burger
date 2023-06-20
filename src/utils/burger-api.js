@@ -14,11 +14,14 @@ export function fetchIngredients() {
 }
 
 export function checkout(data) {
-  return fetch(`${NORMA_API}/orders`, {
+  return fetchWithRefresh(`${NORMA_API}/orders`, {
     method: 'POST',
-    headers: HEADERS,
+    headers: {
+      ...HEADERS,
+      Authorization: getCookie('accessToken'),
+    },
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  });
 }
 
 export function forgotPassword(data) {
