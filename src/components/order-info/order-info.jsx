@@ -20,7 +20,6 @@ export default function OrderInfo() {
   const location = useLocation();
   const pathname = location.pathname.split('/');
   const orderNumber = pathname[pathname.length - 1];
-  // TODO: переделать на хуки
   const calculateIngredientsTotal = useCallback(
     (ingredientIds) => {
       const quantity = {};

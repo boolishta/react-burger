@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './orders-board.module.css';
+import PropType from 'prop-types';
 
 export default function OrdersBoard({ name, orders, success }) {
-  // TODO: add props types
   return (
     <div className={s.orders}>
       <p className="text text_type_main-default mb-6">{name}</p>
@@ -19,3 +19,9 @@ export default function OrdersBoard({ name, orders, success }) {
     </div>
   );
 }
+
+OrdersBoard.propTypes = {
+  name: PropType.string,
+  orders: PropType.arrayOf(PropType.number),
+  success: PropType.bool,
+};

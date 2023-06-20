@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './ingredient-image.module.css';
+import PropType from 'prop-types';
 
 export default function IngredientImage({ src }) {
   return (
@@ -12,4 +13,6 @@ export default function IngredientImage({ src }) {
   );
 }
 
-// TODO: propsType
+IngredientImage.propTypes = {
+  src: PropType.string.isRequired,
+};
