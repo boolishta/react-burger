@@ -48,6 +48,10 @@ export const socketMiddleware = (wsActions) => {
             })
           );
         }
+
+        if (type === onClose) {
+          socket.close();
+        }
       }
 
       next(action);
