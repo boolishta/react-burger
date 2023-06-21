@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './completed.module.css';
+import PropType from 'prop-types';
 
 export default function Completed({ extraClass, name, count }) {
   return (
@@ -9,3 +10,9 @@ export default function Completed({ extraClass, name, count }) {
     </div>
   );
 }
+
+Completed.propTypes = {
+  extraClass: PropType.string.isRequired,
+  name: PropType.string.isRequired,
+  count: PropType.number.isRequired,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 
 export default function Error({ children }) {
   return (
@@ -7,3 +8,6 @@ export default function Error({ children }) {
     </p>
   );
 }
+Error.propTypes = {
+  children: PropType.node.isRequired,
+};

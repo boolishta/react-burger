@@ -2,6 +2,8 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import React, { useEffect, useMemo, useState } from 'react';
 import s from './order-card.module.css';
 import IngredientImage from '../ingredient-image/ingredient-image';
+import PropType from 'prop-types';
+import { ingredientsType } from '../../utils/prop-types';
 
 export default function OrderCard({ orderNumber, date, name, ingredients }) {
   const [total, setTotal] = useState(0);
@@ -59,3 +61,10 @@ export default function OrderCard({ orderNumber, date, name, ingredients }) {
     </div>
   );
 }
+
+OrderCard.propTypes = {
+  orderNumber: PropType.number.isRequired,
+  date: PropType.string.isRequired,
+  name: PropType.string.isRequired,
+  ingredients: ingredientsType,
+};

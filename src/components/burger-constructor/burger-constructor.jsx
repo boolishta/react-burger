@@ -92,17 +92,20 @@ export function BurgerConstructor() {
       })
     );
   }, []);
-  const renderDraggableElement = useCallback((ingredient, index) => {
-    return (
-      <BurgerConstructorElement
-        ingredient={ingredient}
-        index={index}
-        key={ingredient.uuid}
-        handleClick={handleClose}
-        moveCard={moveCard}
-      />
-    );
-  }, []);
+  const renderDraggableElement = useCallback(
+    (ingredient, index) => {
+      return (
+        <BurgerConstructorElement
+          ingredient={ingredient}
+          index={index}
+          key={ingredient.uuid}
+          handleClick={handleClose}
+          moveCard={moveCard}
+        />
+      );
+    },
+    [handleClose, moveCard]
+  );
   return (
     <>
       <div>
