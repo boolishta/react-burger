@@ -1,5 +1,5 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import s from './order-card.module.css';
 import IngredientImage from '../ingredient-image/ingredient-image';
 import PropType from 'prop-types';
@@ -7,7 +7,7 @@ import { ingredientsType } from '../../utils/prop-types';
 
 export default function OrderCard({ orderNumber, date, name, ingredients }) {
   const [total, setTotal] = useState(0);
-  useEffect(() => {
+  useMemo(() => {
     const total = ingredients.reduce(
       (acc, ingredient) => acc + ingredient.price,
       0

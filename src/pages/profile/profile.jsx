@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
 import { userLogout } from '../../redux/actions/user';
-import { LOGIN, ORDERS, PROFILE } from '../../utils/routes';
+import { LOGIN, PROFILE_ORDERS, PROFILE } from '../../utils/routes';
 import s from './profile.module.css?module';
 
 export function ProfilePage() {
@@ -35,7 +35,7 @@ export function ProfilePage() {
           </li>
           <li>
             <NavLink
-              to={ORDERS}
+              to={PROFILE_ORDERS}
               className={linkClasses}
             >
               История заказов

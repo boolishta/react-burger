@@ -11,12 +11,10 @@ export const socketMiddleware = (wsActions) => {
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } =
         wsActions;
       if (type === wsInit) {
-        let url = WS_ORDERS_URL;
-        if (payload && payload.token) {
-          url += `?token=${payload.token}`;
-        } else {
-          url += '/all';
-        }
+        const url =
+          payload && payload.token
+            ? WS_ORDERS_URL + `?token=${payload.token}`
+            : WS_ORDERS_URL + '/all';
         socket = new WebSocket(url);
       }
       if (socket) {

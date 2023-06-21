@@ -19,6 +19,7 @@ import {
   PROFILE,
   REGISTER,
   RESET_PASSWORD,
+  ORDERS,
 } from '../../utils/routes';
 import OrdersHistory from '../orders-history/orders-history';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
@@ -42,7 +43,7 @@ export function App() {
             element={<Settings />}
           />
           <Route
-            path="orders"
+            path={ORDERS}
             element={<OrdersHistory />}
           />
           <Route

@@ -3,7 +3,7 @@ import { AppHeader } from '../../components/app-header/app-header';
 import s from './feed.module.css';
 import Stats from '../../components/stats/stats';
 import { useDispatch, useSelector } from 'react-redux';
-import { wsConnectionStart } from '../../redux/actions';
+import { wsConnectionClosed, wsConnectionStart } from '../../redux/actions';
 import {
   getIngredientsSelector,
   getLastWsMessage,
@@ -11,6 +11,7 @@ import {
 import Orders from '../../components/orders/orders';
 import { getIngredients } from '../../redux/actions/ingredients';
 import { formatDate } from '../../utils/formatDate';
+import { STATUS } from '../../utils/constans';
 
 export default function FeedPage() {
   const [orders, setOrders] = useState([]);
@@ -24,6 +25,7 @@ export default function FeedPage() {
   useEffect(() => {
     dispatch(wsConnectionStart());
     dispatch(getIngredients());
+    return () => dispatch(wsConnectionClosed());
   }, [dispatch]);
 
   useEffect(() => {
@@ -43,9 +45,9 @@ export default function FeedPage() {
       const pendingOrders = [];
       const doneOrders = [];
       for (const order of wsMessage.orders) {
-        if (order.status === 'done') {
+        if (order.status === STATUS.DONE) {
           doneOrders.push(order.number);
-        } else if (order.status === 'pending') {
+        } else if (order.status === STATUS.PENDING) {
           pendingOrders.push(order.number);
         }
       }
