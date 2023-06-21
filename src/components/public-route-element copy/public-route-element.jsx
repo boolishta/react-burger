@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { getUserSelector } from '../../redux/selectors/selectors';
 import { HOME } from '../../utils/routes';
 
 const PublicRouteElement = ({ children }) => {
-  const isAuth = !!localStorage.getItem('refreshToken');
+  const user = useSelector(getUserSelector);
+  const isAuth = user.userLoginSuccess;
   return !isAuth ? (
     children
   ) : (
