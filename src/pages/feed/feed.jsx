@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { AppHeader } from '../components/app-header/app-header';
+import { AppHeader } from '../../components/app-header/app-header';
 import s from './feed.module.css';
-import Stats from '../components/stats/stats';
+import Stats from '../../components/stats/stats';
 import { useDispatch, useSelector } from 'react-redux';
-import { wsConnectionStart } from '../redux/actions';
+import { wsConnectionStart } from '../../redux/actions';
 import {
   getIngredientsSelector,
   getLastWsMessage,
-} from '../redux/selectors/selectors';
-import Orders from '../components/orders/orders';
-import { getIngredients } from '../redux/actions/ingredients';
-import { formatDate } from '../utils/formatDate';
+} from '../../redux/selectors/selectors';
+import Orders from '../../components/orders/orders';
+import { getIngredients } from '../../redux/actions/ingredients';
+import { formatDate } from '../../utils/formatDate';
 
 export default function FeedPage() {
   const [orders, setOrders] = useState([]);
