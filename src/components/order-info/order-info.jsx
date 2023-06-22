@@ -1,5 +1,5 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './order-info.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
