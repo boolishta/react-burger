@@ -1,25 +1,20 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import s from './order-card.module.css';
 import IngredientImage from '../ingredient-image/ingredient-image';
 import PropType from 'prop-types';
 import { ingredientsType } from '../../utils/prop-types';
 
+const DISPLAYED_IMAGES_QUANTITY = 5;
 export default function OrderCard({ orderNumber, date, name, ingredients }) {
-  const [total, setTotal] = useState(0);
-  useMemo(() => {
-    const total = ingredients.reduce(
-      (acc, ingredient) => acc + ingredient.price,
-      0
-    );
-    setTotal(total);
+  const totalCount = useMemo(() => {
+    return ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
   }, [ingredients]);
   const ingredientsQuantity = ingredients.length - 1;
-  const [orderIngredients, setOrderIngredients] = useState([]);
-  useMemo(() => {
-    const slicedIngredients = ingredients.slice(0, 6).reverse();
-    setOrderIngredients(slicedIngredients);
-  }, [ingredients]);
+  const orderIngredients = useMemo(
+    () => ingredients.slice(0, 6).reverse(),
+    [ingredients]
+  );
 
   return (
     <div className={s.orderCard}>
@@ -40,21 +35,23 @@ export default function OrderCard({ orderNumber, date, name, ingredients }) {
                   className={s.ingredientPreview}
                 >
                   <IngredientImage src={ingredient.image} />
-                  {idx === 0 && ingredientsQuantity > 5 && (
-                    <p
-                      className={
-                        s.ingredientPreviewMore + ' text text_type_main-default'
-                      }
-                    >
-                      +{ingredientsQuantity - 5}
-                    </p>
-                  )}
+                  {idx === 0 &&
+                    ingredientsQuantity > DISPLAYED_IMAGES_QUANTITY && (
+                      <p
+                        className={
+                          s.ingredientPreviewMore +
+                          ' text text_type_main-default'
+                        }
+                      >
+                        +{ingredientsQuantity - DISPLAYED_IMAGES_QUANTITY}
+                      </p>
+                    )}
                 </li>
               )
           )}
         </ul>
         <div className={s.price + ' text text_type_digits-default'}>
-          {total}
+          {totalCount}
           <CurrencyIcon type="primary" />
         </div>
       </div>

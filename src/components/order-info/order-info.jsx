@@ -1,5 +1,5 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import s from './order-info.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
@@ -9,47 +9,19 @@ import { getOrderDetails } from '../../utils/burger-api';
 import { formatDate } from '../../utils/formatDate';
 import IngredientImage from '../ingredient-image/ingredient-image';
 import { parseStatus } from '../../utils/parseStatus';
+import { useIngredients } from '../../hooks/useIngredients';
 
 export default function OrderInfo() {
   const [order, setOrder] = useState([]);
-  const [ingredientsQuantity, setIngredientsQuantity] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
   const [orderDate, setOrderDate] = useState('');
   const { ingredients } = useSelector(getIngredientsSelector);
   const dispatch = useDispatch();
   const location = useLocation();
   const pathname = location.pathname.split('/');
   const orderNumber = pathname[pathname.length - 1];
-  const calculateIngredientsTotal = useCallback(
-    (ingredientIds) => {
-      const quantity = {};
-      const prices = {};
-      for (const ingredientId of ingredientIds) {
-        if (quantity[ingredientId]) {
-          quantity[ingredientId] += 1;
-        } else {
-          quantity[ingredientId] = 1;
-        }
-
-        const ingredient = ingredients.find(
-          (ingredient) => ingredient._id === ingredientId
-        );
-        if (ingredient) {
-          prices[ingredientId] = ingredient.price;
-        }
-      }
-      setIngredientsQuantity(quantity);
-
-      const totalPrice = Object.entries(quantity).reduce(
-        (acc, [ingredientId, quantity]) => {
-          const price = prices[ingredientId] || 0;
-          return acc + price * quantity;
-        },
-        0
-      );
-      setTotalPrice(totalPrice);
-    },
-    [ingredients]
+  const { quantity, total } = useIngredients(
+    ingredients,
+    order.ingredients || []
   );
   useEffect(() => {
     dispatch(getIngredients());
@@ -61,11 +33,6 @@ export default function OrderInfo() {
       }
     });
   }, [orderNumber, dispatch]);
-  useEffect(() => {
-    if (order.ingredients) {
-      calculateIngredientsTotal(order.ingredients);
-    }
-  }, [order.ingredients, calculateIngredientsTotal]);
   const ingredientListItem = (ingredientId, quantity) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
     return (
@@ -83,10 +50,8 @@ export default function OrderInfo() {
       </li>
     );
   };
-  const ingredientListItems = Object.entries(ingredientsQuantity).map(
-    ([ingredientId, quantity]) => {
-      return ingredientListItem(ingredientId, quantity);
-    }
+  const ingredientListItems = Object.entries(quantity).map(
+    ([ingredientId, quantity]) => ingredientListItem(ingredientId, quantity)
   );
   return (
     <div className={s.info}>
@@ -106,7 +71,7 @@ export default function OrderInfo() {
               {orderDate}
             </p>
             <p className={s.total + ' text text_type_digits-default'}>
-              {totalPrice}
+              {total}
               <CurrencyIcon type="primary" />
             </p>
           </div>

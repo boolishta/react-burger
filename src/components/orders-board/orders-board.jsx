@@ -21,7 +21,7 @@ export default function OrdersBoard({ name, orders, success }) {
 }
 
 OrdersBoard.propTypes = {
-  name: PropType.string,
-  orders: PropType.arrayOf(PropType.number),
+  name: PropType.string.isRequired,
+  orders: PropType.arrayOf(PropType.number).isRequired,
   success: PropType.bool,
 };
