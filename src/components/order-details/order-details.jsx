@@ -2,7 +2,7 @@ import React from 'react';
 import s from './order-details.module.css';
 import doneImage from '../../images/done.jpg';
 import { useSelector } from 'react-redux';
-import { getOrderSelector } from '../../utils/selectors';
+import { getOrderSelector } from '../../redux/selectors/selectors';
 
 export function OrderDetails() {
   const { order } = useSelector(getOrderSelector);

@@ -1,0 +1,11 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  row-gap: 60px;
+  align-content: flex-start;
+}
+
+.completed {
+  grid-column: 1 / -1;
+}

@@ -5,11 +5,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AppHeader } from '../components/app-header/app-header';
-import { useForm } from '../hooks/useForm';
-import { resetPassword } from '../utils/burger-api';
-import { HOME, LOGIN } from '../utils/routes';
-import s from './login.module.css?module';
+import { AppHeader } from '../../components/app-header/app-header';
+import { useForm } from '../../hooks/useForm';
+import { resetPassword } from '../../utils/burger-api';
+import { HOME, LOGIN } from '../../utils/routes';
+import s from '../login/login.module.css?module';
 
 export function ResetPasswordPage() {
   const location = useLocation();

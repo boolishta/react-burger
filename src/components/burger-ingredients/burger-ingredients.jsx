@@ -3,10 +3,10 @@ import React, { useMemo, useState, useEffect } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT_DETAILS } from '../../services/actions/ingredientDetails';
+import { ADD_INGREDIENT_DETAILS } from '../../redux/actions/ingredientDetails';
 import { useInView } from 'react-intersection-observer';
-import { getIngredients } from '../../services/actions/ingredients';
-import { getIngredientsSelector } from '../../utils/selectors';
+import { getIngredients } from '../../redux/actions/ingredients';
+import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useNavigate } from 'react-router-dom';
 
 export function BurgerIngredients() {

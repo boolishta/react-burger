@@ -6,7 +6,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { HOME, PROFILE } from '../../utils/routes';
+import { FEED, HOME, PROFILE } from '../../utils/routes';
 import s from './app-header.module.css';
 
 export function AppHeader() {
@@ -20,7 +20,12 @@ export function AppHeader() {
   };
   const profileLinkClasses = () => {
     return `${s.button} text text_color_inactive ${s.profile} ${
-      pathname === PROFILE ? s.activeButton : ''
+      pathname.match(PROFILE) ? s.activeButton : ''
+    }`;
+  };
+  const feedLinkClasses = () => {
+    return `${s.button} text text_color_inactive ${
+      pathname.match(FEED) ? s.activeButton : ''
     }`;
   };
   return (
@@ -44,7 +49,8 @@ export function AppHeader() {
               htmlType="button"
               type="secondary"
               size="medium"
-              extraClass={s.button + ' text text_color_inactive'}
+              extraClass={feedLinkClasses()}
+              onClick={() => navigate(FEED)}
             >
               <ListIcon type="secondary" />
               Лента заказов

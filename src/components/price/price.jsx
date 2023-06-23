@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { getIngredientsSelector } from '../../utils/selectors';
+import { getIngredientsSelector } from '../../redux/selectors/selectors';
 
 export default function Price() {
   const { currentIngredients, bun } = useSelector(getIngredientsSelector);

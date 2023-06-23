@@ -8,17 +8,23 @@ import {
   ForgotPasswordPage,
   ProfilePage,
   IngredientPage,
+  FeedPage,
+  FeedDetailsPage,
 } from '../../pages';
 import {
+  FEED,
   FORGOT_PASSWORD,
   HOME,
   LOGIN,
   PROFILE,
   REGISTER,
   RESET_PASSWORD,
+  ORDERS,
 } from '../../utils/routes';
+import OrdersHistory from '../orders-history/orders-history';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import PublicRouteElement from '../public-route-element copy/public-route-element';
+import { Settings } from '../settings/settings';
 
 export function App() {
   return (
@@ -31,7 +37,20 @@ export function App() {
               <ProfilePage />
             </ProtectedRouteElement>
           }
-        />
+        >
+          <Route
+            path=""
+            element={<Settings />}
+          />
+          <Route
+            path={ORDERS}
+            element={<OrdersHistory />}
+          />
+          <Route
+            path="orders/:number"
+            element={<FeedDetailsPage />}
+          />
+        </Route>
         <Route
           path={HOME}
           element={<HomePage />}
@@ -72,6 +91,14 @@ export function App() {
           exact
           path="/ingredients/:id"
           element={<IngredientPage />}
+        />
+        <Route
+          path={FEED}
+          element={<FeedPage />}
+        />
+        <Route
+          path={`${FEED}/:number`}
+          element={<FeedDetailsPage />}
         />
       </Routes>
     </BrowserRouter>

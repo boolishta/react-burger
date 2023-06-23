@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppHeader } from '../components/app-header/app-header';
-import IngredientDetails from '../components/ingredient-details/ingredient-details';
+import { AppHeader } from '../../components/app-header/app-header';
+import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import s from './ingredient.module.css?module';
-import { getIngredientsSelector } from '../utils/selectors';
+import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ADD_INGREDIENT_DETAILS,
   CLEAR_INGREDIENT_DETAILS,
-} from '../services/actions/ingredientDetails';
-import Modal from '../components/modal/modal';
-import { getIngredients } from '../services/actions/ingredients';
+} from '../../redux/actions/ingredientDetails';
+import Modal from '../../components/modal/modal';
+import { getIngredients } from '../../redux/actions/ingredients';
 
 export default function IngredientPage() {
   const { ingredients } = useSelector(getIngredientsSelector);

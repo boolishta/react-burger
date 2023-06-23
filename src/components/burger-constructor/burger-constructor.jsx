@@ -17,9 +17,9 @@ import {
   ADD_BUN,
   ADD_INGREDIENTS,
   REMOVE_INGREDIENTS,
-} from '../../services/actions/ingredients';
-import { getIngredientsSelector } from '../../utils/selectors';
-import { orderCheckout } from '../../services/actions/order';
+} from '../../redux/actions/ingredients';
+import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { orderCheckout } from '../../redux/actions/order';
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -92,17 +92,20 @@ export function BurgerConstructor() {
       })
     );
   }, []);
-  const renderDraggableElement = useCallback((ingredient, index) => {
-    return (
-      <BurgerConstructorElement
-        ingredient={ingredient}
-        index={index}
-        key={ingredient.uuid}
-        handleClick={handleClose}
-        moveCard={moveCard}
-      />
-    );
-  }, []);
+  const renderDraggableElement = useCallback(
+    (ingredient, index) => {
+      return (
+        <BurgerConstructorElement
+          ingredient={ingredient}
+          index={index}
+          key={ingredient.uuid}
+          handleClick={handleClose}
+          moveCard={moveCard}
+        />
+      );
+    },
+    [handleClose, moveCard]
+  );
   return (
     <>
       <div>

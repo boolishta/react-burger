@@ -16,3 +16,13 @@ export const ingredientType = PropTypes.shape({
 });
 
 export const ingredientsType = PropTypes.arrayOf(ingredientType).isRequired;
+
+export const orderType = PropTypes.shape({
+  date: PropTypes.string,
+  id: PropTypes.string,
+  ingredients: ingredientsType,
+  name: PropTypes.string,
+  number: PropTypes.number,
+});
+
+export const ordersType = PropTypes.arrayOf(orderType).isRequired;

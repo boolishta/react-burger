@@ -1,0 +1,45 @@
+.info {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.number {
+  text-align: center;
+}
+
+.status {
+  color: #00cccc;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  gap: 16px;
+  margin: 0;
+  padding: 10px 0;
+  list-style-type: none;
+  max-height: 366px;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  flex-grow: 1;
+}

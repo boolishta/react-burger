@@ -4,10 +4,10 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppHeader } from '../components/app-header/app-header';
-import s from './login.module.css?module';
-import { forgotPassword } from '../utils/burger-api';
-import { LOGIN } from '../utils/routes';
+import { AppHeader } from '../../components/app-header/app-header';
+import s from '../login/login.module.css?module';
+import { forgotPassword } from '../../utils/burger-api';
+import { LOGIN } from '../../utils/routes';
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');

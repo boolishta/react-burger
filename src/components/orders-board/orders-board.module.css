@@ -1,0 +1,15 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  column-count: 5;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+}
+
+.success {
+  color: #00cccc;
+}
