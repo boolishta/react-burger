@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppHeader } from '../../components/app-header/app-header';
-import IngredientDetails from '../../components/ingredient-details/ingredient-details';
+import { IngredientDetails } from '../../components/ingredient-details/ingredient-details';
 import s from './ingredient.module.css?module';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';

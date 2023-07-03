@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { getIngredients } from '../../redux/actions/ingredients';
 import { getOrderDetails } from '../../utils/burger-api';
 import { formatDate } from '../../utils/formatDate';
-import IngredientImage from '../ingredient-image/ingredient-image';
+import { IngredientImage } from '../ingredient-image/ingredient-image';
 import { parseStatus } from '../../utils/parseStatus';
 import { useIngredients } from '../../hooks/useIngredients';
 

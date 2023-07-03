@@ -1,5 +1,5 @@
 import React from 'react';
-import Completed from '../completed/comleted';
+import { Completed } from '../completed/comleted';
 import OrdersBoard from '../orders-board/orders-board';
 import s from './stats.module.css';
 import PropType from 'prop-types';

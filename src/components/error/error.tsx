@@ -1,13 +1,13 @@
-import React from 'react';
-import PropType from 'prop-types';
+import React, { FC, ReactNode } from 'react';
 
-export default function Error({ children }) {
+interface IErrorProps {
+  children?: ReactNode;
+}
+
+export const Error: FC<IErrorProps> = ({ children }) => {
   return (
     <p className="p-2 text text_type_main-default text_color_inactive">
       {children ? children : 'Что то пошло не так ('}
     </p>
   );
-}
-Error.propTypes = {
-  children: PropType.node.isRequired,
 };

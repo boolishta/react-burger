@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
-import Error from '../../components/error/error';
+import { Error } from '../../components/error/error';
 import { useForm } from '../../hooks/useForm';
 import { userRegister } from '../../redux/actions/user';
 import { LOGIN } from '../../utils/routes';

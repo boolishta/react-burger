@@ -8,17 +8,17 @@ import PropTypes from 'prop-types';
 const modalRoot = document.getElementById('react-modals');
 
 export default function Modal({ children, handleCloseModal }) {
-  const downHandler = (e) => {
-    if (e.key === 'Escape') {
-      handleCloseModal();
-    }
-  };
   useEffect(() => {
+    const downHandler = (e) => {
+      if (e.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
     window.addEventListener('keydown', downHandler);
     return () => {
       window.removeEventListener('keydown', downHandler);
     };
-  }, []);
+  }, [handleCloseModal]);
   return createPortal(
     <ModalOverlay handleCloseModal={handleCloseModal}>
       <div className={s.modal}>

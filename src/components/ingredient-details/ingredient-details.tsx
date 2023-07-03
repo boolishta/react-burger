@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import s from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 import { getIngredientDetailsSelector } from '../../redux/selectors/selectors';
+import { IIngredient } from '../../interfaces/ingredient';
 
-export default function IngredientDetails() {
-  const { ingredientDetails: ingredient } = useSelector(
-    getIngredientDetailsSelector
-  );
+export const IngredientDetails: FC = () => {
+  const { ingredientDetails: ingredient }: { ingredientDetails: IIngredient } =
+    useSelector(getIngredientDetailsSelector);
   return (
     ingredient && (
       <>
@@ -47,4 +47,4 @@ export default function IngredientDetails() {
       </>
     )
   );
-}
+};

@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo } from 'react';
 import s from './order-card.module.css';
-import IngredientImage from '../ingredient-image/ingredient-image';
+import { IngredientImage } from '../ingredient-image/ingredient-image';
 import PropType from 'prop-types';
 import { ingredientsType } from '../../utils/prop-types';
 
