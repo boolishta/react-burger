@@ -2,28 +2,45 @@ import {
   ConstructorElement,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useRef } from 'react';
+import React, { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import s from './burger-constructor-element.module.css';
 import { ItemTypes } from '../../utils/constans';
-import { ingredientType } from '../../utils/prop-types';
-import PropType from 'prop-types';
+import { IIngredient } from '../../interfaces/ingredient';
+import type { Identifier, XYCoord } from 'dnd-core';
 
-export function BurgerConstructorElement({
+type TBurgerConstructorProps = {
+  ingredient: IIngredient & { uuid: string };
+  index: number;
+  handleClick: (uuid: string) => void;
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
+};
+
+interface DragItem {
+  index: number;
+  id: string;
+  type: string;
+}
+
+export const BurgerConstructorElement: FC<TBurgerConstructorProps> = ({
   ingredient,
   index,
   handleClick,
   moveCard,
-}) {
-  const ref = useRef(null);
-  const [{ handlerId }, drop] = useDrop({
+}) => {
+  const ref = useRef<HTMLLIElement>(null);
+  const [{ handlerId }, drop] = useDrop<
+    DragItem,
+    void,
+    { handlerId: Identifier | null }
+  >({
     accept: ItemTypes.BURGER_ELEMENT,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: DragItem, monitor) {
       if (!ref.current) {
         return;
       }
@@ -41,7 +58,7 @@ export function BurgerConstructorElement({
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
@@ -62,12 +79,12 @@ export function BurgerConstructorElement({
       item.index = hoverIndex;
     },
   });
-  const [{ isDragging }, drag] = useDrag({
+  const [_, drag] = useDrag({
     type: ItemTypes.BURGER_ELEMENT,
     item: () => {
       return { index };
     },
-    collect: (monitor) => ({
+    collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
   });
@@ -76,7 +93,6 @@ export function BurgerConstructorElement({
   return (
     <li
       ref={ref}
-      index={index}
       className={s.element}
       data-handler-id={handlerId}
     >
@@ -89,11 +105,4 @@ export function BurgerConstructorElement({
       />
     </li>
   );
-}
-
-BurgerConstructorElement.propTypes = {
-  ingredient: ingredientType.isRequired,
-  handleClick: PropType.func.isRequired,
-  moveCard: PropType.func.isRequired,
-  index: PropType.number,
 };

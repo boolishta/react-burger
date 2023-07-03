@@ -4,7 +4,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
 import Price from '../price/price';
-import { useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,13 +20,22 @@ import {
 } from '../../redux/actions/ingredients';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { orderCheckout } from '../../redux/actions/order';
+import { IIngredient } from '../../interfaces/ingredient';
 
-export function BurgerConstructor() {
+export interface ICurrentIngredient extends IIngredient {
+  uuid: string;
+}
+
+export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const { currentIngredients: ingredients, bun } = useSelector(
-    getIngredientsSelector
-  );
-  const [draggableElements, setDraggableElements] = useState([]);
+  const {
+    currentIngredients: ingredients,
+    bun,
+  }: { currentIngredients: ICurrentIngredient[]; bun: ICurrentIngredient } =
+    useSelector(getIngredientsSelector);
+  const [draggableElements, setDraggableElements] = useState<
+    ICurrentIngredient[]
+  >([]);
   const [isDisableSubmit, setIsDisableSubmit] = useState(true);
   useEffect(() => {
     setDraggableElements(ingredients.filter((item) => item.type !== 'bun'));
@@ -36,9 +45,9 @@ export function BurgerConstructor() {
       setIsDisableSubmit(false);
     }
   }, [bun]);
-  const [{ isDrop, canDrop }, drop] = useDrop(() => ({
+  const [_, drop] = useDrop(() => ({
     accept: ItemTypes.INGREDIENT,
-    drop: (item) => {
+    drop: (item: { ingredient: IIngredient }) => {
       const { ingredient } = item;
       if (ingredient.type === 'bun') {
         return dispatch({
@@ -69,20 +78,20 @@ export function BurgerConstructor() {
   );
   const handleClick = () => {
     const data = ingredients.map((item) => item._id);
-    dispatch(
+    dispatch<any>(
       orderCheckout({
         ingredients: [...data, bun._id, bun._id],
       })
     );
     handleOpenModal();
   };
-  const handleClose = (uuid) => {
+  const handleClose = (uuid: string) => {
     dispatch({
       type: REMOVE_INGREDIENTS,
       uuid,
     });
   };
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
+  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     setDraggableElements((prevCards) =>
       update(prevCards, {
         $splice: [
@@ -93,7 +102,7 @@ export function BurgerConstructor() {
     );
   }, []);
   const renderDraggableElement = useCallback(
-    (ingredient, index) => {
+    (ingredient: ICurrentIngredient, index: number) => {
       return (
         <BurgerConstructorElement
           ingredient={ingredient}
@@ -156,4 +165,4 @@ export function BurgerConstructor() {
       {visible && modal()}
     </>
   );
-}
+};

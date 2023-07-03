@@ -1,5 +1,5 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, FC } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,9 @@ import { useInView } from 'react-intersection-observer';
 import { getIngredients } from '../../redux/actions/ingredients';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useNavigate } from 'react-router-dom';
+import { IIngredient } from '../../interfaces/ingredient';
 
-export function BurgerIngredients() {
+export const BurgerIngredients: FC = () => {
   const [bunsRef, bunsInView] = useInView({
     threshold: 0,
   });
@@ -19,11 +20,13 @@ export function BurgerIngredients() {
   const [mainsRef, mainsInView] = useInView({
     threshold: 0,
   });
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-  const { ingredients } = useSelector(getIngredientsSelector);
+  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
+    getIngredientsSelector
+  );
   const [currentTab, setCurrentTab] = useState('');
   useEffect(() => {
     if (bunsInView) {
@@ -47,7 +50,7 @@ export function BurgerIngredients() {
     [ingredients]
   );
   const navigate = useNavigate();
-  const handleOpenIngredientModal = (ingredientId) => {
+  const handleOpenIngredientModal = (ingredientId: string) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
     dispatch({
       type: ADD_INGREDIENT_DETAILS,
@@ -63,6 +66,7 @@ export function BurgerIngredients() {
           <Tab
             value="bun"
             active={currentTab === 'buns'}
+            onClick={() => null}
           >
             Булки
           </Tab>
@@ -71,6 +75,7 @@ export function BurgerIngredients() {
           <Tab
             value="sauce"
             active={currentTab === 'sauces'}
+            onClick={() => null}
           >
             Соусы
           </Tab>
@@ -79,6 +84,7 @@ export function BurgerIngredients() {
           <Tab
             value="main"
             active={currentTab === 'mains'}
+            onClick={() => null}
           >
             Начинки
           </Tab>
@@ -142,4 +148,4 @@ export function BurgerIngredients() {
       </ul>
     </section>
   );
-}
+};

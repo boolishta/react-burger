@@ -2,17 +2,25 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { FC } from 'react';
 import s from './burger-ingredient.module.css';
-import { ingredientType } from '../../utils/prop-types';
-import PropType from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { ItemTypes } from '../../utils/constans';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { IIngredient } from '../../interfaces/ingredient';
+import { ICurrentIngredient } from '../burger-constructor/burger-constructor';
 
-export function BurgerIngredient({ ingredient, handleClick }) {
-  const [{ isDraggin }, drag] = useDrag(
+interface IBurgerIngredientProps {
+  ingredient: IIngredient;
+  handleClick: (ingredientId: string) => void;
+}
+
+export const BurgerIngredient: FC<IBurgerIngredientProps> = ({
+  ingredient,
+  handleClick,
+}) => {
+  const [_, drag] = useDrag(
     () => ({
       type: ItemTypes.INGREDIENT,
       item: { ingredient },
@@ -22,7 +30,8 @@ export function BurgerIngredient({ ingredient, handleClick }) {
     }),
     []
   );
-  const { currentIngredients } = useSelector(getIngredientsSelector);
+  const { currentIngredients }: { currentIngredients: ICurrentIngredient[] } =
+    useSelector(getIngredientsSelector);
   const ingredients = currentIngredients.filter(
     (item) => item._id === ingredient._id
   );
@@ -51,9 +60,4 @@ export function BurgerIngredient({ ingredient, handleClick }) {
       )}
     </li>
   );
-}
-
-BurgerIngredient.propTypes = {
-  ingredient: ingredientType.isRequired,
-  handleClick: PropType.func.isRequired,
 };
