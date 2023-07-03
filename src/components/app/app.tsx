@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
   HomePage,
@@ -26,7 +26,7 @@ import ProtectedRouteElement from '../protected-route-element/protected-route-el
 import PublicRouteElement from '../public-route-element copy/public-route-element';
 import { Settings } from '../settings/settings';
 
-export function App() {
+export const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -88,7 +88,6 @@ export function App() {
           }
         />
         <Route
-          exact
           path="/ingredients/:id"
           element={<IngredientPage />}
         />
@@ -103,4 +102,4 @@ export function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};

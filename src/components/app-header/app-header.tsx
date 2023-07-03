@@ -5,25 +5,26 @@ import {
   Logo,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FEED, HOME, PROFILE } from '../../utils/routes';
 import s from './app-header.module.css';
 
-export function AppHeader() {
+export const AppHeader: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  const homeLinkClasses = () => {
+  const homeLinkClasses = (): string => {
     return `${s.button} text text_color_inactive ${
       pathname === HOME ? s.activeButton : ''
     }`;
   };
-  const profileLinkClasses = () => {
+  const profileLinkClasses = (): string => {
     return `${s.button} text text_color_inactive ${s.profile} ${
       pathname.match(PROFILE) ? s.activeButton : ''
     }`;
   };
-  const feedLinkClasses = () => {
+  const feedLinkClasses = (): string => {
     return `${s.button} text text_color_inactive ${
       pathname.match(FEED) ? s.activeButton : ''
     }`;
@@ -71,4 +72,4 @@ export function AppHeader() {
       </nav>
     </header>
   );
-}
+};
