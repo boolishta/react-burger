@@ -4,7 +4,7 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect } from 'react';
+import React, { FC, FormEventHandler, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
@@ -13,19 +13,19 @@ import { useForm } from '../../hooks/useForm';
 import { userRegister } from '../../redux/actions/user';
 import { LOGIN } from '../../utils/routes';
 import { getUserSelector } from '../../redux/selectors/selectors';
-import s from '../login/login.module.css?module';
+import s from '../login/login.module.css';
 
-export function RegisterPage() {
+export const RegisterPage: FC = () => {
   const { values, handleChange } = useForm({
     email: '',
     password: '',
     name: '',
   });
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   const { token, error } = useSelector(getUserSelector);
 
-  const onSubmit = (e) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(
       userRegister({
@@ -60,7 +60,6 @@ export function RegisterPage() {
           <EmailInput
             value={values.email}
             placeholder="E-mail"
-            type="email"
             name="email"
             onChange={handleChange}
           />
@@ -92,4 +91,4 @@ export function RegisterPage() {
       </div>
     </>
   );
-}
+};

@@ -1,12 +1,23 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import s from './order-card.module.css';
 import { IngredientImage } from '../ingredient-image/ingredient-image';
-import PropType from 'prop-types';
-import { ingredientsType } from '../../utils/prop-types';
+import { IIngredient } from '../../interfaces/ingredient';
 
 const DISPLAYED_IMAGES_QUANTITY = 5;
-export default function OrderCard({ orderNumber, date, name, ingredients }) {
+interface IOrderCardProps {
+  orderNumber: number;
+  date: string;
+  name: string;
+  ingredients: IIngredient[];
+}
+
+export const OrderCard: FC<IOrderCardProps> = ({
+  orderNumber,
+  date,
+  name,
+  ingredients,
+}) => {
   const totalCount = useMemo(() => {
     return ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
   }, [ingredients]);
@@ -57,11 +68,4 @@ export default function OrderCard({ orderNumber, date, name, ingredients }) {
       </div>
     </div>
   );
-}
-
-OrderCard.propTypes = {
-  orderNumber: PropType.number.isRequired,
-  date: PropType.string.isRequired,
-  name: PropType.string.isRequired,
-  ingredients: ingredientsType,
 };

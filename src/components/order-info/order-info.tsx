@@ -1,5 +1,5 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import s from './order-info.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
@@ -10,18 +10,22 @@ import { formatDate } from '../../utils/formatDate';
 import { IngredientImage } from '../ingredient-image/ingredient-image';
 import { parseStatus } from '../../utils/parseStatus';
 import { useIngredients } from '../../hooks/useIngredients';
+import { IIngredient } from '../../interfaces/ingredient';
+import { IOrder } from '../../interfaces/order';
 
-export default function OrderInfo() {
-  const [order, setOrder] = useState([]);
+export const OrderInfo: FC = () => {
+  const [order, setOrder] = useState<IOrder>();
   const [orderDate, setOrderDate] = useState('');
-  const { ingredients } = useSelector(getIngredientsSelector);
-  const dispatch = useDispatch();
+  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
+    getIngredientsSelector
+  );
+  const dispatch = useDispatch<any>();
   const location = useLocation();
   const pathname = location.pathname.split('/');
   const orderNumber = pathname[pathname.length - 1];
   const { quantity, total } = useIngredients(
     ingredients,
-    order.ingredients || []
+    order?.ingredients || []
   );
   useEffect(() => {
     dispatch(getIngredients());
@@ -33,21 +37,23 @@ export default function OrderInfo() {
       }
     });
   }, [orderNumber, dispatch]);
-  const ingredientListItem = (ingredientId, quantity) => {
+  const ingredientListItem = (ingredientId: string, quantity: number) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
     return (
-      <li
-        key={ingredientId}
-        className={s.item}
-      >
-        <IngredientImage src={ingredient.image_mobile} />
-        <p className={s.name + ' text text_type_main-default ml-4'}>
-          {ingredient.name}
-        </p>
-        <p className={s.total + ' text text_type_digits-default'}>
-          {quantity} x {ingredient.price} <CurrencyIcon type="primary" />
-        </p>
-      </li>
+      ingredient && (
+        <li
+          key={ingredientId}
+          className={s.item}
+        >
+          <IngredientImage src={ingredient.image_mobile} />
+          <p className={s.name + ' text text_type_main-default ml-4'}>
+            {ingredient.name}
+          </p>
+          <p className={s.total + ' text text_type_digits-default'}>
+            {quantity} x {ingredient.price} <CurrencyIcon type="primary" />
+          </p>
+        </li>
+      )
     );
   };
   const ingredientListItems = Object.entries(quantity).map(
@@ -55,7 +61,7 @@ export default function OrderInfo() {
   );
   return (
     <div className={s.info}>
-      {order.number ? (
+      {order ? (
         <>
           <p className={s.number + ' text text_type_digits-default mt-5 mb-5'}>
             #{order.number}
@@ -83,4 +89,4 @@ export default function OrderInfo() {
       )}
     </div>
   );
-}
+};

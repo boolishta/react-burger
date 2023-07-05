@@ -1,18 +1,18 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
 import { userLogout } from '../../redux/actions/user';
 import { LOGIN, PROFILE_ORDERS, PROFILE } from '../../utils/routes';
-import s from './profile.module.css?module';
+import s from './profile.module.css';
 
-export function ProfilePage() {
-  const linkClasses = ({ isActive }) => {
+export const ProfilePage: FC = () => {
+  const linkClasses = ({ isActive }: { isActive: boolean }) => {
     const classes = ' text text_type_main-medium text_color_inactive';
     return isActive ? s.link + ' ' + s.link_active + classes : s.link + classes;
   };
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   const logout = () => {
     dispatch(userLogout());
@@ -64,4 +64,4 @@ export function ProfilePage() {
   ) : (
     <Navigate to={LOGIN} />
   );
-}
+};

@@ -4,9 +4,9 @@ import { RegisterPage } from './register/register';
 import { ForgotPasswordPage } from './forgot-password/forgot-password';
 import { ProfilePage } from './profile/profile';
 import { ResetPasswordPage } from './reset-password/reset-password';
-import IngredientPage from './ingredient/ingredient';
-import FeedPage from './feed/feed';
-import FeedDetailsPage from './feed-details/feed-details';
+import { IngredientPage } from './ingredient/ingredient';
+import { FeedPage } from './feed/feed';
+import { FeedDetailsPage } from './feed-details/feed-details';
 
 export {
   HomePage,

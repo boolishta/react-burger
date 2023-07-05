@@ -1,23 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { IIngredient } from '../../interfaces/ingredient';
+import { IOrder } from '../../interfaces/order';
 import { wsConnectionStartWithToken } from '../../redux/actions';
 import {
   getIngredientsSelector,
   getLastWsMessage,
 } from '../../redux/selectors/selectors';
 import { formatDate } from '../../utils/formatDate';
-import Orders from '../orders/orders';
+import { Orders } from '../orders/orders';
 
-export default function OrdersHistory() {
-  const [orders, setOrders] = useState([]);
+export interface IHistoryOrders {
+  id: string;
+  name: string;
+  number: number;
+  date: string;
+  ingredients: IIngredient[];
+}
+
+export const OrdersHistory: FC = () => {
+  const [orders, setOrders] = useState<IHistoryOrders[]>([]);
   const wsMessage = useSelector(getLastWsMessage);
-  const { ingredients } = useSelector(getIngredientsSelector);
+  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
+    getIngredientsSelector
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(wsConnectionStartWithToken());
   }, [dispatch]);
   useEffect(() => {
-    const normalizeOrders = (orders) =>
+    const normalizeOrders = (orders: IOrder[]) =>
       orders.map((order) => {
         return {
           id: order._id,
@@ -26,7 +38,7 @@ export default function OrdersHistory() {
           date: formatDate(order.createdAt),
           ingredients: order.ingredients.map((id) =>
             ingredients.find((ingredient) => ingredient._id === id)
-          ),
+          ) as IIngredient[],
         };
       });
     if (wsMessage && wsMessage.orders) {
@@ -34,4 +46,4 @@ export default function OrdersHistory() {
     }
   }, [wsMessage, ingredients]);
   return <Orders orders={orders} />;
-}
+};

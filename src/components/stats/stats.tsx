@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Completed } from '../completed/comleted';
-import OrdersBoard from '../orders-board/orders-board';
+import { OrdersBoard } from '../orders-board/orders-board';
 import s from './stats.module.css';
-import PropType from 'prop-types';
 
-export default function Stats({
+interface IStatsProps {
+  total: number;
+  totalToday: number;
+  doneOrderNumbers: number[];
+  pendingOrderNumbers: number[];
+}
+
+export const Stats: FC<IStatsProps> = ({
   total,
   totalToday,
   doneOrderNumbers,
   pendingOrderNumbers,
-}) {
+}) => {
   return (
     <div className={s.stats}>
       <OrdersBoard
@@ -33,11 +39,4 @@ export default function Stats({
       />
     </div>
   );
-}
-
-Stats.propTypes = {
-  total: PropType.number,
-  totalToday: PropType.number,
-  doneOrderNumbers: PropType.arrayOf(PropType.number),
-  pendingOrderNumbers: PropType.arrayOf(PropType.number),
 };

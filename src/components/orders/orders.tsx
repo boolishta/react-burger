@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import OrderCard from '../order-card/order-card';
-import s from './orders.module.css?module';
-import { ordersType } from '../../utils/prop-types';
+import { OrderCard } from '../order-card/order-card';
+import { IHistoryOrders } from '../orders-history/orders-history';
+import s from './orders.module.css';
 
-export default function Orders({ orders }) {
+interface IOrdersProps {
+  orders: IHistoryOrders[];
+}
+
+export const Orders: FC<IOrdersProps> = ({ orders }) => {
   const navigate = useNavigate();
-  const handleOpenFeedModal = (orderNumber) => {
+  const handleOpenFeedModal = (orderNumber: number) => {
     navigate(`/feed/${orderNumber}`, { state: { isModal: true } });
   };
 
@@ -27,8 +31,4 @@ export default function Orders({ orders }) {
       ))}
     </ul>
   );
-}
-
-Orders.propTypes = {
-  orders: ordersType,
 };

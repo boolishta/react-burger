@@ -3,10 +3,10 @@ import {
   EmailInput,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useMemo } from 'react';
+import React, { FC, FormEventHandler, useEffect, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
-import s from './login.module.css?module';
+import s from './login.module.css';
 import { Error } from '../../components/error/error';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_USER_ERROR, userLogin } from '../../redux/actions/user';
@@ -14,7 +14,7 @@ import { getUserSelector } from '../../redux/selectors/selectors';
 import { FORGOT_PASSWORD, HOME, REGISTER } from '../../utils/routes';
 import { useForm } from '../../hooks/useForm';
 
-export function LoginPage() {
+export const LoginPage: FC = () => {
   const location = useLocation();
   const returnUrl = new URLSearchParams(location.search).get('returnUrl');
   const url = useMemo(() => (returnUrl ? returnUrl : HOME), [returnUrl]);
@@ -23,10 +23,10 @@ export function LoginPage() {
     password: '',
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const { error, userLoginSuccess, userLogoutSuccess } =
     useSelector(getUserSelector);
-  const onSubmit = (event) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     dispatch(
       userLogin({
@@ -55,7 +55,6 @@ export function LoginPage() {
           <EmailInput
             value={values.email}
             placeholder="E-mail"
-            type="email"
             name="email"
             onChange={handleChange}
           />
@@ -100,4 +99,4 @@ export function LoginPage() {
       </div>
     </>
   );
-}
+};

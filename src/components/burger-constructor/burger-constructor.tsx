@@ -3,10 +3,10 @@ import {
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import s from './burger-constructor.module.css';
-import Price from '../price/price';
+import { Price } from '../price/price';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
-import Modal from '../modal/modal';
+import { Modal } from '../modal/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';

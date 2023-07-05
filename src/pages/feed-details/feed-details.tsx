@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
-import Modal from '../../components/modal/modal';
-import OrderInfo from '../../components/order-info/order-info';
+import { Modal } from '../../components/modal/modal';
+import { OrderInfo } from '../../components/order-info/order-info';
 
-export default function FeedDetailsPage() {
+export const FeedDetailsPage: FC = () => {
   const location = useLocation();
   const [isModal, setIsModal] = useState(false);
   const navigate = useNavigate();
@@ -30,4 +30,4 @@ export default function FeedDetailsPage() {
       </main>
     </>
   );
-}
+};

@@ -21,7 +21,7 @@ import {
   RESET_PASSWORD,
   ORDERS,
 } from '../../utils/routes';
-import OrdersHistory from '../orders-history/orders-history';
+import { OrdersHistory } from '../orders-history/orders-history';
 import ProtectedRouteElement from '../protected-route-element/protected-route-element';
 import PublicRouteElement from '../public-route-element copy/public-route-element';
 import { Settings } from '../settings/settings';

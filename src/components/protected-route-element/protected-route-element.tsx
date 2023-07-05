@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getUserSelector } from '../../redux/selectors/selectors';
 import { LOGIN } from '../../utils/routes';
-import PropType from 'prop-types';
 
-const ProtectedRouteElement = ({ children }) => {
+interface IProtectedRouteElementProps {
+  children?: ReactNode;
+}
+
+const ProtectedRouteElement: FC<IProtectedRouteElementProps> = ({
+  children,
+}) => {
   const location = useLocation();
   const user = useSelector(getUserSelector);
   const isAuth = user.userLoginSuccess;
   return isAuth ? (
-    children
+    <>{children}</>
   ) : (
     <Navigate
       to={`${LOGIN}?returnUrl=${encodeURIComponent(location.pathname)}`}
@@ -20,7 +25,3 @@ const ProtectedRouteElement = ({ children }) => {
 };
 
 export default ProtectedRouteElement;
-
-ProtectedRouteElement.propTypes = {
-  children: PropType.node.isRequired,
-};

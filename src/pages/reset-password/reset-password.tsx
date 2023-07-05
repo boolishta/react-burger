@@ -3,15 +3,15 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
+import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
 import { useForm } from '../../hooks/useForm';
 import { resetPassword } from '../../utils/burger-api';
 import { HOME, LOGIN } from '../../utils/routes';
-import s from '../login/login.module.css?module';
+import s from '../login/login.module.css';
 
-export function ResetPasswordPage() {
+export const ResetPasswordPage: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
@@ -24,15 +24,20 @@ export function ResetPasswordPage() {
     password: '',
   });
   const [successMessage, setSuccessMessage] = useState(null);
-  const onSubmit = (e) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     resetPassword({
-      token: setValues.token,
-      password: setValues.password,
+      token: values.token,
+      password: values.password,
     })
       .then((res) => {
         if (res.success) {
           setSuccessMessage(res.message);
+          setValues((state) => ({
+            ...state,
+            token: '',
+            password: '',
+          }));
           navigate(HOME);
         }
       })
@@ -89,4 +94,4 @@ export function ResetPasswordPage() {
       </div>
     </>
   );
-}
+};

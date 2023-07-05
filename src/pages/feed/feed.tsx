@@ -1,27 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AppHeader } from '../../components/app-header/app-header';
 import s from './feed.module.css';
-import Stats from '../../components/stats/stats';
+import { Stats } from '../../components/stats/stats';
 import { useDispatch, useSelector } from 'react-redux';
 import { wsConnectionClosed, wsConnectionStart } from '../../redux/actions';
 import {
   getIngredientsSelector,
   getLastWsMessage,
 } from '../../redux/selectors/selectors';
-import Orders from '../../components/orders/orders';
+import { Orders } from '../../components/orders/orders';
 import { getIngredients } from '../../redux/actions/ingredients';
 import { formatDate } from '../../utils/formatDate';
 import { STATUS } from '../../utils/constans';
+import { IIngredient } from '../../interfaces/ingredient';
+import { IOrder } from '../../interfaces/order';
 
-export default function FeedPage() {
-  const [orders, setOrders] = useState([]);
+type TWsOrder = Omit<IOrder, 'owner' | 'price'>;
+
+export const FeedPage: FC = () => {
+  const [orders, setOrders] = useState<TWsOrder[]>();
   const [total, setTotal] = useState(0);
   const [totalToday, setTotalToday] = useState(0);
-  const [doneOrders, setDoneOrders] = useState([]);
-  const [pendingOrders, setPendingOrders] = useState([]);
+  const [doneOrders, setDoneOrders] = useState<number[]>([]);
+  const [pendingOrders, setPendingOrders] = useState<number[]>([]);
   const wsMessage = useSelector(getLastWsMessage);
-  const { ingredients } = useSelector(getIngredientsSelector);
-  const dispatch = useDispatch();
+  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
+    getIngredientsSelector
+  );
+  const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(wsConnectionStart());
     dispatch(getIngredients());
@@ -29,14 +35,14 @@ export default function FeedPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    const normalizeOrders = (orders) =>
-      orders.map((order) => {
+    const normalizeOrders: any = (orders: TWsOrder[]) =>
+      orders.map((order: any) => {
         return {
           id: order._id,
           name: order.name,
           number: order.number,
           date: formatDate(order.createdAt),
-          ingredients: order.ingredients.map((id) =>
+          ingredients: order.ingredients.map((id: string) =>
             ingredients.find((ingredient) => ingredient._id === id)
           ),
         };
@@ -64,7 +70,7 @@ export default function FeedPage() {
       <main className={s.feed + ' mt-10'}>
         <p className="text text_type_main-large">Лента заказов</p>
         <div className={s.columns + ' mt-5'}>
-          <Orders orders={orders} />
+          <Orders orders={orders as any} />
           <Stats
             total={total}
             totalToday={totalToday}
@@ -75,4 +81,4 @@ export default function FeedPage() {
       </main>
     </>
   );
-}
+};

@@ -4,15 +4,15 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
+import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { updateUserData, userData } from '../../redux/actions/user';
 import { getUserSelector } from '../../redux/selectors/selectors';
-import s from './settings.module.css?module';
+import s from './settings.module.css';
 
-export function Settings() {
-  const dispatch = useDispatch();
+export const Settings: FC = () => {
+  const dispatch = useDispatch<any>();
   const { user } = useSelector(getUserSelector);
   const { values, setValues, handleChange } = useForm({
     name: '',
@@ -30,7 +30,7 @@ export function Settings() {
     dispatch(userData());
   }, [dispatch]);
   const [disabledName, setDisabledName] = useState(true);
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(
       updateUserData({
@@ -94,4 +94,4 @@ export function Settings() {
       </div>
     </form>
   );
-}
+};

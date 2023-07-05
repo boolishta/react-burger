@@ -2,22 +2,22 @@ import {
   Button,
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
+import React, { ChangeEvent, FC, FormEventHandler, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
-import s from '../login/login.module.css?module';
+import s from '../login/login.module.css';
 import { forgotPassword } from '../../utils/burger-api';
 import { LOGIN } from '../../utils/routes';
 
-export function ForgotPasswordPage() {
+export const ForgotPasswordPage: FC = () => {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState(null);
-  const handleChange = (event) => {
-    setError(null);
-    setEmail(event.target.value);
+  const [error, setError] = useState('');
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError('');
+    setEmail(e.target.value);
   };
   const navigate = useNavigate();
-  const onSubmit = (e) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     forgotPassword({
       email,
@@ -40,7 +40,6 @@ export function ForgotPasswordPage() {
           <EmailInput
             value={email}
             placeholder="Укажите e-mail"
-            type="email"
             name="email"
             onChange={handleChange}
           />
@@ -71,4 +70,4 @@ export function ForgotPasswordPage() {
       </div>
     </>
   );
-}
+};

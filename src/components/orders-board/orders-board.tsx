@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import s from './orders-board.module.css';
-import PropType from 'prop-types';
 
-export default function OrdersBoard({ name, orders, success }) {
+interface IOrdersBoardProps {
+  name: string;
+  orders: number[];
+  success?: boolean;
+}
+
+export const OrdersBoard: FC<IOrdersBoardProps> = ({
+  name,
+  orders,
+  success,
+}) => {
   return (
     <div className={s.orders}>
       <p className="text text_type_main-default mb-6">{name}</p>
@@ -18,10 +27,4 @@ export default function OrdersBoard({ name, orders, success }) {
       </ul>
     </div>
   );
-}
-
-OrdersBoard.propTypes = {
-  name: PropType.string.isRequired,
-  orders: PropType.arrayOf(PropType.number).isRequired,
-  success: PropType.bool,
 };

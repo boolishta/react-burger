@@ -3,9 +3,10 @@ import s from './order-details.module.css';
 import doneImage from '../../images/done.jpg';
 import { useSelector } from 'react-redux';
 import { getOrderSelector } from '../../redux/selectors/selectors';
+import { IOrder } from '../../interfaces/order';
 
 export function OrderDetails() {
-  const { order } = useSelector(getOrderSelector);
+  const { order }: { order: IOrder } = useSelector(getOrderSelector);
   return (
     <div className={s.order}>
       <p className="text text_type_digits-large">{order.number}</p>

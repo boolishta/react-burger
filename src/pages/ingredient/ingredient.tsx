@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppHeader } from '../../components/app-header/app-header';
 import { IngredientDetails } from '../../components/ingredient-details/ingredient-details';
-import s from './ingredient.module.css?module';
+import s from './ingredient.module.css';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ADD_INGREDIENT_DETAILS,
   CLEAR_INGREDIENT_DETAILS,
 } from '../../redux/actions/ingredientDetails';
-import Modal from '../../components/modal/modal';
+import { Modal } from '../../components/modal/modal';
 import { getIngredients } from '../../redux/actions/ingredients';
+import { IIngredient } from '../../interfaces/ingredient';
 
-export default function IngredientPage() {
-  const { ingredients } = useSelector(getIngredientsSelector);
+export const IngredientPage: FC = () => {
+  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
+    getIngredientsSelector
+  );
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -56,4 +59,4 @@ export default function IngredientPage() {
       {visible && modal()}
     </>
   );
-}
+};
