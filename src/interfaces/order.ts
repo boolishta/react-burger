@@ -5,11 +5,13 @@ interface IOwner {
   updatedAt: string;
 }
 
+export type TOrderStatus = 'done' | 'pending' | 'created';
+
 export interface IOrder {
   ingredients: string[];
   _id: string;
   owner: IOwner;
-  status: 'done' | 'pending';
+  status: TOrderStatus;
   name: string;
   createdAt: string;
   updatedAt: string;

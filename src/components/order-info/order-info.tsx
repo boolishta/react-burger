@@ -32,8 +32,7 @@ export const OrderInfo: FC = () => {
     getOrderDetails(orderNumber).then((res) => {
       if (res.success && res.orders[0]) {
         setOrder(res.orders[0]);
-        const orderDate = new Date(res.orders[0].createdAt);
-        setOrderDate(() => formatDate(orderDate));
+        setOrderDate(() => formatDate(res.orders[0].createdAt));
       }
     });
   }, [orderNumber, dispatch]);

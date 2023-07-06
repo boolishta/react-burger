@@ -1,4 +1,4 @@
-function isSameDay(date1, date2) {
+function isSameDay(date1: Date, date2: Date): boolean {
   return (
     date1.getFullYear() === date2.getFullYear() &&
     date1.getMonth() === date2.getMonth() &&
@@ -6,17 +6,18 @@ function isSameDay(date1, date2) {
   );
 }
 
-function formatFullDate(date) {
-  const options = { month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('ru-RU', options);
+function formatFullDate(date: Date) {
+  return date.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric' });
 }
 
-function formatTime(date) {
-  const options = { hour: '2-digit', minute: '2-digit' };
-  return date.toLocaleTimeString('ru-RU', options);
+function formatTime(date: Date) {
+  return date.toLocaleTimeString('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 }
 
-export function formatDate(str) {
+export function formatDate(str: string): string {
   const date = new Date(str);
   const now = new Date();
   const yesterday = new Date(now);

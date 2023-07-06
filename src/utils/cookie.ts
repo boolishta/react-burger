@@ -1,8 +1,8 @@
-function setCookie(cname, cvalue) {
+function setCookie(cname: string, cvalue: string): void {
   document.cookie = cname + '=' + cvalue + ';path=/';
 }
 
-function getCookie(cname) {
+function getCookie(cname: string): string {
   let name = cname + '=';
   let ca = document.cookie.split(';');
   for (let i = 0; i < ca.length; i++) {
@@ -17,7 +17,7 @@ function getCookie(cname) {
   return '';
 }
 
-function deleteCookie(cname) {
+function deleteCookie(cname: string): void {
   document.cookie = cname + '=;path=/';
 }
 
