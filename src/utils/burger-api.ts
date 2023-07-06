@@ -5,15 +5,28 @@ const HEADERS = {
   'Content-Type': 'application/json',
 };
 
-const checkReponse = (res) => {
+interface IUserData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+type TUserLoginData = Omit<IUserData, 'name'>;
+
+interface IPasswordData {
+  token: string;
+  password: string;
+}
+
+const checkReponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export function fetchIngredients() {
+export function fetchIngredients(): Promise<any> {
   return fetch(`${NORMA_API}/ingredients`).then(checkReponse);
 }
 
-export function checkout(data) {
+export function checkout(data: { ingredients: string[] }): Promise<any> {
   return fetchWithRefresh(`${NORMA_API}/orders`, {
     method: 'POST',
     headers: {
@@ -24,7 +37,7 @@ export function checkout(data) {
   });
 }
 
-export function forgotPassword(data) {
+export function forgotPassword(data: { email: string }): Promise<any> {
   return fetch(`${NORMA_API}/password-reset`, {
     method: 'POST',
     headers: HEADERS,
@@ -32,7 +45,7 @@ export function forgotPassword(data) {
   }).then(checkReponse);
 }
 
-export function resetPassword(data) {
+export function resetPassword(data: IPasswordData): Promise<any> {
   return fetch(`${NORMA_API}/password-reset/reset`, {
     method: 'POST',
     headers: HEADERS,
@@ -40,7 +53,7 @@ export function resetPassword(data) {
   }).then(checkReponse);
 }
 
-export function login(data) {
+export function login(data: TUserLoginData): Promise<any> {
   return fetch(`${NORMA_API}/auth/login`, {
     method: 'POST',
     headers: HEADERS,
@@ -48,7 +61,7 @@ export function login(data) {
   }).then(checkReponse);
 }
 
-export function register(data) {
+export function register(data: IUserData): Promise<any> {
   return fetch(`${NORMA_API}/auth/register`, {
     method: 'POST',
     headers: HEADERS,
@@ -56,7 +69,7 @@ export function register(data) {
   }).then(checkReponse);
 }
 
-export function refreshToken() {
+export function refreshToken(): Promise<any> {
   const token = localStorage.getItem('refreshToken');
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
@@ -67,7 +80,7 @@ export function refreshToken() {
   }).then(checkReponse);
 }
 
-export function logout() {
+export function logout(): Promise<any> {
   return fetch(`${NORMA_API}/auth/logout`, {
     method: 'POST',
     headers: HEADERS,
@@ -77,7 +90,7 @@ export function logout() {
   }).then(checkReponse);
 }
 
-export function getUserData() {
+export function getUserData(): Promise<any> {
   return fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
@@ -86,7 +99,7 @@ export function getUserData() {
   });
 }
 
-export function patchUserData(data) {
+export function patchUserData(data: IUserData): Promise<any> {
   return fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -97,16 +110,22 @@ export function patchUserData(data) {
   });
 }
 
-const fetchWithRefresh = async (url, options) => {
+const fetchWithRefresh = async (
+  url: string,
+  options: RequestInit
+): Promise<any> => {
   try {
     const res = await fetch(url, options);
     return await checkReponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken();
       localStorage.setItem('refreshToken', refreshData.refreshToken);
       setCookie('accessToken', refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
+      options.headers = {
+        ...options.headers,
+        authorization: refreshData.accessToken,
+      };
       const res = await fetch(url, options);
       return await checkReponse(res);
     } else {
@@ -115,7 +134,7 @@ const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export function getOrderDetails(orderNumber) {
+export function getOrderDetails(orderNumber: string): Promise<any> {
   return fetch(`${NORMA_API}/orders/${orderNumber}`, {
     method: 'GET',
     headers: {
