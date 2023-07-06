@@ -1,6 +1,11 @@
-export const useIngredients = (ingredients, ingredientIds) => {
-  const quantity = {};
-  const prices = {};
+import { IIngredient } from '../interfaces/ingredient';
+
+export const useIngredients = (
+  ingredients: IIngredient[],
+  ingredientIds: string[]
+) => {
+  const quantity: { [key: string]: number } = {};
+  const prices: { [key: string]: number } = {};
   for (const ingredientId of ingredientIds) {
     if (quantity[ingredientId]) {
       quantity[ingredientId] += 1;
