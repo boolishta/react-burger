@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getUserSelector } from '../../redux/selectors/selectors';
 import { HOME } from '../../utils/routes';
-import PropType from 'prop-types';
 
-const PublicRouteElement = ({ children }) => {
+interface IPublicRouteElementProps {
+  children: ReactNode;
+}
+
+const PublicRouteElement: FC<IPublicRouteElementProps> = ({ children }) => {
   const user = useSelector(getUserSelector);
   const isAuth = user.userLoginSuccess;
   return !isAuth ? (
-    children
+    <>children</>
   ) : (
     <Navigate
       to={HOME}
@@ -19,7 +22,3 @@ const PublicRouteElement = ({ children }) => {
 };
 
 export default PublicRouteElement;
-
-PublicRouteElement.propTypes = {
-  children: PropType.node.isRequired,
-};
