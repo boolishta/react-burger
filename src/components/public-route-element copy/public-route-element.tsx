@@ -12,7 +12,7 @@ const PublicRouteElement: FC<IPublicRouteElementProps> = ({ children }) => {
   const user = useSelector(getUserSelector);
   const isAuth = user.userLoginSuccess;
   return !isAuth ? (
-    <>children</>
+    <>{children}</>
   ) : (
     <Navigate
       to={HOME}
