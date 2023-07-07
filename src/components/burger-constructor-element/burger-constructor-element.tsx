@@ -6,11 +6,11 @@ import React, { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import s from './burger-constructor-element.module.css';
 import { ItemTypes } from '../../utils/constans';
-import { IIngredient } from '../../interfaces/ingredient';
+import { IBurgerIngredient } from '../../interfaces/ingredient';
 import type { Identifier, XYCoord } from 'dnd-core';
 
 type TBurgerConstructorProps = {
-  ingredient: IIngredient & { uuid: string };
+  ingredient: IBurgerIngredient;
   index: number;
   handleClick: (uuid: string) => void;
   moveCard: (dragIndex: number, hoverIndex: number) => void;

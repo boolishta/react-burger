@@ -12,3 +12,7 @@ export interface IIngredient {
   readonly image_large: string;
   readonly __v: number;
 }
+
+export interface IBurgerIngredient extends IIngredient {
+  uuid: string;
+}
