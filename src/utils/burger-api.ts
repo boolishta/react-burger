@@ -1,3 +1,5 @@
+import { TOrderStatus } from './../interfaces/order';
+import { IIngredient } from '../interfaces/ingredient';
 import { getCookie, setCookie } from './cookie';
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
@@ -13,21 +15,70 @@ interface IUserData {
 
 type TUserLoginData = Omit<IUserData, 'name'>;
 
+type TUpdateUserData = Omit<IUserData, 'password'>;
+
 interface IPasswordData {
   token: string;
   password: string;
 }
 
-const checkReponse = (res: Response) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+type TResponse<T> = {
+  success: boolean;
+} & T;
+
+type TIngredientResponse = {
+  data: IIngredient[];
 };
 
-export function fetchIngredients(): Promise<any> {
-  return fetch(`${NORMA_API}/ingredients`).then(checkReponse);
+type TMessageRespnose = {
+  message: string;
+};
+
+type TLoginResponse = {
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+};
+
+type TTokenResponse = Omit<TLoginResponse, 'user'>;
+
+type TOrderResponse = {
+  name: string;
+  order: {
+    createdAt: string;
+    ingredients: IIngredient[];
+    name: string;
+    number: number;
+    owner: {
+      createdAt: string;
+      updatedAt: string;
+      name: string;
+      email: string;
+    };
+    price: number;
+    status: TOrderStatus;
+    updatedAt: string;
+    _id: string;
+  };
+};
+
+const checkResponse = <T>(res: Response) => {
+  return res.ok
+    ? res.json().then((data) => data as TResponse<T>)
+    : res.json().then((err) => Promise.reject(err));
+};
+
+export function loadIngredients(): Promise<any> {
+  return fetch(`${NORMA_API}/ingredients`).then(
+    checkResponse<TIngredientResponse>
+  );
 }
 
 export function checkout(data: { ingredients: string[] }): Promise<any> {
-  return fetchWithRefresh(`${NORMA_API}/orders`, {
+  return fetchWithRefresh<TOrderResponse>(`${NORMA_API}/orders`, {
     method: 'POST',
     headers: {
       ...HEADERS,
@@ -42,7 +93,7 @@ export function forgotPassword(data: { email: string }): Promise<any> {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  }).then(checkResponse<TMessageRespnose>);
 }
 
 export function resetPassword(data: IPasswordData): Promise<any> {
@@ -50,7 +101,7 @@ export function resetPassword(data: IPasswordData): Promise<any> {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  }).then(checkResponse<TMessageRespnose>);
 }
 
 export function login(data: TUserLoginData): Promise<any> {
@@ -58,7 +109,7 @@ export function login(data: TUserLoginData): Promise<any> {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  }).then(checkResponse<TLoginResponse>);
 }
 
 export function register(data: IUserData): Promise<any> {
@@ -66,7 +117,7 @@ export function register(data: IUserData): Promise<any> {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(data),
-  }).then(checkReponse);
+  }).then(checkResponse<TLoginResponse>);
 }
 
 export function refreshToken(): Promise<any> {
@@ -77,7 +128,7 @@ export function refreshToken(): Promise<any> {
     body: JSON.stringify({
       token,
     }),
-  }).then(checkReponse);
+  }).then(checkResponse<TTokenResponse>);
 }
 
 export function logout(): Promise<any> {
@@ -87,11 +138,11 @@ export function logout(): Promise<any> {
     body: JSON.stringify({
       token: localStorage.getItem('refreshToken'),
     }),
-  }).then(checkReponse);
+  }).then(checkResponse<TMessageRespnose>);
 }
 
 export function getUserData(): Promise<any> {
-  return fetchWithRefresh(`${NORMA_API}/auth/user`, {
+  return fetchWithRefresh<TUpdateUserData>(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
       Authorization: getCookie('accessToken'),
@@ -100,7 +151,7 @@ export function getUserData(): Promise<any> {
 }
 
 export function patchUserData(data: IUserData): Promise<any> {
-  return fetchWithRefresh(`${NORMA_API}/auth/user`, {
+  return fetchWithRefresh<TUpdateUserData>(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -110,13 +161,13 @@ export function patchUserData(data: IUserData): Promise<any> {
   });
 }
 
-const fetchWithRefresh = async (
+const fetchWithRefresh = async <T>(
   url: string,
   options: RequestInit
 ): Promise<any> => {
   try {
     const res = await fetch(url, options);
-    return await checkReponse(res);
+    return await checkResponse<T>(res);
   } catch (err: any) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken();
@@ -127,7 +178,7 @@ const fetchWithRefresh = async (
         authorization: refreshData.accessToken,
       };
       const res = await fetch(url, options);
-      return await checkReponse(res);
+      return await checkResponse<T>(res);
     } else {
       return Promise.reject(err);
     }
@@ -140,5 +191,5 @@ export function getOrderDetails(orderNumber: string): Promise<any> {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(checkReponse);
+  }).then(checkResponse);
 }
