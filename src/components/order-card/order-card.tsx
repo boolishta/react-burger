@@ -45,7 +45,10 @@ export const OrderCard: FC<IOrderCardProps> = ({
                   key={idx}
                   className={s.ingredientPreview}
                 >
-                  <IngredientImage src={ingredient.image} />
+                  <IngredientImage
+                    src={ingredient.image}
+                    name={ingredient.name}
+                  />
                   {idx === 0 &&
                     ingredientsQuantity > DISPLAYED_IMAGES_QUANTITY && (
                       <p

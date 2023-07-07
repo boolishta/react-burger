@@ -44,7 +44,10 @@ export const OrderInfo: FC = () => {
           key={ingredientId}
           className={s.item}
         >
-          <IngredientImage src={ingredient.image_mobile} />
+          <IngredientImage
+            src={ingredient.image_mobile}
+            name={ingredient.name}
+          />
           <p className={s.name + ' text text_type_main-default ml-4'}>
             {ingredient.name}
           </p>
