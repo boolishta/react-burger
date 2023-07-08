@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IIngredient } from '../../interfaces/ingredient';
-import { IOrder } from '../../interfaces/order';
+import { IHistoryOrder, IOrder } from '../../interfaces/order';
 import { wsConnectionStartWithToken } from '../../redux/actions';
 import {
   getIngredientsSelector,
@@ -10,16 +10,8 @@ import {
 import { formatDate } from '../../utils/formatDate';
 import { Orders } from '../orders/orders';
 
-export interface IHistoryOrders {
-  id: string;
-  name: string;
-  number: number;
-  date: string;
-  ingredients: IIngredient[];
-}
-
 export const OrdersHistory: FC = () => {
-  const [orders, setOrders] = useState<IHistoryOrders[]>([]);
+  const [orders, setOrders] = useState<IHistoryOrder[]>([]);
   const wsMessage = useSelector(getLastWsMessage);
   const { ingredients }: { ingredients: IIngredient[] } = useSelector(
     getIngredientsSelector

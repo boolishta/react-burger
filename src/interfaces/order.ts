@@ -1,3 +1,5 @@
+import { IIngredient } from './ingredient';
+
 interface IOwner {
   name: string;
   email: string;
@@ -17,4 +19,12 @@ export interface IOrder {
   updatedAt: string;
   number: number;
   price: number;
+}
+
+export interface IHistoryOrder {
+  id: string;
+  name: string;
+  number: number;
+  date: string;
+  ingredients: IIngredient[];
 }

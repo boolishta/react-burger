@@ -13,12 +13,12 @@ import { getIngredients } from '../../redux/actions/ingredients';
 import { formatDate } from '../../utils/formatDate';
 import { STATUS } from '../../utils/constans';
 import { IIngredient } from '../../interfaces/ingredient';
-import { IOrder } from '../../interfaces/order';
+import { IHistoryOrder, IOrder } from '../../interfaces/order';
 
 type TWsOrder = Omit<IOrder, 'owner' | 'price'>;
 
 export const FeedPage: FC = () => {
-  const [orders, setOrders] = useState<TWsOrder[]>();
+  const [orders, setOrders] = useState<IHistoryOrder[]>([]);
   const [total, setTotal] = useState(0);
   const [totalToday, setTotalToday] = useState(0);
   const [doneOrders, setDoneOrders] = useState<number[]>([]);
@@ -35,8 +35,8 @@ export const FeedPage: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const normalizeOrders: any = (orders: TWsOrder[]) =>
-      orders.map((order: any) => {
+    const normalizeOrders = (orders: TWsOrder[]): IHistoryOrder[] =>
+      orders.map((order) => {
         return {
           id: order._id,
           name: order.name,
@@ -45,7 +45,7 @@ export const FeedPage: FC = () => {
           ingredients: order.ingredients.map((id: string) =>
             ingredients.find((ingredient) => ingredient._id === id)
           ),
-        };
+        } as IHistoryOrder;
       });
     if (wsMessage) {
       const pendingOrders = [];
@@ -70,7 +70,7 @@ export const FeedPage: FC = () => {
       <main className={s.feed + ' mt-10'}>
         <p className="text text_type_main-large">Лента заказов</p>
         <div className={s.columns + ' mt-5'}>
-          <Orders orders={orders as any} />
+          <Orders orders={orders} />
           <Stats
             total={total}
             totalToday={totalToday}

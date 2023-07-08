@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IHistoryOrder } from '../../interfaces/order';
 import { OrderCard } from '../order-card/order-card';
-import { IHistoryOrders } from '../orders-history/orders-history';
 import s from './orders.module.css';
 
 interface IOrdersProps {
-  orders: IHistoryOrders[];
+  orders: IHistoryOrder[];
 }
 
 export const Orders: FC<IOrdersProps> = ({ orders }) => {
