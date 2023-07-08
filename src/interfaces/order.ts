@@ -1,6 +1,6 @@
 import { IIngredient } from './ingredient';
 
-interface IOwner {
+export interface IOwner {
   name: string;
   email: string;
   createdAt: string;

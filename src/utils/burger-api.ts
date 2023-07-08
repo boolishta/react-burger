@@ -1,4 +1,4 @@
-import { TOrderStatus } from './../interfaces/order';
+import { IOwner, TOrderStatus } from './../interfaces/order';
 import { IIngredient } from '../interfaces/ingredient';
 import { getCookie, setCookie } from './cookie';
 
@@ -52,12 +52,7 @@ type TOrderResponse = {
     ingredients: IIngredient[];
     name: string;
     number: number;
-    owner: {
-      createdAt: string;
-      updatedAt: string;
-      name: string;
-      email: string;
-    };
+    owner: IOwner;
     price: number;
     status: TOrderStatus;
     updatedAt: string;
