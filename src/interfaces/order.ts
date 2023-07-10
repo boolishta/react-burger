@@ -28,3 +28,14 @@ export interface IHistoryOrder {
   date: string;
   ingredients: IIngredient[];
 }
+
+export type TOrderDetails = {
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  owner: string;
+  status: TOrderStatus;
+  updatedAt: string;
+  _id: string;
+};

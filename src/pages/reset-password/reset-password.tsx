@@ -23,7 +23,7 @@ export const ResetPasswordPage: FC = () => {
     token: '',
     password: '',
   });
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     resetPassword({

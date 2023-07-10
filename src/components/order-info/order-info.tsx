@@ -11,10 +11,10 @@ import { IngredientImage } from '../ingredient-image/ingredient-image';
 import { parseStatus } from '../../utils/parseStatus';
 import { useIngredients } from '../../hooks/useIngredients';
 import { IIngredient } from '../../interfaces/ingredient';
-import { IOrder } from '../../interfaces/order';
+import { TOrderDetails } from '../../interfaces/order';
 
 export const OrderInfo: FC = () => {
-  const [order, setOrder] = useState<IOrder>();
+  const [order, setOrder] = useState<TOrderDetails>();
   const [orderDate, setOrderDate] = useState('');
   const { ingredients }: { ingredients: IIngredient[] } = useSelector(
     getIngredientsSelector
