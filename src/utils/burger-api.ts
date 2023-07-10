@@ -70,15 +70,13 @@ const checkResponse = <T>(res: Response) => {
     : res.json().then((err) => Promise.reject(err));
 };
 
-export function loadIngredients(): Promise<TResponse<TIngredientResponse>> {
+export function loadIngredients() {
   return fetch(`${NORMA_API}/ingredients`).then(
     checkResponse<TIngredientResponse>
   );
 }
 
-export function checkout(data: {
-  ingredients: string[];
-}): Promise<TResponse<TOrderResponse>> {
+export function checkout(data: { ingredients: string[] }) {
   return fetchWithRefresh<TOrderResponse>(`${NORMA_API}/orders`, {
     method: 'POST',
     headers: {
@@ -89,9 +87,7 @@ export function checkout(data: {
   });
 }
 
-export function forgotPassword(data: {
-  email: string;
-}): Promise<TMessageRespnose> {
+export function forgotPassword(data: { email: string }) {
   return fetch(`${NORMA_API}/password-reset`, {
     method: 'POST',
     headers: HEADERS,
@@ -99,9 +95,7 @@ export function forgotPassword(data: {
   }).then(checkResponse<TMessageRespnose>);
 }
 
-export function resetPassword(
-  data: IPasswordData
-): Promise<TResponse<TMessageRespnose>> {
+export function resetPassword(data: IPasswordData) {
   return fetch(`${NORMA_API}/password-reset/reset`, {
     method: 'POST',
     headers: HEADERS,
@@ -109,9 +103,7 @@ export function resetPassword(
   }).then(checkResponse<TMessageRespnose>);
 }
 
-export function login(
-  data: TUserLoginData
-): Promise<TResponse<TLoginResponse>> {
+export function login(data: TUserLoginData) {
   return fetch(`${NORMA_API}/auth/login`, {
     method: 'POST',
     headers: HEADERS,
@@ -119,7 +111,7 @@ export function login(
   }).then(checkResponse<TLoginResponse>);
 }
 
-export function register(data: IUserData): Promise<TResponse<TLoginResponse>> {
+export function register(data: IUserData) {
   return fetch(`${NORMA_API}/auth/register`, {
     method: 'POST',
     headers: HEADERS,
@@ -127,7 +119,7 @@ export function register(data: IUserData): Promise<TResponse<TLoginResponse>> {
   }).then(checkResponse<TLoginResponse>);
 }
 
-export function refreshToken(): Promise<TResponse<TTokenResponse>> {
+export function refreshToken() {
   const token = localStorage.getItem('refreshToken');
   return fetch(`${NORMA_API}/auth/token`, {
     method: 'POST',
@@ -138,7 +130,7 @@ export function refreshToken(): Promise<TResponse<TTokenResponse>> {
   }).then(checkResponse<TTokenResponse>);
 }
 
-export function logout(): Promise<TResponse<TMessageRespnose>> {
+export function logout() {
   return fetch(`${NORMA_API}/auth/logout`, {
     method: 'POST',
     headers: HEADERS,
@@ -148,7 +140,7 @@ export function logout(): Promise<TResponse<TMessageRespnose>> {
   }).then(checkResponse<TMessageRespnose>);
 }
 
-export function getUserData(): Promise<TResponse<TUpdateUserData>> {
+export function getUserData() {
   return fetchWithRefresh<TUpdateUserData>(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
@@ -157,9 +149,7 @@ export function getUserData(): Promise<TResponse<TUpdateUserData>> {
   });
 }
 
-export function patchUserData(
-  data: IUserData
-): Promise<TResponse<TUpdateUserData>> {
+export function patchUserData(data: IUserData) {
   return fetchWithRefresh<TUpdateUserData>(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -194,9 +184,7 @@ const fetchWithRefresh = async <T>(
   }
 };
 
-export function getOrderDetails(
-  orderNumber: string
-): Promise<TResponse<TOrderDetailsResponse>> {
+export function getOrderDetails(orderNumber: string) {
   return fetch(`${NORMA_API}/orders/${orderNumber}`, {
     method: 'GET',
     headers: {
