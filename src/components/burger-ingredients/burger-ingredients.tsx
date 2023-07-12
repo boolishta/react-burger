@@ -3,12 +3,12 @@ import React, { useMemo, useState, useEffect, FC } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT_DETAILS } from '../../redux/actions/ingredientDetails';
 import { useInView } from 'react-intersection-observer';
 import { getIngredients } from '../../redux/actions/ingredients';
 import { getIngredientsSelector } from '../../redux/selectors/selectors';
 import { useNavigate } from 'react-router-dom';
 import { IIngredient } from '../../interfaces/ingredient';
+import { addIngredientsAction } from '../../redux/actions/ingredientDetails';
 
 export const BurgerIngredients: FC = () => {
   const [bunsRef, bunsInView] = useInView({
@@ -52,11 +52,10 @@ export const BurgerIngredients: FC = () => {
   const navigate = useNavigate();
   const handleOpenIngredientModal = (ingredientId: string) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
-    dispatch({
-      type: ADD_INGREDIENT_DETAILS,
-      ingredient,
-    });
-    navigate(`ingredients/${ingredientId}`, { state: { isModal: true } });
+    if (ingredient) {
+      dispatch(addIngredientsAction(ingredient));
+      navigate(`ingredients/${ingredientId}`, { state: { isModal: true } });
+    }
   };
   return (
     <section className={s.burger}>
