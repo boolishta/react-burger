@@ -6,7 +6,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   REMOVE_INGREDIENTS,
-} from '../actions/ingredients';
+} from '../constans';
 
 const initialState = {
   ingredients: [],

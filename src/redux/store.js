@@ -21,12 +21,8 @@ const wsActions = {
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(
+  applyMiddleware(thunkMiddleware, socketMiddleware(wsActions))
+);
 
-export const initStore = (initialState = {}) =>
-  createStore(
-    rootReducer,
-    initialState,
-    composeEnhancers(
-      applyMiddleware(thunkMiddleware, socketMiddleware(wsActions))
-    )
-  );
+export const store = createStore(rootReducer, enhancer);

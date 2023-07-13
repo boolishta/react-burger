@@ -1,5 +1,5 @@
 import { checkout } from '../../utils/burger-api';
-import { CLEAR_INGREDINETS } from './ingredients';
+import { CLEAR_INGREDINETS } from '../constans';
 
 export const ORDER_CHECKOUT_REQUEST = 'ORDER_CHECKOUT_REQUEST';
 export const ORDER_CHECKOUT_SUCCESS = 'ORDER_CHECKOUT_SUCCESS';
