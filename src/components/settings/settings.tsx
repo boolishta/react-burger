@@ -6,9 +6,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from '../../hooks/useForm';
-import { updateUserData, userData } from '../../redux/actions/user';
-import { getUserSelector } from '../../redux/selectors/selectors';
+import { updateUserData, userData } from '../../services/actions/user';
+import { useForm } from '../../services/hooks';
+import { getUserSelector } from '../../services/selectors/selectors';
 import s from './settings.module.css';
 
 export const Settings: FC = () => {

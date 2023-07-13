@@ -6,7 +6,7 @@ import {
 import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../services/hooks';
 import { resetPassword } from '../../utils/burger-api';
 import { HOME, LOGIN } from '../../utils/routes';
 import s from '../login/login.module.css';

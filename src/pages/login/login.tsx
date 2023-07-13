@@ -9,10 +9,10 @@ import { AppHeader } from '../../components/app-header/app-header';
 import s from './login.module.css';
 import { Error } from '../../components/error/error';
 import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_USER_ERROR, userLogin } from '../../redux/actions/user';
-import { getUserSelector } from '../../redux/selectors/selectors';
+import { CLEAR_USER_ERROR, userLogin } from '../../services/actions/user';
+import { getUserSelector } from '../../services/selectors/selectors';
 import { FORGOT_PASSWORD, HOME, REGISTER } from '../../utils/routes';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../services/hooks';
 
 export const LoginPage: FC = () => {
   const location = useLocation();

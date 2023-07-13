@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import s from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
-import { getIngredientDetailsSelector } from '../../redux/selectors/selectors';
+import { getIngredientDetailsSelector } from '../../services/selectors/selectors';
 import { IIngredient } from '../../interfaces/ingredient';
 
 export const IngredientDetails: FC = () => {

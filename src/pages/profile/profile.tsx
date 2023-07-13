@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
-import { userLogout } from '../../redux/actions/user';
+import { userLogout } from '../../services/actions/user';
 import { LOGIN, PROFILE_ORDERS, PROFILE } from '../../utils/routes';
 import s from './profile.module.css';
 

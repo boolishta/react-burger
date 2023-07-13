@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { getUserSelector } from '../../redux/selectors/selectors';
+import { getUserSelector } from '../../services/selectors/selectors';
 import { HOME } from '../../utils/routes';
 
 interface IPublicRouteElementProps {

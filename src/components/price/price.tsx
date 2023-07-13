@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { ICurrentIngredient } from '../burger-constructor/burger-constructor';
 import { IIngredient } from '../../interfaces/ingredient';
 

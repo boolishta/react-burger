@@ -13,14 +13,14 @@ import { ItemTypes } from '../../utils/constans';
 import update from 'immutability-helper';
 import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
 import { v4 as uuidv4 } from 'uuid';
-import { getIngredientsSelector } from '../../redux/selectors/selectors';
-import { orderCheckout } from '../../redux/actions/order';
+import { getIngredientsSelector } from '../../services/selectors/selectors';
+import { orderCheckout } from '../../services/actions/order';
 import { IIngredient } from '../../interfaces/ingredient';
 import {
   ADD_BUN,
   ADD_INGREDIENTS,
   REMOVE_INGREDIENTS,
-} from '../../redux/constans';
+} from '../../services/constans';
 
 export interface ICurrentIngredient extends IIngredient {
   uuid: string;

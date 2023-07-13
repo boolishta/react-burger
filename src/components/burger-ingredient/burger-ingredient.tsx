@@ -7,7 +7,7 @@ import s from './burger-ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { ItemTypes } from '../../utils/constans';
-import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { IIngredient } from '../../interfaces/ingredient';
 import { ICurrentIngredient } from '../burger-constructor/burger-constructor';
 

@@ -3,13 +3,13 @@ import { AppHeader } from '../../components/app-header/app-header';
 import s from './feed.module.css';
 import { Stats } from '../../components/stats/stats';
 import { useDispatch, useSelector } from 'react-redux';
-import { wsConnectionClosed, wsConnectionStart } from '../../redux/actions';
+import { wsConnectionClosed, wsConnectionStart } from '../../services/actions';
 import {
   getIngredientsSelector,
   getLastWsMessage,
-} from '../../redux/selectors/selectors';
+} from '../../services/selectors/selectors';
 import { Orders } from '../../components/orders/orders';
-import { getIngredients } from '../../redux/actions/ingredients';
+import { getIngredients } from '../../services/actions/ingredients';
 import { formatDate } from '../../utils/formatDate';
 import { STATUS } from '../../utils/constans';
 import { IIngredient } from '../../interfaces/ingredient';

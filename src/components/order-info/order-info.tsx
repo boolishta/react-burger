@@ -1,17 +1,16 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC, useEffect, useState } from 'react';
 import s from './order-info.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { useLocation } from 'react-router-dom';
-import { getIngredients } from '../../redux/actions/ingredients';
+import { getIngredients } from '../../services/actions/ingredients';
 import { getOrderDetails } from '../../utils/burger-api';
 import { formatDate } from '../../utils/formatDate';
 import { IngredientImage } from '../ingredient-image/ingredient-image';
 import { parseStatus } from '../../utils/parseStatus';
-import { useIngredients } from '../../hooks/useIngredients';
 import { IIngredient } from '../../interfaces/ingredient';
 import { TOrderDetails } from '../../interfaces/order';
+import { useDispatch, useIngredients, useSelector } from '../../services/hooks';
 
 export const OrderInfo: FC = () => {
   const [order, setOrder] = useState<TOrderDetails>();
@@ -19,7 +18,7 @@ export const OrderInfo: FC = () => {
   const { ingredients }: { ingredients: IIngredient[] } = useSelector(
     getIngredientsSelector
   );
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const location = useLocation();
   const pathname = location.pathname.split('/');
   const orderNumber = pathname[pathname.length - 1];

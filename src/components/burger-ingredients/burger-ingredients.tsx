@@ -4,12 +4,12 @@ import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
-import { getIngredients } from '../../redux/actions/ingredients';
-import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { getIngredients } from '../../services/actions/ingredients';
+import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { useNavigate } from 'react-router-dom';
 import { IIngredient } from '../../interfaces/ingredient';
-import { addIngredientsAction } from '../../redux/actions/ingredientDetails';
-import { useDispatch } from '../../hooks/hooks';
+import { addIngredientsAction } from '../../services/actions/ingredientDetails';
+import { useDispatch } from '../../services/hooks';
 
 export const BurgerIngredients: FC = () => {
   const [bunsRef, bunsInView] = useInView({

@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppHeader } from '../../components/app-header/app-header';
 import { IngredientDetails } from '../../components/ingredient-details/ingredient-details';
 import s from './ingredient.module.css';
-import { getIngredientsSelector } from '../../redux/selectors/selectors';
+import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/modal/modal';
-import { getIngredients } from '../../redux/actions/ingredients';
+import { getIngredients } from '../../services/actions/ingredients';
 import { IIngredient } from '../../interfaces/ingredient';
 import {
   addIngredientsAction,
   clearIngredientsAction,
-} from '../../redux/actions/ingredientDetails';
+} from '../../services/actions/ingredientDetails';
 
 export const IngredientPage: FC = () => {
   const { ingredients }: { ingredients: IIngredient[] } = useSelector(

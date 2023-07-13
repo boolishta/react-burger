@@ -2,11 +2,11 @@ import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IIngredient } from '../../interfaces/ingredient';
 import { IHistoryOrder, IOrder } from '../../interfaces/order';
-import { wsConnectionStartWithToken } from '../../redux/actions';
+import { wsConnectionStartWithToken } from '../../services/actions';
 import {
   getIngredientsSelector,
   getLastWsMessage,
-} from '../../redux/selectors/selectors';
+} from '../../services/selectors/selectors';
 import { formatDate } from '../../utils/formatDate';
 import { Orders } from '../orders/orders';
 

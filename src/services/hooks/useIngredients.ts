@@ -1,4 +1,4 @@
-import { IIngredient } from '../interfaces/ingredient';
+import { IIngredient } from '../../interfaces/ingredient';
 
 export const useIngredients = (
   ingredients: IIngredient[],

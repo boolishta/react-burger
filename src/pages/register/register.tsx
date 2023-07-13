@@ -9,11 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
 import { Error } from '../../components/error/error';
-import { useForm } from '../../hooks/useForm';
-import { userRegister } from '../../redux/actions/user';
+import { userRegister } from '../../services/actions/user';
 import { LOGIN } from '../../utils/routes';
-import { getUserSelector } from '../../redux/selectors/selectors';
+import { getUserSelector } from '../../services/selectors/selectors';
 import s from '../login/login.module.css';
+import { useForm } from '../../services/hooks';
 
 export const RegisterPage: FC = () => {
   const { values, handleChange } = useForm({
