@@ -7,7 +7,7 @@ import { Price } from '../price/price';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import { Modal } from '../modal/modal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';
 import update from 'immutability-helper';
@@ -17,10 +17,11 @@ import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { orderCheckout } from '../../services/actions/order';
 import { IIngredient } from '../../interfaces/ingredient';
 import {
-  ADD_BUN,
-  ADD_INGREDIENTS,
-  REMOVE_INGREDIENTS,
-} from '../../services/constans';
+  addBunAction,
+  removeIngredientsAction,
+} from '../../services/actions/ingredients';
+import { useDispatch } from '../../services/hooks';
+import { addIngredientsAction } from '../../services/actions/ingredients';
 
 export interface ICurrentIngredient extends IIngredient {
   uuid: string;
@@ -50,18 +51,14 @@ export const BurgerConstructor: FC = () => {
     drop: (item: { ingredient: IIngredient }) => {
       const { ingredient } = item;
       if (ingredient.type === 'bun') {
-        return dispatch({
-          type: ADD_BUN,
-          ingredient: { ...ingredient },
-        });
+        return dispatch(addBunAction({ ...ingredient }));
       }
-      return dispatch({
-        type: ADD_INGREDIENTS,
-        ingredient: {
+      return dispatch(
+        addIngredientsAction({
           ...ingredient,
           uuid: uuidv4(),
-        },
-      });
+        })
+      );
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -78,19 +75,19 @@ export const BurgerConstructor: FC = () => {
   );
   const handleClick = () => {
     const data = ingredients.map((item) => item._id);
-    dispatch<any>(
+    dispatch(
       orderCheckout({
         ingredients: [...data, bun._id, bun._id],
       })
     );
     handleOpenModal();
   };
-  const handleClose = (uuid: string) => {
-    dispatch({
-      type: REMOVE_INGREDIENTS,
-      uuid,
-    });
-  };
+  const handleClose = useCallback(
+    (uuid: string) => {
+      dispatch(removeIngredientsAction(uuid));
+    },
+    [dispatch]
+  );
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     setDraggableElements((prevCards) =>
       update(prevCards, {

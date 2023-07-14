@@ -1,6 +1,7 @@
 import { IIngredient } from '../../interfaces/ingredient';
 import { ADD_INGREDIENT_DETAILS, CLEAR_INGREDIENT_DETAILS } from '../constans';
 
+// FIXME: IngredientDetails
 interface IAddIngredientAction {
   readonly type: typeof ADD_INGREDIENT_DETAILS;
   readonly ingredient: IIngredient;

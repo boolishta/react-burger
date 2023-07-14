@@ -1,14 +1,24 @@
+import { IIngredient } from '../../interfaces/ingredient';
+import { TIngredientsActions } from '../actions/ingredients';
 import {
   ADD_BUN,
   ADD_INGREDIENTS,
-  CLEAR_INGREDINETS,
+  CLEAR_INGREDIENTS,
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   REMOVE_INGREDIENTS,
 } from '../constans';
 
-const initialState = {
+export type TIngredientsState = {
+  ingredients: ReadonlyArray<IIngredient>;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  bun: IIngredient | null;
+  currentIngredients: ReadonlyArray<IIngredient & { uuid: string }>;
+};
+
+const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
@@ -16,15 +26,18 @@ const initialState = {
   currentIngredients: [],
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (
+  state = initialState,
+  action: TIngredientsActions
+): TIngredientsState => {
   switch (action.type) {
     case ADD_BUN: {
       return {
         ...state,
-        bun: { ...action.ingredient },
+        bun: { ...action.payload.ingredient },
       };
     }
-    case CLEAR_INGREDINETS: {
+    case CLEAR_INGREDIENTS: {
       return {
         ...state,
         currentIngredients: initialState.currentIngredients,
@@ -34,7 +47,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     case ADD_INGREDIENTS: {
       const newCurrentIngredients = [
         ...state.currentIngredients,
-        { ...action.ingredient },
+        { ...action.payload.ingredient },
       ];
       return { ...state, currentIngredients: newCurrentIngredients };
     }
@@ -42,7 +55,7 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         currentIngredients: state.currentIngredients.filter(
-          (item) => item.uuid !== action.uuid
+          (item) => item.uuid !== action.payload.uuid
         ),
       };
     }

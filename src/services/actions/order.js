@@ -1,5 +1,5 @@
 import { checkout } from '../../utils/burger-api';
-import { CLEAR_INGREDINETS } from '../constans';
+import { clearIngredientsAction } from './ingredients';
 
 export const ORDER_CHECKOUT_REQUEST = 'ORDER_CHECKOUT_REQUEST';
 export const ORDER_CHECKOUT_SUCCESS = 'ORDER_CHECKOUT_SUCCESS';
@@ -16,9 +16,7 @@ export function orderCheckout(data) {
           type: ORDER_CHECKOUT_SUCCESS,
           order: res.order,
         });
-        dispatch({
-          type: CLEAR_INGREDINETS,
-        });
+        dispatch(clearIngredientsAction());
       } else {
         dispatch({
           type: ORDER_CHECKOUT_FAILED,
