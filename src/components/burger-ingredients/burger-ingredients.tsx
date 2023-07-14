@@ -8,8 +8,8 @@ import { getIngredients } from '../../services/actions/ingredients';
 import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { useNavigate } from 'react-router-dom';
 import { IIngredient } from '../../interfaces/ingredient';
-import { addIngredientsAction } from '../../services/actions/ingredientDetails';
 import { useDispatch } from '../../services/hooks';
+import { addIngredientDetailsAction } from '../../services/actions/ingredientDetails';
 
 export const BurgerIngredients: FC = () => {
   const [bunsRef, bunsInView] = useInView({
@@ -54,7 +54,7 @@ export const BurgerIngredients: FC = () => {
   const handleOpenIngredientModal = (ingredientId: string) => {
     const ingredient = ingredients.find((item) => item._id === ingredientId);
     if (ingredient) {
-      dispatch(addIngredientsAction(ingredient));
+      dispatch(addIngredientDetailsAction(ingredient));
       navigate(`ingredients/${ingredientId}`, { state: { isModal: true } });
     }
   };

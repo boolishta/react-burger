@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppHeader } from '../../components/app-header/app-header';
 import { IngredientDetails } from '../../components/ingredient-details/ingredient-details';
 import s from './ingredient.module.css';
@@ -9,16 +9,17 @@ import { Modal } from '../../components/modal/modal';
 import { getIngredients } from '../../services/actions/ingredients';
 import { IIngredient } from '../../interfaces/ingredient';
 import {
-  addIngredientsAction,
-  clearIngredientsAction,
+  addIngredientDetailsAction,
+  clearIngredientDetailsAction,
 } from '../../services/actions/ingredientDetails';
+import { useDispatch } from '../../services/hooks';
 
 export const IngredientPage: FC = () => {
   const { ingredients }: { ingredients: IIngredient[] } = useSelector(
     getIngredientsSelector
   );
   const location = useLocation();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ export const IngredientPage: FC = () => {
       const id = pathname[pathname.length - 1];
       const ingredient = ingredients.find((item) => item._id === id);
       if (ingredient) {
-        dispatch(addIngredientsAction(ingredient));
+        dispatch(addIngredientDetailsAction(ingredient));
       }
     }
   }, [location, dispatch, ingredients]);
@@ -42,7 +43,7 @@ export const IngredientPage: FC = () => {
     </Modal>
   );
   const handleCloseIngredientModal = () => {
-    dispatch(clearIngredientsAction());
+    dispatch(clearIngredientDetailsAction());
     setVisible(false);
     navigate(-1);
   };
