@@ -15,7 +15,9 @@ interface IUserData {
 
 type TUserLoginData = Omit<IUserData, 'name'>;
 
-type TUpdateUserData = Omit<IUserData, 'password'>;
+export interface IAuthUser {
+  user: Omit<IUserData, 'password'>;
+}
 
 interface IPasswordData {
   token: string;
@@ -141,7 +143,7 @@ export function logout() {
 }
 
 export function getUserData() {
-  return fetchWithRefresh<TUpdateUserData>(`${NORMA_API}/auth/user`, {
+  return fetchWithRefresh<IAuthUser>(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
       Authorization: getCookie('accessToken'),
@@ -150,7 +152,7 @@ export function getUserData() {
 }
 
 export function patchUserData(data: IUserData) {
-  return fetchWithRefresh<TUpdateUserData>(`${NORMA_API}/auth/user`, {
+  return fetchWithRefresh<IAuthUser>(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

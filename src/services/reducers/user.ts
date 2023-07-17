@@ -1,20 +1,46 @@
 import {
+  CLEAR_USER_ERROR,
+  USER_DATA_FAILED,
+  USER_DATA_REQUEST,
+  USER_DATA_SUCCESS,
   USER_LOGIN_FAILED,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAILED,
-  USER_DATA_REQUEST,
-  USER_DATA_SUCCESS,
-  USER_DATA_FAILED,
+  USER_LOGOUT_FAILED,
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAILED,
-  CLEAR_USER_ERROR,
-} from '../actions/user';
+  USER_REGISTER_FAILED,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+} from '../constans';
+import { TUserActions } from './../actions/user';
 
-const initialStore = {
+export type TUserState = {
+  userLoginSuccess: boolean;
+  userLoginRequest: boolean;
+  userLoginFailed: boolean;
+  userRegisterSuccess: boolean;
+  userRegisterRequest: boolean;
+  userRegisterFailed: boolean;
+  userDataSuccess: boolean;
+  userDataRequest: boolean;
+  userDataFailed: boolean;
+  userLogoutSuccess: boolean;
+  userLogoutRequest: boolean;
+  userLogoutFailed: boolean;
+  userRefreshTokenSuccess: boolean;
+  userRefreshTokenRequest: boolean;
+  userRefreshTokenFailed: boolean;
+  user: {
+    name: string;
+    email: string;
+  } | null;
+  error: string | null;
+  token: string | null;
+  message: string | null;
+};
+
+const initialStore: TUserState = {
   userLoginSuccess: false,
   userLoginRequest: false,
   userLoginFailed: false,
@@ -36,7 +62,7 @@ const initialStore = {
   message: null,
 };
 
-export const userReducer = (state = initialStore, action) => {
+export const userReducer = (state = initialStore, action: TUserActions) => {
   switch (action.type) {
     case CLEAR_USER_ERROR: {
       return {

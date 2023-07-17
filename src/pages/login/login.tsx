@@ -8,11 +8,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
 import s from './login.module.css';
 import { Error } from '../../components/error/error';
-import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_USER_ERROR, userLogin } from '../../services/actions/user';
+import { useSelector } from 'react-redux';
+import { clearUserErrorAction, userLogin } from '../../services/actions/user';
 import { getUserSelector } from '../../services/selectors/selectors';
 import { FORGOT_PASSWORD, HOME, REGISTER } from '../../utils/routes';
-import { useForm } from '../../services/hooks';
+import { useDispatch, useForm } from '../../services/hooks';
 
 export const LoginPage: FC = () => {
   const location = useLocation();
@@ -23,7 +23,7 @@ export const LoginPage: FC = () => {
     password: '',
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const { error, userLoginSuccess, userLogoutSuccess } =
     useSelector(getUserSelector);
   const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
@@ -39,9 +39,7 @@ export const LoginPage: FC = () => {
     if (userLoginSuccess) {
       navigate(url);
     }
-    dispatch({
-      type: CLEAR_USER_ERROR,
-    });
+    dispatch(clearUserErrorAction());
   }, [userLoginSuccess, navigate, userLogoutSuccess, url, dispatch]);
   return (
     <>
