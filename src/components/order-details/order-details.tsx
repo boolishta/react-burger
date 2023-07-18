@@ -1,15 +1,14 @@
 import React from 'react';
 import s from './order-details.module.css';
 import doneImage from '../../images/done.jpg';
-import { useSelector } from 'react-redux';
 import { getOrderSelector } from '../../services/selectors/selectors';
-import { IOrder } from '../../interfaces/order';
+import { useSelector } from '../../services/hooks';
 
 export function OrderDetails() {
-  const { order }: { order: IOrder } = useSelector(getOrderSelector);
+  const order = useSelector(getOrderSelector);
   return (
     <div className={s.order}>
-      <p className="text text_type_digits-large">{order.number}</p>
+      <p className="text text_type_digits-large">{order?.number}</p>
       <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
       <img
         className={s.image}

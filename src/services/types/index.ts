@@ -1,3 +1,5 @@
+import { TOrderActions } from './../actions/order';
+import { TWsActions } from './../actions/ws';
 import { TIngredientsActions } from './../actions/ingredients';
 import { TIngredientDetailsActions } from './../actions/ingredientDetails';
 import { ThunkAction } from 'redux-thunk';
@@ -8,7 +10,9 @@ import { TUserActions } from '../actions/user';
 type TApplicationActions =
   | TIngredientDetailsActions
   | TIngredientsActions
-  | TUserActions;
+  | TOrderActions
+  | TUserActions
+  | TWsActions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

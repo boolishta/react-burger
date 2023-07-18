@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { getUserSelector } from '../../services/selectors/selectors';
+import { useSelector } from '../../services/hooks';
+import { getUserSuccessLoginSelector } from '../../services/selectors/selectors';
 import { HOME } from '../../utils/routes';
 
 interface IPublicRouteElementProps {
@@ -9,8 +9,7 @@ interface IPublicRouteElementProps {
 }
 
 const PublicRouteElement: FC<IPublicRouteElementProps> = ({ children }) => {
-  const user = useSelector(getUserSelector);
-  const isAuth = user.userLoginSuccess;
+  const isAuth = useSelector(getUserSuccessLoginSelector);
   return !isAuth ? (
     <>{children}</>
   ) : (

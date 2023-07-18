@@ -7,9 +7,8 @@ import s from './burger-ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { ItemTypes } from '../../utils/constans';
-import { getIngredientsSelector } from '../../services/selectors/selectors';
+import { getCurrentIngredientsSelector } from '../../services/selectors/selectors';
 import { IIngredient } from '../../interfaces/ingredient';
-import { ICurrentIngredient } from '../burger-constructor/burger-constructor';
 
 interface IBurgerIngredientProps {
   ingredient: IIngredient;
@@ -30,8 +29,7 @@ export const BurgerIngredient: FC<IBurgerIngredientProps> = ({
     }),
     []
   );
-  const { currentIngredients }: { currentIngredients: ICurrentIngredient[] } =
-    useSelector(getIngredientsSelector);
+  const currentIngredients = useSelector(getCurrentIngredientsSelector);
   const ingredients = currentIngredients.filter(
     (item) => item._id === ingredient._id
   );

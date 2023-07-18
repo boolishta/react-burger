@@ -16,3 +16,7 @@ export interface IIngredient {
 export interface IBurgerIngredient extends IIngredient {
   uuid: string;
 }
+
+export interface ICurrentIngredient extends IIngredient {
+  uuid: string;
+}

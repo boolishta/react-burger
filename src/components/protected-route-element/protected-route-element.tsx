@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { getUserSelector } from '../../services/selectors/selectors';
+import { useSelector } from '../../services/hooks';
+import { getUserSuccessLoginSelector } from '../../services/selectors/selectors';
 import { LOGIN } from '../../utils/routes';
 
 interface IProtectedRouteElementProps {
@@ -12,8 +12,7 @@ const ProtectedRouteElement: FC<IProtectedRouteElementProps> = ({
   children,
 }) => {
   const location = useLocation();
-  const user = useSelector(getUserSelector);
-  const isAuth = user.userLoginSuccess;
+  const isAuth = useSelector(getUserSuccessLoginSelector);
   return isAuth ? (
     <>{children}</>
   ) : (

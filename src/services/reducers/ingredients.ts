@@ -1,4 +1,4 @@
-import { IIngredient } from '../../interfaces/ingredient';
+import { ICurrentIngredient, IIngredient } from '../../interfaces/ingredient';
 import { TIngredientsActions } from '../actions/ingredients';
 import {
   ADD_BUN,
@@ -15,7 +15,7 @@ export type TIngredientsState = {
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
   bun: IIngredient | null;
-  currentIngredients: ReadonlyArray<IIngredient & { uuid: string }>;
+  currentIngredients: ReadonlyArray<ICurrentIngredient>;
 };
 
 const initialState: TIngredientsState = {

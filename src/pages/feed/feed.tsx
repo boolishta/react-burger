@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { AppHeader } from '../../components/app-header/app-header';
 import s from './feed.module.css';
 import { Stats } from '../../components/stats/stats';
-import { useDispatch, useSelector } from 'react-redux';
 import { wsConnectionClosed, wsConnectionStart } from '../../services/actions';
 import {
   getIngredientsSelector,
@@ -12,8 +11,8 @@ import { Orders } from '../../components/orders/orders';
 import { getIngredients } from '../../services/actions/ingredients';
 import { formatDate } from '../../utils/formatDate';
 import { STATUS } from '../../utils/constans';
-import { IIngredient } from '../../interfaces/ingredient';
 import { IHistoryOrder, IOrder } from '../../interfaces/order';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 type TWsOrder = Omit<IOrder, 'owner' | 'price'>;
 
@@ -24,10 +23,8 @@ export const FeedPage: FC = () => {
   const [doneOrders, setDoneOrders] = useState<number[]>([]);
   const [pendingOrders, setPendingOrders] = useState<number[]>([]);
   const wsMessage = useSelector(getLastWsMessage);
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
-    getIngredientsSelector
-  );
-  const dispatch = useDispatch<any>();
+  const ingredients = useSelector(getIngredientsSelector);
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(wsConnectionStart());
     dispatch(getIngredients());
@@ -59,7 +56,7 @@ export const FeedPage: FC = () => {
       }
       setDoneOrders(doneOrders);
       setPendingOrders(pendingOrders);
-      setOrders(normalizeOrders(wsMessage.orders));
+      setOrders(normalizeOrders([...wsMessage.orders]));
       setTotal(wsMessage.total);
       setTotalToday(wsMessage.totalToday);
     }

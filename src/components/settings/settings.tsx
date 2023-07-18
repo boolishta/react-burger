@@ -5,15 +5,14 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC, FormEventHandler, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData, userData } from '../../services/actions/user';
-import { useForm } from '../../services/hooks';
+import { useDispatch, useForm, useSelector } from '../../services/hooks';
 import { getUserSelector } from '../../services/selectors/selectors';
 import s from './settings.module.css';
 
 export const Settings: FC = () => {
-  const dispatch = useDispatch<any>();
-  const { user } = useSelector(getUserSelector);
+  const dispatch = useDispatch();
+  const user = useSelector(getUserSelector);
   const { values, setValues, handleChange } = useForm({
     name: '',
     email: '',

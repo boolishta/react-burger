@@ -7,33 +7,28 @@ import { Price } from '../price/price';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { OrderDetails } from '../order-details/order-details';
 import { Modal } from '../modal/modal';
-import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../utils/constans';
 import update from 'immutability-helper';
 import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
 import { v4 as uuidv4 } from 'uuid';
-import { getIngredientsSelector } from '../../services/selectors/selectors';
+import {
+  getBunSelector,
+  getCurrentIngredientsSelector,
+} from '../../services/selectors/selectors';
 import { orderCheckout } from '../../services/actions/order';
-import { IIngredient } from '../../interfaces/ingredient';
+import { ICurrentIngredient, IIngredient } from '../../interfaces/ingredient';
 import {
   addBunAction,
   removeIngredientsAction,
 } from '../../services/actions/ingredients';
-import { useDispatch } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { addIngredientsAction } from '../../services/actions/ingredients';
-
-export interface ICurrentIngredient extends IIngredient {
-  uuid: string;
-}
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const {
-    currentIngredients: ingredients,
-    bun,
-  }: { currentIngredients: ICurrentIngredient[]; bun: ICurrentIngredient } =
-    useSelector(getIngredientsSelector);
+  const ingredients = useSelector(getCurrentIngredientsSelector);
+  const bun = useSelector(getBunSelector);
   const [draggableElements, setDraggableElements] = useState<
     ICurrentIngredient[]
   >([]);
@@ -77,7 +72,7 @@ export const BurgerConstructor: FC = () => {
     const data = ingredients.map((item) => item._id);
     dispatch(
       orderCheckout({
-        ingredients: [...data, bun._id, bun._id],
+        ingredients: [...data, bun?._id, bun?._id],
       })
     );
     handleOpenModal();

@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { AppHeader } from '../../components/app-header/app-header';
 import { IngredientDetails } from '../../components/ingredient-details/ingredient-details';
 import s from './ingredient.module.css';
@@ -7,17 +6,14 @@ import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/modal/modal';
 import { getIngredients } from '../../services/actions/ingredients';
-import { IIngredient } from '../../interfaces/ingredient';
 import {
   addIngredientDetailsAction,
   clearIngredientDetailsAction,
 } from '../../services/actions/ingredientDetails';
-import { useDispatch } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 export const IngredientPage: FC = () => {
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
-    getIngredientsSelector
-  );
+  const ingredients = useSelector(getIngredientsSelector);
   const location = useLocation();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);

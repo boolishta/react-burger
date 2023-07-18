@@ -8,22 +8,19 @@ import { getOrderDetails } from '../../utils/burger-api';
 import { formatDate } from '../../utils/formatDate';
 import { IngredientImage } from '../ingredient-image/ingredient-image';
 import { parseStatus } from '../../utils/parseStatus';
-import { IIngredient } from '../../interfaces/ingredient';
 import { TOrderDetails } from '../../interfaces/order';
 import { useDispatch, useIngredients, useSelector } from '../../services/hooks';
 
 export const OrderInfo: FC = () => {
   const [order, setOrder] = useState<TOrderDetails>();
   const [orderDate, setOrderDate] = useState('');
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
-    getIngredientsSelector
-  );
+  const ingredients = useSelector(getIngredientsSelector);
   const dispatch = useDispatch();
   const location = useLocation();
   const pathname = location.pathname.split('/');
   const orderNumber = pathname[pathname.length - 1];
   const { quantity, total } = useIngredients(
-    ingredients,
+    [...ingredients],
     order?.ingredients || []
   );
   useEffect(() => {

@@ -6,14 +6,14 @@ import {
   ORDER_CHECKOUT_SUCCESS,
 } from '../constans';
 
-type TOrderState = {
-  order: TAcceptedOrder | {};
+export type TOrderState = {
+  order: TAcceptedOrder | null;
   orderRequest: boolean;
   orderFailed: boolean;
 };
 
 const initialStore: TOrderState = {
-  order: {},
+  order: null,
   orderRequest: false,
   orderFailed: false,
 };

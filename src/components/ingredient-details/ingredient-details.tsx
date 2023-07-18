@@ -2,11 +2,9 @@ import React, { FC } from 'react';
 import s from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 import { getIngredientDetailsSelector } from '../../services/selectors/selectors';
-import { IIngredient } from '../../interfaces/ingredient';
 
 export const IngredientDetails: FC = () => {
-  const { ingredientDetails: ingredient }: { ingredientDetails: IIngredient } =
-    useSelector(getIngredientDetailsSelector);
+  const ingredient = useSelector(getIngredientDetailsSelector);
   return (
     ingredient && (
       <>

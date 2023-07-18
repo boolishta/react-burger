@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { IIngredient } from '../../interfaces/ingredient';
-import { IHistoryOrder, IOrder } from '../../interfaces/order';
+import { IHistoryOrder, TWsOrder } from '../../interfaces/order';
 import { wsConnectionStartWithToken } from '../../services/actions';
+import { useDispatch, useSelector } from '../../services/hooks';
 import {
   getIngredientsSelector,
   getLastWsMessage,
@@ -13,15 +13,13 @@ import { Orders } from '../orders/orders';
 export const OrdersHistory: FC = () => {
   const [orders, setOrders] = useState<IHistoryOrder[]>([]);
   const wsMessage = useSelector(getLastWsMessage);
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
-    getIngredientsSelector
-  );
+  const ingredients = useSelector(getIngredientsSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(wsConnectionStartWithToken());
   }, [dispatch]);
   useEffect(() => {
-    const normalizeOrders = (orders: IOrder[]) =>
+    const normalizeOrders = (orders: TWsOrder[]): IHistoryOrder[] =>
       orders.map((order) => {
         return {
           id: order._id,
@@ -34,7 +32,7 @@ export const OrdersHistory: FC = () => {
         };
       });
     if (wsMessage && wsMessage.orders) {
-      setOrders(normalizeOrders(wsMessage.orders));
+      setOrders(normalizeOrders([...wsMessage.orders]));
     }
   }, [wsMessage, ingredients]);
   return <Orders orders={orders} />;

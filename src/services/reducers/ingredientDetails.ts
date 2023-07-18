@@ -3,11 +3,11 @@ import { TIngredientDetailsActions } from '../actions/ingredientDetails';
 import { ADD_INGREDIENT_DETAILS, CLEAR_INGREDIENT_DETAILS } from '../constans';
 
 export type TIngredientDetailsInitialState = {
-  ingredientDetails: IIngredient | {};
+  ingredientDetails: IIngredient | null;
 };
 
 const ingredientDetailsInitialState: TIngredientDetailsInitialState = {
-  ingredientDetails: {},
+  ingredientDetails: null,
 };
 
 export const ingredientDetailsReducer = (

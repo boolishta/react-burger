@@ -1,16 +1,14 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { getIngredientsSelector } from '../../services/selectors/selectors';
-import { ICurrentIngredient } from '../burger-constructor/burger-constructor';
-import { IIngredient } from '../../interfaces/ingredient';
+import {
+  getBunSelector,
+  getCurrentIngredientsSelector,
+} from '../../services/selectors/selectors';
+import { useSelector } from '../../services/hooks';
 
 export const Price: FC = () => {
-  const {
-    currentIngredients,
-    bun,
-  }: { currentIngredients: ICurrentIngredient[]; bun: IIngredient } =
-    useSelector(getIngredientsSelector);
+  const currentIngredients = useSelector(getCurrentIngredientsSelector);
+  const bun = useSelector(getBunSelector);
   const initialValue = bun ? bun.price * 2 : 0;
   const total = useMemo(
     () =>

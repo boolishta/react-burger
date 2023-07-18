@@ -2,13 +2,11 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo, useState, useEffect, FC } from 'react';
 import s from './burger-ingredients.module.css';
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
-import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { getIngredients } from '../../services/actions/ingredients';
 import { getIngredientsSelector } from '../../services/selectors/selectors';
 import { useNavigate } from 'react-router-dom';
-import { IIngredient } from '../../interfaces/ingredient';
-import { useDispatch } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { addIngredientDetailsAction } from '../../services/actions/ingredientDetails';
 
 export const BurgerIngredients: FC = () => {
@@ -25,9 +23,7 @@ export const BurgerIngredients: FC = () => {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector(
-    getIngredientsSelector
-  );
+  const ingredients = useSelector(getIngredientsSelector);
   const [currentTab, setCurrentTab] = useState('');
   useEffect(() => {
     if (bunsInView) {

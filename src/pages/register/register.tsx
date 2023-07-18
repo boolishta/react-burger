@@ -5,15 +5,17 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC, FormEventHandler, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header/app-header';
 import { Error } from '../../components/error/error';
 import { userRegister } from '../../services/actions/user';
 import { LOGIN } from '../../utils/routes';
-import { getUserSelector } from '../../services/selectors/selectors';
+import {
+  getTokenSelector,
+  getUserErrorSelector,
+} from '../../services/selectors/selectors';
 import s from '../login/login.module.css';
-import { useForm } from '../../services/hooks';
+import { useDispatch, useForm, useSelector } from '../../services/hooks';
 
 export const RegisterPage: FC = () => {
   const { values, handleChange } = useForm({
@@ -21,9 +23,10 @@ export const RegisterPage: FC = () => {
     password: '',
     name: '',
   });
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, error } = useSelector(getUserSelector);
+  const token = useSelector(getTokenSelector);
+  const error = useSelector(getUserErrorSelector);
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
