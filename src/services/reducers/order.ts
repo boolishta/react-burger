@@ -7,12 +7,12 @@ import {
 } from '../constans';
 
 type TOrderState = {
-  order: TAcceptedOrder;
+  order: TAcceptedOrder | {};
   orderRequest: boolean;
   orderFailed: boolean;
 };
 
-const initialStore = {
+const initialStore: TOrderState = {
   order: {},
   orderRequest: false,
   orderFailed: false,
