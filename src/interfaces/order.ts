@@ -39,3 +39,5 @@ export type TOrderDetails = {
   updatedAt: string;
   _id: string;
 };
+
+export type TWsOrder = Omit<TOrderDetails, 'owner'>;

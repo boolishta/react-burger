@@ -9,7 +9,7 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
-} from './actions';
+} from './constans';
 
 const wsActions = {
   wsInit: WS_CONNECTION_START,

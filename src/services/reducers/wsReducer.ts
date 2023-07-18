@@ -1,19 +1,38 @@
-import {
-  WS_USER_NAME_UPDATE,
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE,
-} from '../actions';
+import { TWsOrder } from '../../interfaces/order';
 import { getCurrentTimestamp } from '../../utils/datetime';
-const initialState = {
+import { TWsActions } from '../actions';
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_ERROR,
+  WS_CONNECTION_SUCCESS,
+  WS_GET_MESSAGE,
+  WS_USER_NAME_UPDATE,
+} from '../constans';
+
+export type TWsMessage = {
+  orders: ReadonlyArray<TWsOrder>;
+  total: number;
+  totalToday: number;
+};
+
+export type TWsState = {
+  wsConnected: boolean;
+  messages: ReadonlyArray<{ message: TWsMessage; timestamp: number }>;
+  user: {};
+  error: string;
+};
+
+const initialState: TWsState = {
   wsConnected: false,
   messages: [],
   user: {},
   error: '',
 };
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (
+  state = initialState,
+  action: TWsActions
+): TWsState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -39,7 +58,7 @@ export const wsReducer = (state = initialState, action) => {
         messages: [
           ...state.messages,
           {
-            message: action.payload,
+            message: action.payload.message,
             timestamp: getCurrentTimestamp(),
           },
         ],
