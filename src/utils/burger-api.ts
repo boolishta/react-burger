@@ -47,19 +47,21 @@ type TLoginResponse = {
 
 type TTokenResponse = Omit<TLoginResponse, 'user'>;
 
+export type TAcceptedOrder = {
+  createdAt: string;
+  ingredients: IIngredient[];
+  name: string;
+  number: number;
+  owner: IOwner;
+  price: number;
+  status: TOrderStatus;
+  updatedAt: string;
+  _id: string;
+};
+
 type TOrderResponse = {
   name: string;
-  order: {
-    createdAt: string;
-    ingredients: IIngredient[];
-    name: string;
-    number: number;
-    owner: IOwner;
-    price: number;
-    status: TOrderStatus;
-    updatedAt: string;
-    _id: string;
-  };
+  order: TAcceptedOrder;
 };
 
 type TOrderDetailsResponse = {
