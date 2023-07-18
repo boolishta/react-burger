@@ -1,9 +1,28 @@
+import { Middleware } from 'redux';
 import { getCookie } from '../../utils/cookie';
+import {
+  WS_CONNECTION_START,
+  WS_SEND_MESSAGE,
+  WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_ERROR,
+  WS_GET_MESSAGE,
+} from '../constans';
+
 const WS_ORDERS_URL = 'wss://norma.nomoreparties.space/orders';
 
-export const socketMiddleware = (wsActions) => {
+interface WsActions {
+  wsInit: typeof WS_CONNECTION_START;
+  wsSendMessage: typeof WS_SEND_MESSAGE;
+  onOpen: typeof WS_CONNECTION_SUCCESS;
+  onClose: typeof WS_CONNECTION_CLOSED;
+  onError: typeof WS_CONNECTION_ERROR;
+  onMessage: typeof WS_GET_MESSAGE;
+}
+
+export const socketMiddleware = (wsActions: WsActions): Middleware => {
   return (store) => {
-    let socket = null;
+    let socket: WebSocket | null = null;
 
     return (next) => (action) => {
       const { dispatch } = store;
