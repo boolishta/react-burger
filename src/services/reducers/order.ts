@@ -18,7 +18,10 @@ const initialStore: TOrderState = {
   orderFailed: false,
 };
 
-export const orderReducer = (state = initialStore, action: TOrderActions) => {
+export const orderReducer = (
+  state = initialStore,
+  action: TOrderActions
+): TOrderState => {
   switch (action.type) {
     case ORDER_CHECKOUT_REQUEST: {
       return {
