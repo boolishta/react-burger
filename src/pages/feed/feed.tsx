@@ -28,7 +28,9 @@ export const FeedPage: FC = () => {
   useEffect(() => {
     dispatch(wsConnectionStart());
     dispatch(getIngredients());
-    return () => dispatch(wsConnectionClosed());
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
   }, [dispatch]);
 
   useEffect(() => {
