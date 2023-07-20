@@ -14,7 +14,7 @@ interface IOrderCheckoutRequestAction {
 interface IOrderCheckoutSuccessAction {
   readonly type: typeof ORDER_CHECKOUT_SUCCESS;
   readonly payload: {
-    order: any;
+    order: TAcceptedOrder;
   };
 }
 

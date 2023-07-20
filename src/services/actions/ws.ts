@@ -76,7 +76,7 @@ export const wsConnectionStartWithToken =
     return {
       type: WS_CONNECTION_START,
       payload: {
-        token: token.slice('Bearer'.length).trim(),
+        token: token?.slice('Bearer'.length).trim(),
       },
     };
   };
